@@ -14,7 +14,7 @@
 <meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-09-08T03:13:56.011Z">
-<meta property="article:modified_time" content="2023-09-08T06:28:56.653Z">
+<meta property="article:modified_time" content="2023-09-08T12:42:33.958Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -98,7 +98,22 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hexo n &quot;postName&quot; # 新建文章 </span><br><span class="line">hexo clean # 清除缓存 </span><br><span class="line">hexo g # 生成静态网页 </span><br><span class="line">hexo s # 本地预览 </span><br><span class="line">hexo d # 部署到Github</span><br><span class="line">npm install hexo-renderer-markdown-it --save 安装卸载插件</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="how-to-fix-the-problom-about-picture-cound’t-not-be-shown"><a href="#how-to-fix-the-problom-about-picture-cound’t-not-be-shown" class="headerlink" title="how to fix the problom about picture cound’t not be shown"></a>how to fix the problom about picture cound’t not be shown</h3><p>ok,it a problem about the picture’s path。 懒得截图</p>
+<h4 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_config.yml</span><br><span class="line">post_asset_folder: true</span><br><span class="line">marked:</span><br><span class="line">  prependRoot: true</span><br><span class="line">  postAsset: true</span><br></pre></td></tr></table></figure>
+
+<p>这一步在新建文件的时候会生成一个同名的文件夹，等会把图片放在文件夹中。</p>
+<h4 id="下载插件"><a href="#下载插件" class="headerlink" title="下载插件"></a>下载插件</h4><p><code>npm install https://github.com/CodeFalling/hexo-asset-image --save	</code></p>
+<p>tips： 如果之前试过其他的插件比如link的那个，可能会有冲突问题，可以用uninstall命令删除，也可以直接找到对应的文件夹删除。</p>
+<h4 id="修改typora里面图像的设置"><a href="#修改typora里面图像的设置" class="headerlink" title="修改typora里面图像的设置"></a>修改typora里面图像的设置</h4><p>图像设置为复制到指定路径 .&#x2F;${filename}后面几个都打勾</p>
+<h4 id="测试及重新启动"><a href="#测试及重新启动" class="headerlink" title="测试及重新启动"></a>测试及重新启动</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo new test   //新建一个test的md文件和test的文件夹。随便放一张图片进去</span><br><span class="line">hexo clean</span><br><span class="line">hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+
+<p>ps: 添加的图片格式如下</p>
+<p><code>![描述](test/yourPictureName.jpg)</code></p>
+<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
@@ -114,7 +129,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/08/hello-world/" data-id="clmahwci000016gstd01jclyn" data-title="Hello" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/08/hello-world/" data-id="clmalxexu0000ycst4tk3czmw" data-title="Hello" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -124,11 +139,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2023/09/08/test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2023/09/08/first-page/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          the first blog of Lwh
+          firstBlog
         
       </div>
     </a>
@@ -169,19 +184,7 @@
       <ul>
         
           <li>
-            <a href="/2023/09/08/1/">1</a>
-          </li>
-        
-          <li>
-            <a href="/2023/09/08/test-1/">test</a>
-          </li>
-        
-          <li>
-            <a href="/2023/09/08/first-page/">first-page</a>
-          </li>
-        
-          <li>
-            <a href="/2023/09/08/test/">the first blog of Lwh</a>
+            <a href="/2023/09/08/first-page/">firstBlog</a>
           </li>
         
           <li>
