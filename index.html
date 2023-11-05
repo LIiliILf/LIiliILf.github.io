@@ -170,7 +170,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2023-11-05 12:44:29 / Modified: 13:17:00" itemprop="dateCreated datePublished" datetime="2023-11-05T12:44:29+08:00">2023-11-05</time>
+              <time title="Created: 2023-11-05 12:44:29 / Modified: 17:12:34" itemprop="dateCreated datePublished" datetime="2023-11-05T12:44:29+08:00">2023-11-05</time>
             </span>
 
           
@@ -184,28 +184,69 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="lec01-Introduction"><a href="#lec01-Introduction" class="headerlink" title="lec01 Introduction"></a>lec01 Introduction</h1><ul>
+          <h1 id="0一些默认的以及在图形学的定义"><a href="#0一些默认的以及在图形学的定义" class="headerlink" title="0一些默认的以及在图形学的定义"></a>0一些默认的以及在图形学的定义</h1><p>用单位向量表示方向；向量默认为列向量；用矩阵来表示位置的变换<br>旋转：默认绕<strong>原点 $(0,0)$ 逆时针</strong>旋转45°<br>着色：对不同的物体应用不同的材质<br>Tradeoff &#x2F; NoFreeLunch。想要得到好的效果要付出一定的代价。</p>
+<h1 id="lec01-Introduction"><a href="#lec01-Introduction" class="headerlink" title="lec01 Introduction"></a>lec01 Introduction</h1><ul>
 <li>What is Computer Graphics?使用计算机来合成和操作视觉信息。</li>
 <li>appilications：游戏电影动画模拟VR等等</li>
 <li>光栅化Rasterization、Curves and Mershes曲线曲面、RayTracing光线追踪、Animation &#x2F; Simulation 动画&#x2F;模拟</li>
 <li>计算机视觉和计算机图形学的区别：一般来讲图形学研究的是将Model变成Image的过程，反之则是计算机视觉。计算机视觉是理解这个世界，计算机图形学是创造这个世界</li>
 </ul>
 <p>想看具体的话可以看下面那篇games101-1，大概五六分钟吧。</p>
-<h1 id="LinearAlgebra-lec02"><a href="#LinearAlgebra-lec02" class="headerlink" title="LinearAlgebra lec02"></a>LinearAlgebra lec02</h1><p>lec02这节课是图形学需要用到的线代知识的复习，比较简单，这里只简要列出，重点是要知道线代在图形学的应用。向量的加法、点乘、叉乘。矩阵加法、乘法。</p>
-<p>点乘：${<br>{ \overrightarrow{a} \cdot \overrightarrow{b} }<br>&#x3D; { {\lVert \overrightarrow{ a } \rVert} {\lVert \overrightarrow{ b } \rVert} {\cos\theta} }<br>}$<br>性质：交换律、结合律、分配律</p>
-<p>点乘应用：</p>
+<h1 id="LinearAlgebra-lec02"><a href="#LinearAlgebra-lec02" class="headerlink" title="LinearAlgebra lec02"></a>LinearAlgebra lec02</h1><p>lec02这节课是图形学需要用到的线代知识的复习，比较简单，这里只简要列出，主要是要知道在图形学的应用。<br>vector：向量的加法、点乘dot product、叉乘cross product。点乘得到一个数值，叉乘得到一个新的向量。<br>matrix：矩阵加法、矩阵和向量相乘、矩阵和矩阵相乘、转置、单位矩阵、逆矩阵、伴随矩阵</p>
+<p>点乘：${<br>{ \overrightarrow{a} \cdot \overrightarrow{b} }<br>&#x3D; { {\lVert \overrightarrow{ a } \rVert} {\lVert \overrightarrow{ b } \rVert} {\cos\theta} }<br>}$     点乘性质：交换律、结合律、分配律</p>
+<p>叉乘：${<br>{ \lVert \overrightarrow{a} \times \overrightarrow{b} \rVert }<br>&#x3D; { \lVert \overrightarrow{a} \rVert }{ \lVert \overrightarrow{b} \rVert }\sin\theta<br>}$ ；右手螺旋判断方向。叉乘结果的模在大小上等于两个向量组成的三角形面积</p>
+<p>矩阵性质：结合律、分配律、没有交换律。</p>
 <ul>
+<li>$ (AB)^T &#x3D; {B^T}{A^T} $  </li>
+<li>$AA^{-1}&#x3D; A^{-1}A&#x3D;I$</li>
+<li>$(AB)^{-1}&#x3D;B^{-1}A^{-1}$</li>
+</ul>
+<p><strong>在图形学上的应用：</strong></p>
+<ul>
+<li>点乘<ul>
 <li>求任意两个向量之间的夹角（例如光源在表面之间角度的余弦）。</li>
 <li>求一个向量在另一个向量上的投影</li>
-<li>判断两个向量方向是否一致。判断向量相较于另一向量是向前还是向后</li>
+<li>根据结果正负判断一个向量对于另一个向量是朝前还是朝后的。</li>
 </ul>
-<p>叉乘</p>
+</li>
+<li>叉乘<ul>
+<li>判断向量在另一个向量的左边还是右边 ； ${<br>{  \overrightarrow{a} \times \overrightarrow{b} &gt;0 }<br>}$  表示b在a左边</li>
+<li>判断点P在三角形内还是外（三次按顺序的叉乘方向相同的话在内）</li>
+</ul>
+</li>
+<li>矩阵<ul>
+<li>常用矩阵来表示变换信息：平移、旋转、缩放、切变等 Translation, rotation, shear, scale</li>
+</ul>
+</li>
+</ul>
+<h1 id="Transformation-lec03-lec04部分"><a href="#Transformation-lec03-lec04部分" class="headerlink" title="Transformation lec03+lec04部分"></a>Transformation lec03+lec04部分</h1><p>先具体讲几种2D的变换：Scale Transform 缩放1变换矩阵、Reflection Matrix对称2变换矩阵、Shear Matrix切变3变换矩阵、Rotation Matrix旋转4变换矩阵。我们发现以上四种都可以用一个矩阵乘以输入可以得到输出的坐标，这种叫做线性变换。平移也是常用的变换，但不是线性变换。为了不特殊处理平移的情况，引入齐次坐标Homogeneous coordinates来统一处理各种变换，具体做法是增加一个维度。<br>然后还有6仿射变换Affine和7逆变换。仿射&#x3D; 线性变换+平移<br>然后3D是在lec04的，也放在这里，与2D类似，不具体讲。</p>
+<h2 id="0-why-study-transformation"><a href="#0-why-study-transformation" class="headerlink" title="0 why study transformation"></a>0 why study transformation</h2><ul>
+<li>Modeling模型变换: translation&#x2F;rotation&#x2F;scaling</li>
+<li>Viewing视图变换: (3D to 2D) projection</li>
+</ul>
+<h2 id="1、2D-transformations"><a href="#1、2D-transformations" class="headerlink" title="1、2D transformations"></a>1、2D transformations</h2><ol>
+<li>缩放</li>
+<li>对称</li>
+<li>切变：竖直方向是没有变的&#x2F;y不变，沿水平拉伸。</li>
+<li>旋转矩阵的逆就是它的转置：正交矩阵  $A^{-1} &#x3D; A^T$<blockquote>
+<p>主要是找到变换前后对应的关系就能表示出来。<br>这几种都是线性变换： 输出坐标 &#x3D; 矩阵 乘以 输入坐标</p>
+</blockquote>
+</li>
+<li>平移</li>
+</ol>
+<h3 id="齐次坐标"><a href="#齐次坐标" class="headerlink" title="齐次坐标"></a>齐次坐标</h3><p>why？平移不能用线性变换表示，但是我们又不想把它作为特殊情况处理。所以引入齐次坐标，把所有的变换写成一个矩阵乘以一个向量。<br>具体做法是增加一个维度。<br>6. 仿射变换Affine &#x3D; 线性变换+ 平移 （先线性再平移）<br>7. 逆变换</p>
+<hr>
+<p>那么这些变换我们可以组合、分解。<br>通过组合可以表示复杂的变换。反过来也可把复杂的变换分解。要注意顺序（因为做变换其实就是左乘一个矩阵，矩阵的乘法是不满足交换律的）</p>
+<h2 id="2、-3D-transformations"><a href="#2、-3D-transformations" class="headerlink" title="2、 3D transformations"></a>2、 3D transformations</h2><p>与2D类似，也可以用齐次坐标。</p>
 <ul>
-<li><strong>判断向量在另一个向量的左边还是右边</strong> 正左边</li>
-<li><strong>判断点P在三角形内还是外</strong>（三次按顺序的叉乘）</li>
+<li>绕xyz轴旋转</li>
+<li>可以把3D的旋转分解成xyz轴 飞机的例子<ul>
+<li>$R_{xyz}(\alpha, \beta, \gamma) &#x3D; R_x(\alpha)R_y(\beta)R_z(\gamma)$</li>
 </ul>
-<p>图形学中常用矩阵来表示变换信息：平移、旋转、缩放、切变等 Translation, rotation, shear, scale<br>性质：结合律、分配律、没有交换律<br>矩阵和向量相乘<br>矩阵和矩阵相乘<br>转置、单位矩阵、逆矩阵、伴随矩阵</p>
-<h1 id="Transformation-lec03"><a href="#Transformation-lec03" class="headerlink" title="Transformation lec03"></a>Transformation lec03</h1><h1 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h1><h1 id="Shading"><a href="#Shading" class="headerlink" title="Shading"></a>Shading</h1>
+</li>
+<li>Rodrigues公式：得到围绕一个旋转轴旋转任意角度后的向量</li>
+</ul>
+<h1 id="Viewing-Transformation-观测变换-lec04"><a href="#Viewing-Transformation-观测变换-lec04" class="headerlink" title="Viewing Transformation 观测变换 lec04"></a>Viewing Transformation 观测变换 lec04</h1><h1 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h1><h1 id="Shading"><a href="#Shading" class="headerlink" title="Shading"></a>Shading</h1>
       
     </div>
 
