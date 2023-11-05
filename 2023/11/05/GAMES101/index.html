@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="0一些默认的以及在图形学的定义用单位向量表示方向；向量默认为列向量；用矩阵来表示位置的变换旋转：默认绕原点 $(0,0)$ 逆时针旋转45°着色：对不同的物体应用不同的材质Tradeoff &#x2F; NoFreeLunch。想要得到好的效果要付出一定的代价。 lec01 Introduction What is Computer Graphics?使用计算机来合成和操作视觉信息。 appili">
+  <meta name="description" content="我应该明天两三个小时更新一次。作为一个小总结吧。具体还是得快快过一遍视频然后看个用中文写的比较具体的博客。或者博客看得懂的部分 把视频跳了 二三章对应lec56的视频。光栅化、光栅化会有锯齿问题；为什么会造成走样；如何解决（反走样）。信号那边傅里叶变换那块可以跳过。感觉这些可以考五六章对应lec789着色  三种光照 漫反射、镜面反射、环境光照。 着色频率第八章对应lec11几何的贝塞尔曲线。光线">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GAMES101">
 <meta property="og:url" content="http://example.com/2023/11/05/GAMES101/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="0一些默认的以及在图形学的定义用单位向量表示方向；向量默认为列向量；用矩阵来表示位置的变换旋转：默认绕原点 $(0,0)$ 逆时针旋转45°着色：对不同的物体应用不同的材质Tradeoff &#x2F; NoFreeLunch。想要得到好的效果要付出一定的代价。 lec01 Introduction What is Computer Graphics?使用计算机来合成和操作视觉信息。 appili">
+<meta property="og:description" content="我应该明天两三个小时更新一次。作为一个小总结吧。具体还是得快快过一遍视频然后看个用中文写的比较具体的博客。或者博客看得懂的部分 把视频跳了 二三章对应lec56的视频。光栅化、光栅化会有锯齿问题；为什么会造成走样；如何解决（反走样）。信号那边傅里叶变换那块可以跳过。感觉这些可以考五六章对应lec789着色  三种光照 漫反射、镜面反射、环境光照。 着色频率第八章对应lec11几何的贝塞尔曲线。光线">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-11-05T04:44:29.300Z">
-<meta property="article:modified_time" content="2023-11-05T09:12:34.355Z">
+<meta property="article:modified_time" content="2023-11-05T17:48:24.313Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
@@ -172,10 +172,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-11-05 12:44:29 / Modified: 17:12:34" itemprop="dateCreated datePublished" datetime="2023-11-05T12:44:29+08:00">2023-11-05</time>
+              <time title="Created: 2023-11-05 12:44:29" itemprop="dateCreated datePublished" datetime="2023-11-05T12:44:29+08:00">2023-11-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-11-06 01:48:24" itemprop="dateModified" datetime="2023-11-06T01:48:24+08:00">2023-11-06</time>
+              </span>
 
           
 
@@ -188,7 +194,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="0一些默认的以及在图形学的定义"><a href="#0一些默认的以及在图形学的定义" class="headerlink" title="0一些默认的以及在图形学的定义"></a>0一些默认的以及在图形学的定义</h1><p>用单位向量表示方向；向量默认为列向量；用矩阵来表示位置的变换<br>旋转：默认绕<strong>原点 $(0,0)$ 逆时针</strong>旋转45°<br>着色：对不同的物体应用不同的材质<br>Tradeoff &#x2F; NoFreeLunch。想要得到好的效果要付出一定的代价。</p>
+        <p>我应该明天两三个小时更新一次。作为一个小总结吧。具体还是得快快过一遍视频然后看个用中文写的比较具体的博客。或者博客看得懂的部分 把视频跳了</p>
+<p>二三章对应lec56的视频。光栅化、光栅化会有锯齿问题；为什么会造成走样；如何解决（反走样）。信号那边傅里叶变换那块可以跳过。感觉这些可以考<br>五六章对应lec789着色  三种光照 漫反射、镜面反射、环境光照。 着色频率<br>第八章对应lec11几何的贝塞尔曲线。<br>光线追踪感觉不会出计算。偏物理。感觉这部分不太适合考试 </p>
+<h1 id="0一些默认的以及在图形学的定义"><a href="#0一些默认的以及在图形学的定义" class="headerlink" title="0一些默认的以及在图形学的定义"></a>0一些默认的以及在图形学的定义</h1><p>用单位向量表示方向；向量默认为列向量；用矩阵来表示位置的变换<br>旋转：默认绕<strong>原点 $(0,0)$ 逆时针</strong>旋转45°<br>着色：对不同的物体应用不同的材质<br>Tradeoff &#x2F; NoFreeLunch。想要得到好的效果要付出一定的代价。</p>
 <h1 id="lec01-Introduction"><a href="#lec01-Introduction" class="headerlink" title="lec01 Introduction"></a>lec01 Introduction</h1><ul>
 <li>What is Computer Graphics?使用计算机来合成和操作视觉信息。</li>
 <li>appilications：游戏电影动画模拟VR等等</li>
@@ -238,7 +246,11 @@
 </li>
 <li>平移</li>
 </ol>
-<h3 id="齐次坐标"><a href="#齐次坐标" class="headerlink" title="齐次坐标"></a>齐次坐标</h3><p>why？平移不能用线性变换表示，但是我们又不想把它作为特殊情况处理。所以引入齐次坐标，把所有的变换写成一个矩阵乘以一个向量。<br>具体做法是增加一个维度。<br>6. 仿射变换Affine &#x3D; 线性变换+ 平移 （先线性再平移）<br>7. 逆变换</p>
+<h3 id="齐次坐标"><a href="#齐次坐标" class="headerlink" title="齐次坐标"></a>齐次坐标</h3><p>why？平移不能用线性变换表示，但是我们又不想把它作为特殊情况处理。所以引入齐次坐标，把所有的变换写成一个矩阵乘以一个向量。<br>具体做法是增加一个维度。</p>
+<ol start="6">
+<li>仿射变换Affine &#x3D; 线性变换+ 平移 （先线性再平移）</li>
+<li>逆变换</li>
+</ol>
 <hr>
 <p>那么这些变换我们可以组合、分解。<br>通过组合可以表示复杂的变换。反过来也可把复杂的变换分解。要注意顺序（因为做变换其实就是左乘一个矩阵，矩阵的乘法是不满足交换律的）</p>
 <h2 id="2、-3D-transformations"><a href="#2、-3D-transformations" class="headerlink" title="2、 3D transformations"></a>2、 3D transformations</h2><p>与2D类似，也可以用齐次坐标。</p>
@@ -250,7 +262,35 @@
 </li>
 <li>Rodrigues公式：得到围绕一个旋转轴旋转任意角度后的向量</li>
 </ul>
-<h1 id="Viewing-Transformation-观测变换-lec04"><a href="#Viewing-Transformation-观测变换-lec04" class="headerlink" title="Viewing Transformation 观测变换 lec04"></a>Viewing Transformation 观测变换 lec04</h1><h1 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h1><h1 id="Shading"><a href="#Shading" class="headerlink" title="Shading"></a>Shading</h1>
+<h1 id="Viewing-Transformation-观测变换-lec04"><a href="#Viewing-Transformation-观测变换-lec04" class="headerlink" title="Viewing Transformation 观测变换 lec04"></a>Viewing Transformation 观测变换 lec04</h1><h1 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h1><h1 id="Antialiasing-and-Visibility-lec6-lec07部分"><a href="#Antialiasing-and-Visibility-lec6-lec07部分" class="headerlink" title="Antialiasing and Visibility  lec6+lec07部分"></a>Antialiasing and Visibility  lec6+lec07部分</h1><h1 id="Shading-lec789"><a href="#Shading-lec789" class="headerlink" title="Shading lec789"></a>Shading lec789</h1><p>0 why？有颜色当然更加真实</p>
+<h2 id="Blinn-Phong-Reflection-Model-三种光照的组合"><a href="#Blinn-Phong-Reflection-Model-三种光照的组合" class="headerlink" title="Blinn-Phong Reflection Model: 三种光照的组合"></a>Blinn-Phong Reflection Model: 三种光照的组合</h2><p>$$\begin{split}<br>L &amp;&#x3D; L_a + L_d + L_s \<br>    &amp;&#x3D; k_aI_a + k_d(I&#x2F;r^2)max(0, \mathbf{n} \cdot \mathbf{l}) + k_s(I&#x2F;r^2){max(0, \mathbf{n \cdot h})}^p<br>\end{split}$$</p>
+<ul>
+<li>环境光Ambient lighting  $L_a &#x3D; k_aI_a$ 给模型所有位置均匀的光照，常数。</li>
+<li>漫反射光Diffuse Reflection，光线打到物体的表面会被均匀的散射到各个方向<ul>
+<li>$L_d &#x3D; k_d(I&#x2F;r^2)max(0, \mathbf{n} \cdot\mathbf{l})$</li>
+<li>光线照射到模型的方向与模型法线，夹角越小的地方，光照越强</li>
+</ul>
+</li>
+<li>镜面反射光&#x2F;高光Specular highlights，观察方向和光线的镜面反射方向接近的地方，模型会产生高光<ul>
+<li>$$\begin{split}<br>L_s &amp;&#x3D; k_s(I&#x2F;r^2){max(0, \cos\alpha)}^p \<br>&amp;&#x3D; k_s(I&#x2F;r^2){max(0, \mathbf{n \cdot h})}^p<br>\end{split}$$</li>
+</ul>
+</li>
+</ul>
+<p>几个k分别是对应的系数</p>
+<p>着色频率：逐三角形、逐顶点、逐像素。</p>
+<h2 id="实时渲染管线：3D场景到2D图的过程"><a href="#实时渲染管线：3D场景到2D图的过程" class="headerlink" title="实时渲染管线：3D场景到2D图的过程"></a>实时渲染管线：3D场景到2D图的过程</h2><ul>
+<li><p>Vertex Processing<br>主要是把我们输入的顶点进行MVP变换，得到屏幕空间的顶点表示，方便后续处理。</p>
+</li>
+<li><p>Triangle Processing<br>按照一定顺序，将顶点组成不同的三角形</p>
+</li>
+<li><p>Rasterization<br>对每个像素进行采样，判断像素在不在三角形内</p>
+</li>
+<li><p>Fragment Processing -&gt; Z-buffer 、 Shading、Texture mapping<br>判定每个像素位置哪些物体可见，使用Z-Buffer做深度测试<br>计算shading point（根据不同的着色频率决定不同粒度的shading point）的颜色，并着色<br>这个阶段也会做纹理映射，简单说就是把贴图（颜色、法线等等）给映射到物体的不同位置上，后面会详细说明这一部分</p>
+</li>
+<li><p>Framebuffer Operations<br>​	   根据像素大小，最终生成一个用于显示的Framebuffer</p>
+</li>
+</ul>
+
     </div>
 
     
@@ -330,7 +370,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0%E4%B8%80%E4%BA%9B%E9%BB%98%E8%AE%A4%E7%9A%84%E4%BB%A5%E5%8F%8A%E5%9C%A8%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">0一些默认的以及在图形学的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lec01-Introduction"><span class="nav-number">2.</span> <span class="nav-text">lec01 Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LinearAlgebra-lec02"><span class="nav-number">3.</span> <span class="nav-text">LinearAlgebra lec02</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transformation-lec03-lec04%E9%83%A8%E5%88%86"><span class="nav-number">4.</span> <span class="nav-text">Transformation lec03+lec04部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-why-study-transformation"><span class="nav-number">4.1.</span> <span class="nav-text">0 why study transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%812D-transformations"><span class="nav-number">4.2.</span> <span class="nav-text">1、2D transformations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87"><span class="nav-number">4.2.1.</span> <span class="nav-text">齐次坐标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81-3D-transformations"><span class="nav-number">4.3.</span> <span class="nav-text">2、 3D transformations</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Viewing-Transformation-%E8%A7%82%E6%B5%8B%E5%8F%98%E6%8D%A2-lec04"><span class="nav-number">5.</span> <span class="nav-text">Viewing Transformation 观测变换 lec04</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Rasterization"><span class="nav-number">6.</span> <span class="nav-text">Rasterization</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shading"><span class="nav-number">7.</span> <span class="nav-text">Shading</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0%E4%B8%80%E4%BA%9B%E9%BB%98%E8%AE%A4%E7%9A%84%E4%BB%A5%E5%8F%8A%E5%9C%A8%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">0一些默认的以及在图形学的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lec01-Introduction"><span class="nav-number">2.</span> <span class="nav-text">lec01 Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LinearAlgebra-lec02"><span class="nav-number">3.</span> <span class="nav-text">LinearAlgebra lec02</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transformation-lec03-lec04%E9%83%A8%E5%88%86"><span class="nav-number">4.</span> <span class="nav-text">Transformation lec03+lec04部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-why-study-transformation"><span class="nav-number">4.1.</span> <span class="nav-text">0 why study transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%812D-transformations"><span class="nav-number">4.2.</span> <span class="nav-text">1、2D transformations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87"><span class="nav-number">4.2.1.</span> <span class="nav-text">齐次坐标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81-3D-transformations"><span class="nav-number">4.3.</span> <span class="nav-text">2、 3D transformations</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Viewing-Transformation-%E8%A7%82%E6%B5%8B%E5%8F%98%E6%8D%A2-lec04"><span class="nav-number">5.</span> <span class="nav-text">Viewing Transformation 观测变换 lec04</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Rasterization"><span class="nav-number">6.</span> <span class="nav-text">Rasterization</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Antialiasing-and-Visibility-lec6-lec07%E9%83%A8%E5%88%86"><span class="nav-number">7.</span> <span class="nav-text">Antialiasing and Visibility  lec6+lec07部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shading-lec789"><span class="nav-number">8.</span> <span class="nav-text">Shading lec789</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Blinn-Phong-Reflection-Model-%E4%B8%89%E7%A7%8D%E5%85%89%E7%85%A7%E7%9A%84%E7%BB%84%E5%90%88"><span class="nav-number">8.1.</span> <span class="nav-text">Blinn-Phong Reflection Model: 三种光照的组合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF%EF%BC%9A3D%E5%9C%BA%E6%99%AF%E5%88%B02D%E5%9B%BE%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">8.2.</span> <span class="nav-text">实时渲染管线：3D场景到2D图的过程</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

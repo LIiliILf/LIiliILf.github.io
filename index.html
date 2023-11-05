@@ -168,10 +168,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-11-05 12:44:29 / Modified: 17:12:34" itemprop="dateCreated datePublished" datetime="2023-11-05T12:44:29+08:00">2023-11-05</time>
+              <time title="Created: 2023-11-05 12:44:29" itemprop="dateCreated datePublished" datetime="2023-11-05T12:44:29+08:00">2023-11-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-11-06 01:48:24" itemprop="dateModified" datetime="2023-11-06T01:48:24+08:00">2023-11-06</time>
+              </span>
 
           
 
@@ -184,7 +190,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="0一些默认的以及在图形学的定义"><a href="#0一些默认的以及在图形学的定义" class="headerlink" title="0一些默认的以及在图形学的定义"></a>0一些默认的以及在图形学的定义</h1><p>用单位向量表示方向；向量默认为列向量；用矩阵来表示位置的变换<br>旋转：默认绕<strong>原点 $(0,0)$ 逆时针</strong>旋转45°<br>着色：对不同的物体应用不同的材质<br>Tradeoff &#x2F; NoFreeLunch。想要得到好的效果要付出一定的代价。</p>
+          <p>我应该明天两三个小时更新一次。作为一个小总结吧。具体还是得快快过一遍视频然后看个用中文写的比较具体的博客。或者博客看得懂的部分 把视频跳了</p>
+<p>二三章对应lec56的视频。光栅化、光栅化会有锯齿问题；为什么会造成走样；如何解决（反走样）。信号那边傅里叶变换那块可以跳过。感觉这些可以考<br>五六章对应lec789着色  三种光照 漫反射、镜面反射、环境光照。 着色频率<br>第八章对应lec11几何的贝塞尔曲线。<br>光线追踪感觉不会出计算。偏物理。感觉这部分不太适合考试 </p>
+<h1 id="0一些默认的以及在图形学的定义"><a href="#0一些默认的以及在图形学的定义" class="headerlink" title="0一些默认的以及在图形学的定义"></a>0一些默认的以及在图形学的定义</h1><p>用单位向量表示方向；向量默认为列向量；用矩阵来表示位置的变换<br>旋转：默认绕<strong>原点 $(0,0)$ 逆时针</strong>旋转45°<br>着色：对不同的物体应用不同的材质<br>Tradeoff &#x2F; NoFreeLunch。想要得到好的效果要付出一定的代价。</p>
 <h1 id="lec01-Introduction"><a href="#lec01-Introduction" class="headerlink" title="lec01 Introduction"></a>lec01 Introduction</h1><ul>
 <li>What is Computer Graphics?使用计算机来合成和操作视觉信息。</li>
 <li>appilications：游戏电影动画模拟VR等等</li>
@@ -234,7 +242,11 @@
 </li>
 <li>平移</li>
 </ol>
-<h3 id="齐次坐标"><a href="#齐次坐标" class="headerlink" title="齐次坐标"></a>齐次坐标</h3><p>why？平移不能用线性变换表示，但是我们又不想把它作为特殊情况处理。所以引入齐次坐标，把所有的变换写成一个矩阵乘以一个向量。<br>具体做法是增加一个维度。<br>6. 仿射变换Affine &#x3D; 线性变换+ 平移 （先线性再平移）<br>7. 逆变换</p>
+<h3 id="齐次坐标"><a href="#齐次坐标" class="headerlink" title="齐次坐标"></a>齐次坐标</h3><p>why？平移不能用线性变换表示，但是我们又不想把它作为特殊情况处理。所以引入齐次坐标，把所有的变换写成一个矩阵乘以一个向量。<br>具体做法是增加一个维度。</p>
+<ol start="6">
+<li>仿射变换Affine &#x3D; 线性变换+ 平移 （先线性再平移）</li>
+<li>逆变换</li>
+</ol>
 <hr>
 <p>那么这些变换我们可以组合、分解。<br>通过组合可以表示复杂的变换。反过来也可把复杂的变换分解。要注意顺序（因为做变换其实就是左乘一个矩阵，矩阵的乘法是不满足交换律的）</p>
 <h2 id="2、-3D-transformations"><a href="#2、-3D-transformations" class="headerlink" title="2、 3D transformations"></a>2、 3D transformations</h2><p>与2D类似，也可以用齐次坐标。</p>
@@ -246,7 +258,35 @@
 </li>
 <li>Rodrigues公式：得到围绕一个旋转轴旋转任意角度后的向量</li>
 </ul>
-<h1 id="Viewing-Transformation-观测变换-lec04"><a href="#Viewing-Transformation-观测变换-lec04" class="headerlink" title="Viewing Transformation 观测变换 lec04"></a>Viewing Transformation 观测变换 lec04</h1><h1 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h1><h1 id="Shading"><a href="#Shading" class="headerlink" title="Shading"></a>Shading</h1>
+<h1 id="Viewing-Transformation-观测变换-lec04"><a href="#Viewing-Transformation-观测变换-lec04" class="headerlink" title="Viewing Transformation 观测变换 lec04"></a>Viewing Transformation 观测变换 lec04</h1><h1 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h1><h1 id="Antialiasing-and-Visibility-lec6-lec07部分"><a href="#Antialiasing-and-Visibility-lec6-lec07部分" class="headerlink" title="Antialiasing and Visibility  lec6+lec07部分"></a>Antialiasing and Visibility  lec6+lec07部分</h1><h1 id="Shading-lec789"><a href="#Shading-lec789" class="headerlink" title="Shading lec789"></a>Shading lec789</h1><p>0 why？有颜色当然更加真实</p>
+<h2 id="Blinn-Phong-Reflection-Model-三种光照的组合"><a href="#Blinn-Phong-Reflection-Model-三种光照的组合" class="headerlink" title="Blinn-Phong Reflection Model: 三种光照的组合"></a>Blinn-Phong Reflection Model: 三种光照的组合</h2><p>$$\begin{split}<br>L &amp;&#x3D; L_a + L_d + L_s \<br>    &amp;&#x3D; k_aI_a + k_d(I&#x2F;r^2)max(0, \mathbf{n} \cdot \mathbf{l}) + k_s(I&#x2F;r^2){max(0, \mathbf{n \cdot h})}^p<br>\end{split}$$</p>
+<ul>
+<li>环境光Ambient lighting  $L_a &#x3D; k_aI_a$ 给模型所有位置均匀的光照，常数。</li>
+<li>漫反射光Diffuse Reflection，光线打到物体的表面会被均匀的散射到各个方向<ul>
+<li>$L_d &#x3D; k_d(I&#x2F;r^2)max(0, \mathbf{n} \cdot\mathbf{l})$</li>
+<li>光线照射到模型的方向与模型法线，夹角越小的地方，光照越强</li>
+</ul>
+</li>
+<li>镜面反射光&#x2F;高光Specular highlights，观察方向和光线的镜面反射方向接近的地方，模型会产生高光<ul>
+<li>$$\begin{split}<br>L_s &amp;&#x3D; k_s(I&#x2F;r^2){max(0, \cos\alpha)}^p \<br>&amp;&#x3D; k_s(I&#x2F;r^2){max(0, \mathbf{n \cdot h})}^p<br>\end{split}$$</li>
+</ul>
+</li>
+</ul>
+<p>几个k分别是对应的系数</p>
+<p>着色频率：逐三角形、逐顶点、逐像素。</p>
+<h2 id="实时渲染管线：3D场景到2D图的过程"><a href="#实时渲染管线：3D场景到2D图的过程" class="headerlink" title="实时渲染管线：3D场景到2D图的过程"></a>实时渲染管线：3D场景到2D图的过程</h2><ul>
+<li><p>Vertex Processing<br>主要是把我们输入的顶点进行MVP变换，得到屏幕空间的顶点表示，方便后续处理。</p>
+</li>
+<li><p>Triangle Processing<br>按照一定顺序，将顶点组成不同的三角形</p>
+</li>
+<li><p>Rasterization<br>对每个像素进行采样，判断像素在不在三角形内</p>
+</li>
+<li><p>Fragment Processing -&gt; Z-buffer 、 Shading、Texture mapping<br>判定每个像素位置哪些物体可见，使用Z-Buffer做深度测试<br>计算shading point（根据不同的着色频率决定不同粒度的shading point）的颜色，并着色<br>这个阶段也会做纹理映射，简单说就是把贴图（颜色、法线等等）给映射到物体的不同位置上，后面会详细说明这一部分</p>
+</li>
+<li><p>Framebuffer Operations<br>​	   根据像素大小，最终生成一个用于显示的Framebuffer</p>
+</li>
+</ul>
+
       
     </div>
 
