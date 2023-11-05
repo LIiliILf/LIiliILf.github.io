@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://example.com/index.html">
@@ -13,89 +27,243 @@
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Hexo</title>
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-  
-  
-<link rel="stylesheet" href="/css/style.css">
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
 
-  
-  
-<meta name="generator" content="Hexo 6.3.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
+          <div class="content index posts-expand">
+            
       
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/05/GAMES101/">
 
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-games101-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/10/28/games101-1/" class="article-date">
-  <time class="dt-published" datetime="2023-10-28T02:56:44.000Z" itemprop="datePublished">2023-10-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/10/28/games101-1/">games101_1</a>
-    </h1>
-  
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
 
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/05/GAMES101/" class="post-title-link" itemprop="url">GAMES101</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-11-05 12:44:29 / Modified: 13:17:00" itemprop="dateCreated datePublished" datetime="2023-11-05T12:44:29+08:00">2023-11-05</time>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>lec01大概看看就好</p>
+          <h1 id="lec01-Introduction"><a href="#lec01-Introduction" class="headerlink" title="lec01 Introduction"></a>lec01 Introduction</h1><ul>
+<li>What is Computer Graphics?使用计算机来合成和操作视觉信息。</li>
+<li>appilications：游戏电影动画模拟VR等等</li>
+<li>光栅化Rasterization、Curves and Mershes曲线曲面、RayTracing光线追踪、Animation &#x2F; Simulation 动画&#x2F;模拟</li>
+<li>计算机视觉和计算机图形学的区别：一般来讲图形学研究的是将Model变成Image的过程，反之则是计算机视觉。计算机视觉是理解这个世界，计算机图形学是创造这个世界</li>
+</ul>
+<p>想看具体的话可以看下面那篇games101-1，大概五六分钟吧。</p>
+<h1 id="LinearAlgebra-lec02"><a href="#LinearAlgebra-lec02" class="headerlink" title="LinearAlgebra lec02"></a>LinearAlgebra lec02</h1><p>lec02这节课是图形学需要用到的线代知识的复习，比较简单，这里只简要列出，重点是要知道线代在图形学的应用。向量的加法、点乘、叉乘。矩阵加法、乘法。</p>
+<p>点乘：${<br>{ \overrightarrow{a} \cdot \overrightarrow{b} }<br>&#x3D; { {\lVert \overrightarrow{ a } \rVert} {\lVert \overrightarrow{ b } \rVert} {\cos\theta} }<br>}$<br>性质：交换律、结合律、分配律</p>
+<p>点乘应用：</p>
+<ul>
+<li>求任意两个向量之间的夹角（例如光源在表面之间角度的余弦）。</li>
+<li>求一个向量在另一个向量上的投影</li>
+<li>判断两个向量方向是否一致。判断向量相较于另一向量是向前还是向后</li>
+</ul>
+<p>叉乘</p>
+<ul>
+<li><strong>判断向量在另一个向量的左边还是右边</strong> 正左边</li>
+<li><strong>判断点P在三角形内还是外</strong>（三次按顺序的叉乘）</li>
+</ul>
+<p>图形学中常用矩阵来表示变换信息：平移、旋转、缩放、切变等 Translation, rotation, shear, scale<br>性质：结合律、分配律、没有交换律<br>矩阵和向量相乘<br>矩阵和矩阵相乘<br>转置、单位矩阵、逆矩阵、伴随矩阵</p>
+<h1 id="Transformation-lec03"><a href="#Transformation-lec03" class="headerlink" title="Transformation lec03"></a>Transformation lec03</h1><h1 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h1><h1 id="Shading"><a href="#Shading" class="headerlink" title="Shading"></a>Shading</h1>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/05/101_lec01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/05/101_lec01/" class="post-title-link" itemprop="url">games101_1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-11-05 12:57:52 / Modified: 13:17:54" itemprop="dateCreated datePublished" datetime="2023-11-05T12:57:52+08:00">2023-11-05</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>lec01大概看看就好</p>
 <h1 id="Introduction-to-Computer-Graphics"><a href="#Introduction-to-Computer-Graphics" class="headerlink" title="Introduction to Computer Graphics"></a>Introduction to Computer Graphics</h1><h3 id="What-is-Computer-Graphics"><a href="#What-is-Computer-Graphics" class="headerlink" title="What is Computer Graphics?"></a>What is Computer Graphics?</h3><p>The use of computers to synthesize and manipulate visual information.<br>使用计算机来合成和操作视觉信息。</p>
 <h3 id="Why-Study-Computer-Graphics"><a href="#Why-Study-Computer-Graphics" class="headerlink" title="Why Study Computer Graphics"></a>Why Study Computer Graphics</h3><h4 id="applications"><a href="#applications" class="headerlink" title="applications"></a>applications</h4><ul>
 <li>Video Games（写实、风格化渲染，看画面亮不亮可以体现全局光照效果）</li>
@@ -129,41 +297,39 @@
 <li>将几何图元（3D 三角形&#x2F;多边形）投影到屏幕上<br>Project <strong>geometry primitives</strong> (3D triangles&#x2F;polygons) onto screen</li>
 </ul>
 <ul>
-<li><p>将投影图元分解为片段（像素）<br>Break projected primitives into <strong>fragments</strong> (pixels)</p>
-</li>
-<li><p>视频游戏（实时应用）的黄金标准<br>Gold standards in Video Games (Real-time Applications)</p>
-</li>
+<li>将投影图元分解为片段（像素）<br>Break projected primitives into <strong>fragments</strong> (pixels)</li>
+<li>视频游戏（实时应用）的黄金标准<br>Gold standards in Video Games (Real-time Applications)</li>
 </ul>
 </li>
 <li><p>Curves and Meshes 曲线和网格</p>
 <ul>
-<li>如何在计算机图形学中表示几何图形（曲面、表面细分时保持拓扑结构）<br>How to represent geometry in Computer Graphics</li>
-</ul>
-<blockquote>
+<li>如何在计算机图形学中表示几何图形（曲面、表面细分时保持拓扑结构）<br>How to represent geometry in Computer Graphics<blockquote>
 <p>如何表示光滑曲线;如何表示曲面;<br>如何通过通过细分将简单的曲面变成更复杂的曲面;<br>在形状发生变化时如何保持拓扑结构</p>
 </blockquote>
+</li>
+</ul>
 </li>
 <li><p>Ray Tracing 光线追踪</p>
 <ul>
 <li>从相机出发向每个像素发射射线（计算交点和阴影；继续反射光线直到击中光源）<br>shoot rays from the camera through each pixel(Calculate <strong>intersection and shading</strong>; <strong>Continue to bounce</strong> the rays till they hit light sources)</li>
 </ul>
 <ul>
-<li>动画&#x2F;电影的黄金标准（离线应用）目前已经有了实时光线追踪的算法<br>Gold standard in Animations&#x2F;Movies (Offline Applaction)</li>
-</ul>
-<blockquote>
+<li>动画&#x2F;电影的黄金标准（离线应用）目前已经有了实时光线追踪的算法<br>Gold standard in Animations&#x2F;Movies (Offline Applaction)<blockquote>
 <p>慢，但能生成很真实、质量更高的画面（动画电影中常用）<br>图形学中有很多事情我们管它叫Trade off（代价）（为了达成某个目标不得不牺牲一些其他的目标）<br>但现在还是出现了两全其美的解决方法：实时光线追踪</p>
 </blockquote>
+</li>
+</ul>
 </li>
 <li><p>Animation &#x2F; Simulation 动画&#x2F;模拟</p>
 <ul>
 <li>关键帧动画 Key frame Animation</li>
 </ul>
 <ul>
-<li>质量弹簧系统 Mass-spring System</li>
-</ul>
-<blockquote>
+<li>质量弹簧系统 Mass-spring System<blockquote>
 <p>弹性球落地，如何挤压，弹跳 ; 布料模拟落下等等</p>
 </blockquote>
+</li>
+</ul>
 </li>
 </ul>
 <h3 id="Computer-Graphics-VS-Computer-Vision"><a href="#Computer-Graphics-VS-Computer-Vision" class="headerlink" title="Computer Graphics VS Computer Vision"></a>Computer Graphics VS Computer Vision</h3><p>计算机图形学是从三维模型生成图像（渲染）或三维空间中的模拟（模拟）；<br>计算机视觉是通过图像语义分割进行建模或依赖深度学习由图像生成其他图像</p>
@@ -173,47 +339,74 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/28/games101-1/" data-id="clo9gusl60000jsst1zhzbda5" data-title="games101_1" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/09/08/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2023-09-08T03:13:56.011Z" itemprop="datePublished">2023-09-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/09/08/hello-world/">Hello</a>
-    </h1>
+  
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/08/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/08/hello-world/" class="post-title-link" itemprop="url">Hello</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-09-08 11:13:56" itemprop="dateCreated datePublished" datetime="2023-09-08T11:13:56+08:00">2023-09-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-10-28 11:55:36" itemprop="dateModified" datetime="2023-10-28T11:55:36+08:00">2023-10-28</time>
+              </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hexo n &quot;postName&quot; # 新建文章 </span><br><span class="line">hexo clean # 清除缓存 </span><br><span class="line">hexo g # 生成静态网页 </span><br><span class="line">hexo s # 本地预览 </span><br><span class="line">hexo d # 部署到Github</span><br><span class="line">npm install hexo-renderer-markdown-it --save 安装卸载插件</span><br></pre></td></tr></table></figure>
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hexo n &quot;postName&quot; # 新建文章 </span><br><span class="line">hexo clean # 清除缓存 </span><br><span class="line">hexo g # 生成静态网页 </span><br><span class="line">hexo s # 本地预览 </span><br><span class="line">hexo d # 部署到Github 换成热点</span><br><span class="line">npm install hexo-renderer-markdown-it --save 安装卸载插件</span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="how-to-fix-the-problom-about-picture-could-not-be-shown"><a href="#how-to-fix-the-problom-about-picture-could-not-be-shown" class="headerlink" title="how to fix the problom about picture could not be shown"></a>how to fix the problom about picture could not be shown</h3><p>ok,it is a problem about the picture’s path。</p>
+<h2 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h2><h3 id="latex"><a href="#latex" class="headerlink" title="latex"></a>latex</h3><p>Not yet solved.</p>
+<h3 id="pictures-could-not-be-shown"><a href="#pictures-could-not-be-shown" class="headerlink" title="pictures could not be shown"></a>pictures could not be shown</h3><p>The problem lies in <strong>the image path</strong></p>
 <h4 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_config.yml</span><br><span class="line">post_asset_folder: true</span><br><span class="line">marked:</span><br><span class="line">  prependRoot: true</span><br><span class="line">  postAsset: true</span><br></pre></td></tr></table></figure>
 
 <p>这一步在新建文件的时候会生成一个同名的文件夹，等会把图片放在文件夹中。</p>
@@ -239,103 +432,226 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/08/hello-world/" data-id="clmalxexu0000ycst4tk3czmw" data-title="Hello" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
     </footer>
   </div>
-  
-</article>
-
-
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
+<script src="/js/schemes/muse.js"></script>
 
-  
-    
 
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
-    </div>
-  </div>
+<script src="/js/next-boot.js"></script>
+
+
 
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2023/10/28/games101-1/">games101_1</a>
-          </li>
-        
-          <li>
-            <a href="/2023/09/08/hello-world/">Hello</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
-</aside>
-        
-      </div>
-      <footer id="footer">
+
   
-  <div class="outer">
-    <div id="footer-info" class="inner">
       
-      &copy; 2023 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
 
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
     
 
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
   
-<script src="/fancybox/jquery.fancybox.min.js"></script>
 
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
 </body>
 </html>
