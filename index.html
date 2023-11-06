@@ -176,7 +176,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-06 11:19:50" itemprop="dateModified" datetime="2023-11-06T11:19:50+08:00">2023-11-06</time>
+                <time title="Modified: 2023-11-06 13:19:49" itemprop="dateModified" datetime="2023-11-06T13:19:49+08:00">2023-11-06</time>
               </span>
 
           
@@ -192,6 +192,90 @@
       
           <p>我应该明天两三个小时更新一次。作为一个小总结吧。具体还是得快快过一遍视频然后看个用中文写的比较具体的博客。或者博客看得懂的部分 把视频跳了</p>
 <p>二三章对应lec56的视频。光栅化、光栅化会有锯齿问题；为什么会造成走样；如何解决（反走样）。信号那边傅里叶变换那块可以跳过。感觉这些可以考<br>五六章对应lec789着色  三种光照 漫反射、镜面反射、环境光照。 着色频率<br>第八章对应lec11几何的贝塞尔曲线。<br>光线追踪感觉不会出计算。偏物理。感觉这部分不太适合考试 </p>
+<h1 id="Exam"><a href="#Exam" class="headerlink" title="Exam"></a>Exam</h1><p>总共有14个课件。 摘录一些比较重要的可能是考点的</p>
+<p>lec01 introduction</p>
+<p>Course Topics</p>
+<ol>
+<li>Drawing Digital Images (Rasterization) </li>
+<li>Filtering and Sampling </li>
+<li>Modeling Geometry </li>
+<li>Modeling Material Properties </li>
+<li>Modeling Lighting </li>
+<li>How Do Cameras Work?  </li>
+<li>Animation and Physical Simulation </li>
+<li>Virtual Reality</li>
+</ol>
+<p>1.绘制数码影像(栅格化)2。过滤及取样3。几何建模4。建模材料特性5。建模照明6。相机是如何工作的？7.动画和物理模拟8。虚拟现实</p>
+<ol>
+<li><p>Digital Drawing (2 weeks) 2. Geometry (2 weeks) \3. Ray-Tracing (2 weeks) 4. Animation (2 weeks)</p>
+<p>然后动画本来安排4次课，但是只讲了一次（课件14）</p>
+</li>
+</ol>
+<p>lec01可能考：CG vs CV</p>
+<hr>
+<p>Lecture 2:Digital Drawing</p>
+<h2 id="Drawing-Triangles-to-the-Screen-by-Sampling用采样方法在屏幕上绘制三角形"><a href="#Drawing-Triangles-to-the-Screen-by-Sampling用采样方法在屏幕上绘制三角形" class="headerlink" title="Drawing Triangles to the Screen by Sampling用采样方法在屏幕上绘制三角形"></a>Drawing Triangles to the Screen by Sampling用采样方法在屏幕上绘制三角形</h2><h2 id="Drawing-Machines-成像设备-（了解）"><a href="#Drawing-Machines-成像设备-（了解）" class="headerlink" title="Drawing Machines  成像设备 （了解）"></a>Drawing Machines  成像设备 （了解）</h2><p>不同的光栅显示设备 Different Raster Displays</p>
+<ul>
+<li>CNC Sharpie Drawing Machine</li>
+<li>Oscilloscope 示波器</li>
+<li>Cathode Ray Tube 阴极射线管</li>
+<li>Television - Raster Display CRT 早期CRT显示器；隔行扫描(Interlaced)减少了带宽，现在这种思想也被用于一些视频压缩算法</li>
+<li>帧缓存器：屏幕所显示画面的存储区域 Frame Buffer: Memory for a Raster Display</li>
+</ul>
+<p>A Sampling of Different Raster Displays </p>
+<ul>
+<li>Flat Panel Displays 平板显示器</li>
+<li>LCD (Liquid Crystal Display) Pixel  LCD（液晶显示屏）通过液晶扭曲偏振来阻挡或透射光</li>
+<li>LED&#x2F;发光二极管阵列 Light emitting diode array</li>
+<li>电子墨水屏 Electrophoretic (Electronic Ink) Display 通过控制黑色和白色颗粒上下变化来组成画面，缺点是刷新率低 kindle</li>
+</ul>
+<h2 id="Drawing-to-Raster-Displays画到光栅显示器-光栅化-重要10"><a href="#Drawing-to-Raster-Displays画到光栅显示器-光栅化-重要10" class="headerlink" title="Drawing to Raster Displays画到光栅显示器 &#x3D; 光栅化 [重要10]"></a>Drawing to Raster Displays画到光栅显示器 &#x3D; 光栅化 [重要10]</h2><p>图形学中常用三角形作为基础图元去表示其他复杂的形状 Fundamental Shape Primitives </p>
+<p>选择三角形 why？ </p>
+<ul>
+<li>是最基本的图形;复杂的图形可以分解成三角形。</li>
+<li>三角形一定是在一个平面上的;可以用叉乘<strong>快速判断点在三角形的内外关系</strong>；可以用重心坐标插值</li>
+</ul>
+<hr>
+<p><strong>Drawing a Triangle To The Framebuffer (“Rasterization光栅化”)</strong> 光栅化&#x3D;绘图到光栅显示器</p>
+<ul>
+<li><p>What？输入：投射到屏幕上的三角形顶点位置。输出：一组近似三角形的像素值。这就是我们要做的事情。</p>
+</li>
+<li><p>How？通过sampling采样。</p>
+</li>
+</ul>
+<hr>
+<p>采样sampling</p>
+<ul>
+<li>what：将连续的函数离散化的过程 We can <strong>discretize</strong> a function by sampling.即一个连续的函数，我们在各个不同的地方去取它的值，这个过程就被叫做采样Evaluating a function at a point is sampling.</li>
+</ul>
+<hr>
+<p>Rasterization 光栅化</p>
+<p><strong>光栅化的本质就是对屏幕空间做 2D采样。那么对于光栅化一个三角形来说，采样就是判断像素的中心是否在三角形内</strong></p>
+<p>inside(tri,x,y)可以用来表示这个像素点是否在三角形内。1表示在里面。</p>
+<p>那么可以通过采样函数来进行三角形的光栅化 即 f(x,y) &#x3D; inside(tri,x,y)</p>
+<hr>
+<p>快速判断左右，简单来说就是用向量的叉乘。右手螺旋定则，结果为正说明在左侧</p>
+<p>那么如何判断像素的中心是否在三角形内？ 用三次同方向的叉乘。</p>
+<p>但是我们没有必要判断所有的pixel是否在三角形内。用boudingbox来减少判断的范围。用三角形的三个点来得到这个包围盒的范围。对于沿斜对角放置的瘦长型对象优化效果并不好。</p>
+<h2 id="Signal-Reconstruction-on-Real-Displays-真实显示器上的信号重构"><a href="#Signal-Reconstruction-on-Real-Displays-真实显示器上的信号重构" class="headerlink" title="Signal Reconstruction on Real Displays 真实显示器上的信号重构"></a>Signal Reconstruction on Real Displays 真实显示器上的信号重构</h2><p>So, If We Send The Display This Sampled Signal如果我们发送显示器这个采样信号</p>
+<p>The Display Physically Emits This Signal显示器物理地发出这个信号</p>
+<p>与连续三角形函数比较可以发现问题：Jaggies 锯齿。</p>
+<h3 id="Things-to-Remember"><a href="#Things-to-Remember" class="headerlink" title="Things to Remember"></a>Things to Remember</h3><p>Drawing machines </p>
+<p>• Many possibilities 多种可能性<br>• Why framebuffers and raster displays?  为什么是帧缓冲器和光栅显示器？<br>• Why triangles?  为什么是三角形？</p>
+<p>We posed rasterization as a 2D sampling process 我们将光栅化作为一个二维采样过程<br>• Test a binary function inside(triangle,x,y)  测试二进制函数内部(三角形，x，y)<br>• Evaluate triangle coverage by 3 point-in-edge tests  通过3点边缘测试评估三角形覆盖率<br>• Finite sampling rate causes “jaggies” artifact<br>(next time we will analyze in more detail)有限采样率会导致“锯齿状”伪影(下次我们将更详细地分析)</p>
+<h1 id="Lecture-3-Intro-to-Signal-Processing"><a href="#Lecture-3-Intro-to-Signal-Processing" class="headerlink" title="Lecture 3: Intro to Signal Processing:"></a>Lecture 3: Intro to Signal Processing:</h1><p>Sampling, Aliasing, Antialiasing<br>这部分可以看101的lec</p>
+<h3 id="Things-to-Remember-1"><a href="#Things-to-Remember-1" class="headerlink" title="Things to Remember"></a>Things to Remember</h3><p>Signal processing key concepts: 信号处理关键概念</p>
+<ul>
+<li>Frequency domain vs spatial domain 频域和时域</li>
+<li>Filters in the frequency domain scale frequencies 滤波</li>
+<li>Filters in the sampling domain &#x3D; convolution 卷积<br>Sampling and aliasing 采样和走样</li>
+<li>Image generation involves sampling 用采样生成图片</li>
+<li>Nyquist frequency is half the sampling rate </li>
+<li>Frequencies above Nyquist appear as aliasing artifacts</li>
+<li><strong>Antialiasing &#x3D; filter out high frequencies before sampling 如何反走样：在采样前过滤高频信号</strong></li>
+<li>Interpret supersampling as (approx) box pre-filter antialiasing</li>
+</ul>
+<p>采样的artifact：摩尔纹、锯齿</p>
 <h1 id="0一些默认的以及在图形学的定义"><a href="#0一些默认的以及在图形学的定义" class="headerlink" title="0一些默认的以及在图形学的定义"></a>0一些默认的以及在图形学的定义</h1><p>用单位向量表示方向；向量默认为列向量；用矩阵来表示位置的变换<br>旋转：默认绕<strong>原点 $(0,0)$ 逆时针</strong>旋转45°<br>着色：对不同的物体应用不同的材质<br>Tradeoff &#x2F; NoFreeLunch。想要得到好的效果要付出一定的代价。</p>
 <h1 id="lec01-Introduction"><a href="#lec01-Introduction" class="headerlink" title="lec01 Introduction"></a>lec01 Introduction</h1><ul>
 <li>What is Computer Graphics?使用计算机来合成和操作视觉信息。</li>
