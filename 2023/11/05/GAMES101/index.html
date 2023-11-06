@@ -28,7 +28,7 @@
 <meta property="og:description" content="我应该明天两三个小时更新一次。作为一个小总结吧。具体还是得快快过一遍视频然后看个用中文写的比较具体的博客。或者博客看得懂的部分 把视频跳了 二三章对应lec56的视频。光栅化、光栅化会有锯齿问题；为什么会造成走样；如何解决（反走样）。信号那边傅里叶变换那块可以跳过。感觉这些可以考五六章对应lec789着色  三种光照 漫反射、镜面反射、环境光照。 着色频率第八章对应lec11几何的贝塞尔曲线。光线">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-11-05T04:44:29.300Z">
-<meta property="article:modified_time" content="2023-11-05T17:48:24.313Z">
+<meta property="article:modified_time" content="2023-11-06T03:19:50.582Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
@@ -180,7 +180,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-06 01:48:24" itemprop="dateModified" datetime="2023-11-06T01:48:24+08:00">2023-11-06</time>
+                <time title="Modified: 2023-11-06 11:19:50" itemprop="dateModified" datetime="2023-11-06T11:19:50+08:00">2023-11-06</time>
               </span>
 
           
@@ -262,10 +262,18 @@
 </li>
 <li>Rodrigues公式：得到围绕一个旋转轴旋转任意角度后的向量</li>
 </ul>
-<h1 id="Viewing-Transformation-观测变换-lec04"><a href="#Viewing-Transformation-观测变换-lec04" class="headerlink" title="Viewing Transformation 观测变换 lec04"></a>Viewing Transformation 观测变换 lec04</h1><h1 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h1><h1 id="Antialiasing-and-Visibility-lec6-lec07部分"><a href="#Antialiasing-and-Visibility-lec6-lec07部分" class="headerlink" title="Antialiasing and Visibility  lec6+lec07部分"></a>Antialiasing and Visibility  lec6+lec07部分</h1><h1 id="Shading-lec789"><a href="#Shading-lec789" class="headerlink" title="Shading lec789"></a>Shading lec789</h1><p>0 why？有颜色当然更加真实</p>
+<h1 id="Viewing-Transformation-观测变换-lec04"><a href="#Viewing-Transformation-观测变换-lec04" class="headerlink" title="Viewing Transformation 观测变换 lec04"></a>Viewing Transformation 观测变换 lec04</h1><h1 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h1><p>屏幕由像素点pixel组成，是离散的，二维的。计算机生成图像中，最基本的二维元素就是三角形。</p>
+<p>通过采样sampling。</p>
+<p>一个像素点对应一个坐标点，对这个像素采样，判断是否在三角形内。如何判断？三次叉乘</p>
+<p>采样的问题 ： 锯齿（走样的一种）</p>
+<p>如何反走样：先filter再采样。</p>
+<h1 id="Antialiasing-and-Visibility-lec6-lec07部分"><a href="#Antialiasing-and-Visibility-lec6-lec07部分" class="headerlink" title="Antialiasing and Visibility  lec6+lec07部分"></a>Antialiasing and Visibility  lec6+lec07部分</h1><p>画家算法：一般先画远的，近的会覆盖远的。无法排序的情况：例如三个三角形互相重叠。</p>
+<p>Z-buffer：对每个像素多存一个深度。无法处理透明物体</p>
+<h1 id="Shading-lec789"><a href="#Shading-lec789" class="headerlink" title="Shading lec789"></a>Shading lec789</h1><p>0 why？有颜色当然更加真实</p>
+<p>注意：Shading is Local 着色是局部的，对某个点进行计算，不管其他物体的存在。</p>
 <h2 id="Blinn-Phong-Reflection-Model-三种光照的组合"><a href="#Blinn-Phong-Reflection-Model-三种光照的组合" class="headerlink" title="Blinn-Phong Reflection Model: 三种光照的组合"></a>Blinn-Phong Reflection Model: 三种光照的组合</h2><p>$$\begin{split}<br>L &amp;&#x3D; L_a + L_d + L_s \<br>    &amp;&#x3D; k_aI_a + k_d(I&#x2F;r^2)max(0, \mathbf{n} \cdot \mathbf{l}) + k_s(I&#x2F;r^2){max(0, \mathbf{n \cdot h})}^p<br>\end{split}$$</p>
 <ul>
-<li>环境光Ambient lighting  $L_a &#x3D; k_aI_a$ 给模型所有位置均匀的光照，常数。</li>
+<li>环境光Ambient lighting  $L_a &#x3D; k_aI_a$ 给模型所有位置均匀的光照，这里简单认为是常数，其实是不对的。</li>
 <li>漫反射光Diffuse Reflection，光线打到物体的表面会被均匀的散射到各个方向<ul>
 <li>$L_d &#x3D; k_d(I&#x2F;r^2)max(0, \mathbf{n} \cdot\mathbf{l})$</li>
 <li>光线照射到模型的方向与模型法线，夹角越小的地方，光照越强</li>
@@ -277,7 +285,7 @@
 </li>
 </ul>
 <p>几个k分别是对应的系数</p>
-<p>着色频率：逐三角形、逐顶点、逐像素。</p>
+<p>着色频率：逐三角形、逐顶点、逐像素。几何足够复杂的情况下，用逐三角形也可以达到好的效果。</p>
 <h2 id="实时渲染管线：3D场景到2D图的过程"><a href="#实时渲染管线：3D场景到2D图的过程" class="headerlink" title="实时渲染管线：3D场景到2D图的过程"></a>实时渲染管线：3D场景到2D图的过程</h2><ul>
 <li><p>Vertex Processing<br>主要是把我们输入的顶点进行MVP变换，得到屏幕空间的顶点表示，方便后续处理。</p>
 </li>
@@ -290,7 +298,7 @@
 <li><p>Framebuffer Operations<br>​	   根据像素大小，最终生成一个用于显示的Framebuffer</p>
 </li>
 </ul>
-
+<h2 id="Texture-Mapping-纹理映射"><a href="#Texture-Mapping-纹理映射" class="headerlink" title="Texture Mapping 纹理映射"></a>Texture Mapping 纹理映射</h2>
     </div>
 
     
@@ -370,7 +378,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0%E4%B8%80%E4%BA%9B%E9%BB%98%E8%AE%A4%E7%9A%84%E4%BB%A5%E5%8F%8A%E5%9C%A8%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">0一些默认的以及在图形学的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lec01-Introduction"><span class="nav-number">2.</span> <span class="nav-text">lec01 Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LinearAlgebra-lec02"><span class="nav-number">3.</span> <span class="nav-text">LinearAlgebra lec02</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transformation-lec03-lec04%E9%83%A8%E5%88%86"><span class="nav-number">4.</span> <span class="nav-text">Transformation lec03+lec04部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-why-study-transformation"><span class="nav-number">4.1.</span> <span class="nav-text">0 why study transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%812D-transformations"><span class="nav-number">4.2.</span> <span class="nav-text">1、2D transformations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87"><span class="nav-number">4.2.1.</span> <span class="nav-text">齐次坐标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81-3D-transformations"><span class="nav-number">4.3.</span> <span class="nav-text">2、 3D transformations</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Viewing-Transformation-%E8%A7%82%E6%B5%8B%E5%8F%98%E6%8D%A2-lec04"><span class="nav-number">5.</span> <span class="nav-text">Viewing Transformation 观测变换 lec04</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Rasterization"><span class="nav-number">6.</span> <span class="nav-text">Rasterization</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Antialiasing-and-Visibility-lec6-lec07%E9%83%A8%E5%88%86"><span class="nav-number">7.</span> <span class="nav-text">Antialiasing and Visibility  lec6+lec07部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shading-lec789"><span class="nav-number">8.</span> <span class="nav-text">Shading lec789</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Blinn-Phong-Reflection-Model-%E4%B8%89%E7%A7%8D%E5%85%89%E7%85%A7%E7%9A%84%E7%BB%84%E5%90%88"><span class="nav-number">8.1.</span> <span class="nav-text">Blinn-Phong Reflection Model: 三种光照的组合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF%EF%BC%9A3D%E5%9C%BA%E6%99%AF%E5%88%B02D%E5%9B%BE%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">8.2.</span> <span class="nav-text">实时渲染管线：3D场景到2D图的过程</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0%E4%B8%80%E4%BA%9B%E9%BB%98%E8%AE%A4%E7%9A%84%E4%BB%A5%E5%8F%8A%E5%9C%A8%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">0一些默认的以及在图形学的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lec01-Introduction"><span class="nav-number">2.</span> <span class="nav-text">lec01 Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LinearAlgebra-lec02"><span class="nav-number">3.</span> <span class="nav-text">LinearAlgebra lec02</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transformation-lec03-lec04%E9%83%A8%E5%88%86"><span class="nav-number">4.</span> <span class="nav-text">Transformation lec03+lec04部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-why-study-transformation"><span class="nav-number">4.1.</span> <span class="nav-text">0 why study transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%812D-transformations"><span class="nav-number">4.2.</span> <span class="nav-text">1、2D transformations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87"><span class="nav-number">4.2.1.</span> <span class="nav-text">齐次坐标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81-3D-transformations"><span class="nav-number">4.3.</span> <span class="nav-text">2、 3D transformations</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Viewing-Transformation-%E8%A7%82%E6%B5%8B%E5%8F%98%E6%8D%A2-lec04"><span class="nav-number">5.</span> <span class="nav-text">Viewing Transformation 观测变换 lec04</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Rasterization"><span class="nav-number">6.</span> <span class="nav-text">Rasterization</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Antialiasing-and-Visibility-lec6-lec07%E9%83%A8%E5%88%86"><span class="nav-number">7.</span> <span class="nav-text">Antialiasing and Visibility  lec6+lec07部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shading-lec789"><span class="nav-number">8.</span> <span class="nav-text">Shading lec789</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Blinn-Phong-Reflection-Model-%E4%B8%89%E7%A7%8D%E5%85%89%E7%85%A7%E7%9A%84%E7%BB%84%E5%90%88"><span class="nav-number">8.1.</span> <span class="nav-text">Blinn-Phong Reflection Model: 三种光照的组合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF%EF%BC%9A3D%E5%9C%BA%E6%99%AF%E5%88%B02D%E5%9B%BE%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">8.2.</span> <span class="nav-text">实时渲染管线：3D场景到2D图的过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Texture-Mapping-%E7%BA%B9%E7%90%86%E6%98%A0%E5%B0%84"><span class="nav-number">8.3.</span> <span class="nav-text">Texture Mapping 纹理映射</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
