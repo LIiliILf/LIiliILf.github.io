@@ -176,7 +176,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-06 19:20:05" itemprop="dateModified" datetime="2023-11-06T19:20:05+08:00">2023-11-06</time>
+                <time title="Modified: 2023-11-06 20:42:53" itemprop="dateModified" datetime="2023-11-06T20:42:53+08:00">2023-11-06</time>
               </span>
 
           
@@ -191,27 +191,25 @@
 
       
           <p>我应该明天两三个小时更新一次。作为一个小总结吧。具体还是得快快过一遍视频然后看个用中文写的比较具体的博客。或者博客看得懂的部分 把视频跳了</p>
-<p>二三章对应lec56的视频。光栅化、光栅化会有锯齿问题；为什么会造成走样；如何解决（反走样）。信号那边傅里叶变换那块可以跳过。感觉这些可以考<br>五六章对应lec789着色  三种光照 漫反射、镜面反射、环境光照。 着色频率<br>第八章对应lec11几何的贝塞尔曲线。<br>光线追踪感觉不会出计算。偏物理。感觉这部分不太适合考试 </p>
-<h1 id="Exam"><a href="#Exam" class="headerlink" title="Exam"></a>Exam</h1><h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><p>ch1： 图形学和计算机视觉的比较。</p>
+<p>二三章对应lec56的视频。光栅化、光栅化会有锯齿问题；为什么会造成走样；如何解决（反走样）。信号那边傅里叶变换那块可以跳过。感觉这些可以考<br>五六章对应lec789着色  三种光照 漫反射、镜面反射、环境光照。 着色频率<br>第八章对应lec11几何的贝塞尔曲线。<br>光线追踪感觉不会出计算。偏物理。蒙特卡洛积分可以考。</p>
+<h1 id="Exam"><a href="#Exam" class="headerlink" title="Exam"></a>Exam</h1><h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><p>ch1： 图形学和计算机视觉的比较。计算机视觉和计算机图形学的区别：一般来讲图形学研究的是将Model变成Image的过程，反之则是计算机视觉。计算机视觉是理解这个世界，计算机图形学是创造这个世界</p>
 <p>ch2：Drawing a Triangle To The Framebuffer (“Rasterization光栅化”) 光栅化&#x3D;绘图到光栅显示器。</p>
 <p>对于光栅化一个三角形来说，采样就是判断像素的中心是否在三角形内。 因为像素点本身是有大小的，而且由于采样率对于信号来说不够高，造成了信号的走样问题，形成了锯齿。</p>
-<p>ch3：走样的原因：fast-changing signals (high frequency), when we sample too slowly信号变换太快，采样太慢。</p>
-<p>Antialiasing &#x3D; filter out high frequencies before sampling 如何反走样：在采样前过滤高频信号</p>
-<p>ch4：怎么变换的</p>
+<p>ch3：走样的原因：fast-changing signals (high frequency), when we sample too slowly信号变换太快，采样太慢。如何反走样：在采样前过滤高频信号Antialiasing &#x3D; filter out high frequencies before sampling </p>
+<p>ch4：怎么变换的，注意顺序。平移旋转等等。</p>
 <p>ch5： 可见性（画家算法、Z-buffer） 漫反射、反射、环境光照。</p>
 <p>ch6：纹理</p>
 <p>ch7：隐式显式的优缺点，适用的情况。隐式容易判断点在内部还是外部(将点的坐标代入函数判断与0的关系) Inside&#x2F;Outside tests easy。这里也许可以考给一个点，给一个方程判断这个点在里面&#x2F;表面&#x2F;外面。把点带入方程算出来小于0就在里面。缺点不直观，给了隐式的方程并不能看出它是什么形状的。显式有2种：直接给出和参数映射。显式容易发现表面是什么样的&#x2F;容易描述形状。</p>
 <p>ch8：曲线curve是一种显式几何。 贝塞尔曲线de Casteljau算法：每两个点之间做线性插值、重复构造</p>
-<p>ch9：</p>
+<p>ch9：细分曲面</p>
 <p>ch10：辐射度量学</p>
 <p>ch11：渲染方程</p>
 <p>ch12：路径追踪</p>
-<p>ch13：蒙特卡洛积分</p>
-<p>ch14：动画介绍</p>
+<p>ch13：蒙特卡洛积分如何求解。如何采样</p>
+<p>ch14：动力学可能会是计算。弹簧质点模型是怎么表示的，用这个模型来表示布料</p>
 <hr>
 <p>总共有14个课件。 以下一部分是每个章节的小总结。</p>
-<p>lec01 introduction</p>
-<p>Course Topics</p>
+<h1 id="lec01-introduction"><a href="#lec01-introduction" class="headerlink" title="lec01 introduction"></a>lec01 introduction</h1><p>Course Topics</p>
 <ol>
 <li>Drawing Digital Images (Rasterization) </li>
 <li>Filtering and Sampling </li>
@@ -230,8 +228,7 @@
 </ol>
 <p>lec01可能考：CG vs CV</p>
 <hr>
-<p>Lecture 2:Digital Drawing</p>
-<h2 id="Drawing-Triangles-to-the-Screen-by-Sampling用采样方法在屏幕上绘制三角形"><a href="#Drawing-Triangles-to-the-Screen-by-Sampling用采样方法在屏幕上绘制三角形" class="headerlink" title="Drawing Triangles to the Screen by Sampling用采样方法在屏幕上绘制三角形"></a>Drawing Triangles to the Screen by Sampling用采样方法在屏幕上绘制三角形</h2><h2 id="Drawing-Machines-成像设备-（了解）"><a href="#Drawing-Machines-成像设备-（了解）" class="headerlink" title="Drawing Machines  成像设备 （了解）"></a>Drawing Machines  成像设备 （了解）</h2><p>不同的光栅显示设备 Different Raster Displays</p>
+<h2 id="Lecture-2-Digital-Drawing"><a href="#Lecture-2-Digital-Drawing" class="headerlink" title="Lecture 2:Digital Drawing"></a>Lecture 2:Digital Drawing</h2><h3 id="Drawing-Triangles-to-the-Screen-by-Sampling用采样方法在屏幕上绘制三角形"><a href="#Drawing-Triangles-to-the-Screen-by-Sampling用采样方法在屏幕上绘制三角形" class="headerlink" title="Drawing Triangles to the Screen by Sampling用采样方法在屏幕上绘制三角形"></a>Drawing Triangles to the Screen by Sampling用采样方法在屏幕上绘制三角形</h3><h4 id="Drawing-Machines-成像设备-（了解）"><a href="#Drawing-Machines-成像设备-（了解）" class="headerlink" title="Drawing Machines  成像设备 （了解）"></a>Drawing Machines  成像设备 （了解）</h4><p>不同的光栅显示设备 Different Raster Displays</p>
 <ul>
 <li>CNC Sharpie Drawing Machine</li>
 <li>Oscilloscope 示波器</li>
@@ -246,7 +243,7 @@
 <li>LED&#x2F;发光二极管阵列 Light emitting diode array</li>
 <li>电子墨水屏 Electrophoretic (Electronic Ink) Display 通过控制黑色和白色颗粒上下变化来组成画面，缺点是刷新率低 kindle</li>
 </ul>
-<h2 id="Drawing-to-Raster-Displays画到光栅显示器-光栅化-重要10"><a href="#Drawing-to-Raster-Displays画到光栅显示器-光栅化-重要10" class="headerlink" title="Drawing to Raster Displays画到光栅显示器 &#x3D; 光栅化 [重要10]"></a>Drawing to Raster Displays画到光栅显示器 &#x3D; 光栅化 [重要10]</h2><p>图形学中常用三角形作为基础图元去表示其他复杂的形状 Fundamental Shape Primitives </p>
+<h4 id="Drawing-to-Raster-Displays画到光栅显示器-光栅化-重要10"><a href="#Drawing-to-Raster-Displays画到光栅显示器-光栅化-重要10" class="headerlink" title="Drawing to Raster Displays画到光栅显示器 &#x3D; 光栅化 [重要10]"></a>Drawing to Raster Displays画到光栅显示器 &#x3D; 光栅化 [重要10]</h4><p>图形学中常用三角形作为基础图元去表示其他复杂的形状 Fundamental Shape Primitives </p>
 <p>选择三角形 why？ </p>
 <ul>
 <li>是最基本的图形;复杂的图形可以分解成三角形。</li>
@@ -274,10 +271,10 @@
 <p>快速判断左右，简单来说就是用向量的叉乘。右手螺旋定则，结果为正说明在左侧</p>
 <p>那么如何判断像素的中心是否在三角形内？ 用三次同方向的叉乘。</p>
 <p>但是我们没有必要判断所有的pixel是否在三角形内。用boudingbox来减少判断的范围。用三角形的三个点来得到这个包围盒的范围。对于沿斜对角放置的瘦长型对象优化效果并不好。</p>
-<h2 id="Signal-Reconstruction-on-Real-Displays-真实显示器上的信号重构"><a href="#Signal-Reconstruction-on-Real-Displays-真实显示器上的信号重构" class="headerlink" title="Signal Reconstruction on Real Displays 真实显示器上的信号重构"></a>Signal Reconstruction on Real Displays 真实显示器上的信号重构</h2><p>So, If We Send The Display This Sampled Signal如果我们发送显示器这个采样信号</p>
+<h4 id="Signal-Reconstruction-on-Real-Displays-真实显示器上的信号重构"><a href="#Signal-Reconstruction-on-Real-Displays-真实显示器上的信号重构" class="headerlink" title="Signal Reconstruction on Real Displays 真实显示器上的信号重构"></a>Signal Reconstruction on Real Displays 真实显示器上的信号重构</h4><p>So, If We Send The Display This Sampled Signal如果我们发送显示器这个采样信号</p>
 <p>The Display Physically Emits This Signal显示器物理地发出这个信号</p>
 <p>与连续三角形函数比较可以发现问题：Jaggies 锯齿。这里简单解释一下：因为像素点本身是有大小的，而且由于采样率对于信号来说不够高，造成了信号的走样问题，形成了锯齿。</p>
-<h3 id="Things-to-Remember"><a href="#Things-to-Remember" class="headerlink" title="Things to Remember"></a>Things to Remember</h3><p>Drawing machines </p>
+<h4 id="Things-to-Remember"><a href="#Things-to-Remember" class="headerlink" title="Things to Remember"></a>Things to Remember</h4><p>Drawing machines </p>
 <p>• Many possibilities 多种可能性<br>• Why framebuffers and raster displays?  为什么是帧缓冲器和光栅显示器？<br>• Why triangles?  为什么是三角形？</p>
 <p>We posed rasterization as a 2D sampling process 我们将光栅化作为一个二维采样过程<br>• Test a binary function inside(triangle,x,y)  测试二进制函数内部(三角形，x，y)<br>• Evaluate triangle coverage by 3 point-in-edge tests  通过3点边缘测试评估三角形覆盖率<br>• Finite sampling rate causes “jaggies” artifact<br>(next time we will analyze in more detail)有限采样率会导致“锯齿状”伪影(下次我们将更详细地分析)</p>
 <h1 id="Lecture-3-Intro-to-Signal-Processing-Sampling-Aliasing-Antialiasing"><a href="#Lecture-3-Intro-to-Signal-Processing-Sampling-Aliasing-Antialiasing" class="headerlink" title="Lecture 3: Intro to Signal Processing:Sampling, Aliasing, Antialiasing"></a>Lecture 3: Intro to Signal Processing:Sampling, Aliasing, Antialiasing</h1><p><strong>Sampling is Ubiquitous（广泛存在的） in  Computer Graphics</strong></p>
@@ -437,7 +434,26 @@
 <p>几个k分别是对应的系数</p>
 <p>着色频率：逐三角形、逐顶点、逐像素。几何足够复杂的情况下，用逐三角形也可以达到好的效果。</p>
 <h3 id="Things-to-Remember-2"><a href="#Things-to-Remember-2" class="headerlink" title="Things to Remember"></a>Things to Remember</h3><p>Visibility 可见性<br>• Painter’s algorithm and Z-Buffer algorithm 画家算法和Zbuffer深度测试<br>Simple Shading Model 简单的着色模型<br>• Key geometry: lighting, viewing &amp; normal vectors  关键几何图形：照明、视角和法向量<br>• Ambient, diffuse &amp; specular reflection functions 环境反射、漫反射和镜面反射<br>• Shading frequency: triangle, vertex or fragment 着色频率3种，逐三角形、顶点、像素</p>
-<h1 id="Lecture-6-Texture-Mapping"><a href="#Lecture-6-Texture-Mapping" class="headerlink" title="Lecture 6:Texture Mapping"></a>Lecture 6:Texture Mapping</h1><h3 id="Things-to-Remember-3"><a href="#Things-to-Remember-3" class="headerlink" title="Things to Remember"></a>Things to Remember</h3><p>Many uses of texturing 纹理的用途<br>• Bring high-resolution data to fragment calculations  为片段计算带来高分辨率数据<br>• Colors, normals, lighting on sphere, volumetric data, … 颜色、法线、球面照明、体积数据…<br>How does texturing work?<br>• Texture coordinate parameterization  纹理坐标参数化<br>• Barycentric interpolation of coordinates 坐标的重心插值<br>• Texture sampling pattern and frequency 纹理采样模式和频率<br>• Mipmaps: texture filtering hierarchy, level calculation,trilinear interpolation 贴图：纹理过滤层次、层次计算、三线插值<br>• Anisotropic sampling 各向异性采样</p>
+<h1 id="Lecture-6-Texture-Mapping"><a href="#Lecture-6-Texture-Mapping" class="headerlink" title="Lecture 6:Texture Mapping"></a>Lecture 6:Texture Mapping</h1><p>纹理：简单来说就是贴在表面</p>
+<p>在屏幕上的采样点(x,y)插值的纹理坐标(u,v)，然后把对应纹理的颜色当作漫反射的系数（Blinn-Phong 反射模型）</p>
+<p>接下来讲纹理会造成的问题：</p>
+<p>纹素过小：锯齿。解决：双线性插值（水平垂直各做一次插值）</p>
+<p>纹理太大：走样。如何解决：范围查询。（以某个方法得到一个值来代表这个范围的对外查询值）Mipmap</p>
+<p>mipmap缺陷：虽然把锯齿和隔断去掉了，但是只能做方形查询，得到的结果模糊。why？当像素映射到类似矩形的区域，再使用最大长度做mipmap level计算，就相当于使用了一个更大的方形区域做采样，求了一个大区域的平均，这就是做了一次模糊，就造成了Overblur</p>
+<p>ok造成问题就解决：各向异性过滤缓解Overblur。但只能解决类似矩形区域查询的问题，如果其他形状的区域查询，仍然有问题</p>
+<p>EWA filtering解决Overblur。把任意形状分解为不同的圆形，然后又对圆形进行多次查询，得到较为准确的结果。但是开销大</p>
+<hr>
+<p>纹理应用</p>
+<p>环境贴图：将环境光收集到一张纹理上后应用到物体表面，以这样的方法模拟物体对周围的反射。</p>
+<ul>
+<li>可以用球形贴图来记录，但是展开后会有扭曲问题。</li>
+<li>将球面映射到一个立方体上来消除球形贴图的扭曲问题。</li>
+</ul>
+<p>凹凸映射（Bump Mapping）来模拟物体凹凸不平的表面，使用贴图改变着色的结果。</p>
+<p>位移映射，使用凹凸映射用到的同一张高度贴图，对顶点进行实际的位移操作，改变模型顶点的位置</p>
+<hr>
+<p>阴影贴图ShadowMapping</p>
+<h3 id="Things-to-Remember-3"><a href="#Things-to-Remember-3" class="headerlink" title="Things to Remember"></a>Things to Remember</h3><p>Many uses of texturing 纹理的用途<br>• Bring high-resolution data to fragment calculations  为片段计算带来高分辨率数据<br>• Colors, normals, lighting on sphere, volumetric data, … 颜色、法线、球面照明、体积数据…<br>How does texturing work?<br>• Texture coordinate parameterization  纹理坐标参数化<br>• Barycentric interpolation of coordinates 坐标的重心插值<br>• Texture sampling pattern and frequency 纹理采样模式和频率<br>• Mipmaps: texture filtering hierarchy, level calculation,trilinear interpolation 贴图：纹理过滤层次、层次计算、三线插值<br>• Anisotropic sampling 各向异性采样</p>
 <h1 id="Lecture-7-Introduction-to-Geometry-Implicit-and-Explicit-Representation"><a href="#Lecture-7-Introduction-to-Geometry-Implicit-and-Explicit-Representation" class="headerlink" title="Lecture 7:Introduction to Geometry, Implicit and Explicit Representation"></a>Lecture 7:Introduction to Geometry, Implicit and Explicit Representation</h1><p>首先介绍几何的2类（隐式显式）分别有什么方法。</p>
 <ul>
 <li>隐式：代数曲面(Algebraic surfaces)、CSG(Constructive solid geometry)、 距离函数(distance functions)、水平集(Level set methods)、分形(Fractals)、</li>
@@ -459,17 +475,33 @@
 <p>图形学中常见的隐式表示几何体的方式。</p>
 <p>Algebraic Surfaces代数曲面：见上面讲的。但是不直观，对于复杂的形状难求表达式。</p>
 <p>CSG将基本几何体通过基本运算（并集、交集、作差）组合成复杂的难以表示的形状。应用广泛。</p>
-<p>距离函数Distance funtions，空间上任意一点到几何体的的最小距离，常用来做几何体的表面混合。通过融合(Blend)距离函数的方式来描述新的物体，得到融合后的距离函数后，可以令距离函数为0时的位置为表面</p>
-<p>水平集(Level set methods)：与DF一样，只是函数的表示写在格子中。</p>
-<p>分型：自相似。</p>
-<p>隐式的优缺点</p>
+<p>距离函数Distance funtions，空间上任意一点到几何体的的最小距离，常用来做几何体的表面混合。通过融合(Blend)距离函数的方式来描述新的物体，得到融合后的距离函数后，把距离函数f(x)对应等于0的地方找出来，就能找到对应物体的表面.</p>
+<p>水平集(Level set methods)：对于融合距离函数的方法，得到融合后确定的函数后，可以通过距离函数为0的地方确定为表面；对于解析式很难描述的复杂形状，替代方案是存储数值近似函数的网格，然后通过插值找出为0的表</p>
+<p>分型：自相似,雪花。描述自然现象。变换频率很高会有强烈的走样。</p>
+<p>隐式优点：</p>
+<ul>
+<li>一些查询方便（判断点在几何体内外，到表面的距离）</li>
+<li>容易求光线到表面的交集（光线追踪用到）</li>
+</ul>
+<p>隐式缺点：复杂的场景难以表示。</p>
 <hr>
-<p>图形学中常见的显式表示几何体的方式。</p>
-<p>显示：点云( point cloud)、多边形网格(polygon mesh)</p>
 <hr>
 <h1 id="Lecture-8-Curves-and-Surfaces"><a href="#Lecture-8-Curves-and-Surfaces" class="headerlink" title="Lecture 8:Curves and Surfaces"></a>Lecture 8:Curves and Surfaces</h1><h2 id="Curves"><a href="#Curves" class="headerlink" title="Curves"></a>Curves</h2><h3 id="Spline"><a href="#Spline" class="headerlink" title="Spline"></a>Spline</h3><p>Interpolation<br>• Cubic Hermite interpolation<br>• Catmull-Rom interpolation<br>Bezier curves<br>Bezier surfaces</p>
 <p>开始讲插值 Interpolation </p>
 <p>线性插值的问题：不连续。</p>
+<p>图形学中常见的显式表示几何体的方式。</p>
+<p>点云( point cloud)</p>
+<p>多边形网格(polygon mesh)</p>
+<p>贝塞尔曲线：</p>
+<p>Evaluating Bézier Curves</p>
+<ul>
+<li><p>de Casteljau算法：</p>
+<p>每两个点之间做线性插值、重复构造</p>
+</li>
+<li><p>代数表示Algebraic Formula</p>
+</li>
+</ul>
+<p><em>因为高阶容易控制所以用分段贝塞尔曲线</em></p>
 <p>贝塞尔曲线：</p>
 <p>Evaluating Bézier Curves</p>
 <ul>
@@ -480,6 +512,38 @@
 </li>
 </ul>
 <p>高阶的话就用分段贝塞尔曲线</p>
+<p>things to remember</p>
+<p>Splines 样条<br>• Cubic Hermite and Catmull-Rom interpolation<br>• Matrix representation of cubic polynomials<br>Bézier curves 贝塞尔曲线<br>• Easy-to-control spline 易于控制<br>• Recursive linear interpolation – de Casteljau algorithm 这个算法<br>• Properties of Bézier curves 特性<br>• Piecewise Bézier curve – continuity types and how to achieve 分段贝塞尔曲线-连续性 如何实现<br>Bézier surfaces 贝塞尔曲面<br>• Bicubic Bézier patches – tensor product surface<br>• 2D de Casteljau algorithm</p>
+<hr>
+<p>0 网格Mesh，是我们最常使用的描述几何体的方法。</p>
+<p>几何处理：</p>
+<ol>
+<li><p>网格细分subdivision：细分成更多的三角形，得到更光滑的表面</p>
+<p>（1）Loop细分（先增加三角形再调整位置） 但是只能处理三角形网格</p>
+<p>（2）Catmull-Clark细分：适用于任意网格</p>
+</li>
+<li><p>网格简化simplification：与细分反过来。不需要看到那么多细节的时候，保持整体形状不变，节省存储。介绍其中一种方法：边坍缩。</p>
+</li>
+<li><p>网格正规化regularization：三角形大小形状基本相似，提升质量。</p>
+<hr>
+</li>
+</ol>
+<h1 id="Ray-Tracing"><a href="#Ray-Tracing" class="headerlink" title="Ray_Tracing"></a>Ray_Tracing</h1><p>0 光线 追踪 2个词对吧，那先了解光线，然后得学一下光线投射，也就是光线是怎么发出的。</p>
+<p>Basic Ray-Tracing Algorithm  但是吧这个光线只考虑光线弹射一次，但实际上光线可以弹射很多次，Whitted风格光线追踪就是在做这个事情，需要正确计算出它的反射方向和折射方向</p>
+<p>0 光栅化不好处理全局的效果：软阴影、光泽反射、间接光照。</p>
+<p>光栅化和光追是2种不同的 方式。</p>
+<p>Compare：速度与质量反比。光栅化快，光追质量高。光栅化容易做到实realtime，光追用于离线offline.</p>
+<p>光线的定义：不考虑光的波动性</p>
+<p>光线沿直线传播，光线之间不会发生碰撞，光线从光源到人眼（可逆reciprocity）</p>
+<p>光线投射RayCasting</p>
+<p>每一个像素首先从眼睛开始投射出去一根光线，然后和场景相交，求最近交点，找到交点后和光源连线，这是第二根光线，然后判定交点是否对光源可见，也就是判断是不是在阴影中，然后计算该点的着色，算出来后写回这个像素的值。</p>
+<p> (Whitted-Style) Ray Tracing</p>
+<p><em>上面使用光线投射的例子只考虑了光线弹射一次，但实际上光线可以弹射很多次，Whitted风格光线追踪就是在做这个事情</em></p>
+<hr>
+<p>那么接下来就是怎么求的问题。首先要求交点。</p>
+<p>光线和物体表面相交 Ray-Surface Intersection</p>
+<hr>
+<p>这是按照games101的顺序的。看上面的吧</p>
 <h1 id="0一些默认的以及在图形学的定义"><a href="#0一些默认的以及在图形学的定义" class="headerlink" title="0一些默认的以及在图形学的定义"></a>0一些默认的以及在图形学的定义</h1><p>用单位向量表示方向；向量默认为列向量；用矩阵来表示位置的变换<br>旋转：默认绕<strong>原点 $(0,0)$ 逆时针</strong>旋转45°<br>着色：对不同的物体应用不同的材质<br>Tradeoff &#x2F; NoFreeLunch。想要得到好的效果要付出一定的代价。</p>
 <h1 id="lec01-Introduction"><a href="#lec01-Introduction" class="headerlink" title="lec01 Introduction"></a>lec01 Introduction</h1><ul>
 <li>What is Computer Graphics?使用计算机来合成和操作视觉信息。</li>
