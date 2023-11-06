@@ -28,7 +28,7 @@
 <meta property="og:description" content="我应该明天两三个小时更新一次。作为一个小总结吧。具体还是得快快过一遍视频然后看个用中文写的比较具体的博客。或者博客看得懂的部分 把视频跳了 二三章对应lec56的视频。光栅化、光栅化会有锯齿问题；为什么会造成走样；如何解决（反走样）。信号那边傅里叶变换那块可以跳过。感觉这些可以考五六章对应lec789着色  三种光照 漫反射、镜面反射、环境光照。 着色频率第八章对应lec11几何的贝塞尔曲线。光线">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-11-05T04:44:29.300Z">
-<meta property="article:modified_time" content="2023-11-06T05:19:49.735Z">
+<meta property="article:modified_time" content="2023-11-06T06:28:58.834Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
@@ -180,7 +180,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-06 13:19:49" itemprop="dateModified" datetime="2023-11-06T13:19:49+08:00">2023-11-06</time>
+                <time title="Modified: 2023-11-06 14:28:58" itemprop="dateModified" datetime="2023-11-06T14:28:58+08:00">2023-11-06</time>
               </span>
 
           
@@ -263,11 +263,88 @@
 <p>但是我们没有必要判断所有的pixel是否在三角形内。用boudingbox来减少判断的范围。用三角形的三个点来得到这个包围盒的范围。对于沿斜对角放置的瘦长型对象优化效果并不好。</p>
 <h2 id="Signal-Reconstruction-on-Real-Displays-真实显示器上的信号重构"><a href="#Signal-Reconstruction-on-Real-Displays-真实显示器上的信号重构" class="headerlink" title="Signal Reconstruction on Real Displays 真实显示器上的信号重构"></a>Signal Reconstruction on Real Displays 真实显示器上的信号重构</h2><p>So, If We Send The Display This Sampled Signal如果我们发送显示器这个采样信号</p>
 <p>The Display Physically Emits This Signal显示器物理地发出这个信号</p>
-<p>与连续三角形函数比较可以发现问题：Jaggies 锯齿。</p>
+<p>与连续三角形函数比较可以发现问题：Jaggies 锯齿。这里简单解释一下：因为像素点本身是有大小的，而且由于采样率对于信号来说不够高，造成了信号的走样问题，形成了锯齿。</p>
 <h3 id="Things-to-Remember"><a href="#Things-to-Remember" class="headerlink" title="Things to Remember"></a>Things to Remember</h3><p>Drawing machines </p>
 <p>• Many possibilities 多种可能性<br>• Why framebuffers and raster displays?  为什么是帧缓冲器和光栅显示器？<br>• Why triangles?  为什么是三角形？</p>
 <p>We posed rasterization as a 2D sampling process 我们将光栅化作为一个二维采样过程<br>• Test a binary function inside(triangle,x,y)  测试二进制函数内部(三角形，x，y)<br>• Evaluate triangle coverage by 3 point-in-edge tests  通过3点边缘测试评估三角形覆盖率<br>• Finite sampling rate causes “jaggies” artifact<br>(next time we will analyze in more detail)有限采样率会导致“锯齿状”伪影(下次我们将更详细地分析)</p>
-<h1 id="Lecture-3-Intro-to-Signal-Processing"><a href="#Lecture-3-Intro-to-Signal-Processing" class="headerlink" title="Lecture 3: Intro to Signal Processing:"></a>Lecture 3: Intro to Signal Processing:</h1><p>Sampling, Aliasing, Antialiasing<br>这部分可以看101的lec</p>
+<h1 id="Lecture-3-Intro-to-Signal-Processing-Sampling-Aliasing-Antialiasing"><a href="#Lecture-3-Intro-to-Signal-Processing-Sampling-Aliasing-Antialiasing" class="headerlink" title="Lecture 3: Intro to Signal Processing:Sampling, Aliasing, Antialiasing"></a>Lecture 3: Intro to Signal Processing:Sampling, Aliasing, Antialiasing</h1><p><strong>Sampling is Ubiquitous（广泛存在的） in  Computer Graphics</strong></p>
+<ul>
+<li>Rasterization &#x3D; Sample 2D Positions</li>
+<li>Photograph &#x3D; Sample Image Sensor Plane</li>
+<li>Video &#x3D; Sample Time</li>
+</ul>
+<p>接下来看一下常见的走样所形成的问题Artifacts ：Sampling Artifacts in  Graphics and Imaging</p>
+<ul>
+<li><p>Jaggies（锯齿），空间中采样</p>
+</li>
+<li><p>Moire（摩尔纹），对图片做降采样（把图片中的奇数列和奇数行给去掉）</p>
+</li>
+<li><p>Wagon wheel effect（车轮效应），时间中采样（常见于高速行驶的车辆，人眼观察车轮会有向后转的假象）</p>
+</li>
+</ul>
+<p>总结一下这些问题，走样的本质就是<strong>信号的变换太快（高频），采样的频率太慢（采样间隔大）</strong></p>
+<p>fast-changing signals (high frequency), when we sample too slowly</p>
+<p>这里我们先给出反走样的方法：<strong>采样之前先做模糊（去除高频信号）</strong> Antialiasing Idea: Filter Out High Frequencies Before Sampling</p>
+<p>以光栅化三角形为例：先对三角形做一次模糊（去掉高频的信号），把它变成一个边界模糊的三角形，采样边界时，离三角形边界近的地方像素颜色深一些，远的地方像素颜色浅一些。</p>
+<p>接下来解释为什么做完模糊再采样可以减少走样现象。</p>
+<hr>
+<p>how to implement antialiased rasterization</p>
+<p>采样的理论基础 可跳过 这部分更多是信号与系统学的，应该不会考。简单看一下就行。总之我们把信号从时域转换到频域用来分析为什么 去除高频信号（模糊）后再采样 可以减少走样现象。</p>
+<p>傅里叶变换可以将函数表示为正弦和余弦的加权和 Represent a function as a weighted sum of sines and cosines</p>
+<p>空间域&#x2F;时域和频域可以通过傅里叶变换和逆傅里叶变换相互转换 Fourier Transform Decomposes A Signal Into Frequencies</p>
+<p><strong>傅里叶变换把信号从时域（spatial domain）转换到频域（frequency domain）</strong></p>
+<p>why？<strong>傅里叶变换</strong>可以把信号从时域转化到频域，因为从时域或空间域的角度看，该信号是由多种频率不同的正弦波的叠加，而从频域角度看，该信号的频谱却如此的简单，这便于我们的分析信号。总之傅里叶可以帮助我们把时域信号变成频域以便于信号分析。</p>
+<ul>
+<li>Higher Frequencies Need Faster Sampling高频需要更快的采样才能保证恢复出的函数更接近原始函数。在固定的采样频率下，信号的频率越高，采样出来的结果就越差。</li>
+<li>Undersampling Creates Frequency Aliases在相同的采样率下去采样频率差异巨大的两种函数，却得到了相同的结果，导致我们无法区分这两种信号，这种现象成为”走样“ Two frequencies that are indistinguishable at a given sampling rate are called “aliases”</li>
+</ul>
+<hr>
+<p><strong>滤波就是去掉某些特定频率的信号（Filtering &#x3D; Getting rid of certain frequency contents）</strong></p>
+<p>前面我们提到反走样就是在采样之前先做一次模糊，把高频的信号给去掉，这个去掉某些频率信号的过程被叫做滤波（Filtering）。</p>
+<p>现在我们借助前面提到的频域来理解滤波的过程和结果。傅里叶变换将时域变为频域：低频集中在中间，高频信息在外围(边缘处)</p>
+<ul>
+<li><p>高通滤波（得到边界） High-pass filt (Edges)  去除低频信息 —&gt; 边缘特征</p>
+</li>
+<li><ul>
+<li>只有高频信息可以通过，后将频谱图逆傅里叶变换得到图像</li>
+</ul>
+</li>
+<li><p>低通滤波（得到模糊效果） Low-pass filter (Blur) 去除高频信息 –&gt; 模糊处理（存在水波纹）</p>
+</li>
+<li><ul>
+<li>只有低频信息可以通过</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>Filtering &#x3D; Convolution 也许可以是计算。其实就是加权平均计算</p>
+<ul>
+<li><p>卷积定理 </p>
+<ul>
+<li>时域的卷积等于频域的乘积，频域的卷积等于时域的乘积（两者具有对偶关系） Convolution in the spatial domain is equal to multiplication in the frequency domain, and vice versa</li>
+</ul>
+</li>
+<li><p>通过卷积定理实现对图像的处理 </p>
+<ul>
+<li><p>方法一： 简单来说 加权平均</p>
+<ul>
+<li>在时域空间域中通过卷积过滤 Filter by convolution in the spatial domain</li>
+</ul>
+</li>
+<li><p>方法二： 在频域上做乘积</p>
+<ul>
+<li>通过傅里叶变换将时域转化为频域 Transform to frequency domain (Fourier transform)</li>
+<li>乘以卷积核的傅里叶变换 Multiply by Fourier transform of convolution kernel</li>
+<li>通过逆傅里叶变换将频域转化回时域  Transform back to spatial domain (inverse Fourier)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>图像中小的正方体对应低通滤波器Box Function &#x3D; “Low Pass” Filter。卷积核越大，在图像上进行滤波会越模糊，其本身的频率越低Wider Filter Kernel &#x3D; Lower Frequencies</p>
+</li>
+</ul>
+<hr>
+<p><strong>Sampling（采样） &#x3D; Repeating  Frequency Contents（重复频域上的内容）</strong></p>
 <h3 id="Things-to-Remember-1"><a href="#Things-to-Remember-1" class="headerlink" title="Things to Remember"></a>Things to Remember</h3><p>Signal processing key concepts: 信号处理关键概念</p>
 <ul>
 <li>Frequency domain vs spatial domain 频域和时域</li>
@@ -462,7 +539,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Exam"><span class="nav-number">1.</span> <span class="nav-text">Exam</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Drawing-Triangles-to-the-Screen-by-Sampling%E7%94%A8%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%8A%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2"><span class="nav-number">1.1.</span> <span class="nav-text">Drawing Triangles to the Screen by Sampling用采样方法在屏幕上绘制三角形</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Drawing-Machines-%E6%88%90%E5%83%8F%E8%AE%BE%E5%A4%87-%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">Drawing Machines  成像设备 （了解）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Drawing-to-Raster-Displays%E7%94%BB%E5%88%B0%E5%85%89%E6%A0%85%E6%98%BE%E7%A4%BA%E5%99%A8-%E5%85%89%E6%A0%85%E5%8C%96-%E9%87%8D%E8%A6%8110"><span class="nav-number">1.3.</span> <span class="nav-text">Drawing to Raster Displays画到光栅显示器 &#x3D; 光栅化 [重要10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Signal-Reconstruction-on-Real-Displays-%E7%9C%9F%E5%AE%9E%E6%98%BE%E7%A4%BA%E5%99%A8%E4%B8%8A%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8D%E6%9E%84"><span class="nav-number">1.4.</span> <span class="nav-text">Signal Reconstruction on Real Displays 真实显示器上的信号重构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Things-to-Remember"><span class="nav-number">1.4.1.</span> <span class="nav-text">Things to Remember</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lecture-3-Intro-to-Signal-Processing"><span class="nav-number">2.</span> <span class="nav-text">Lecture 3: Intro to Signal Processing:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Things-to-Remember-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">Things to Remember</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0%E4%B8%80%E4%BA%9B%E9%BB%98%E8%AE%A4%E7%9A%84%E4%BB%A5%E5%8F%8A%E5%9C%A8%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">3.</span> <span class="nav-text">0一些默认的以及在图形学的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lec01-Introduction"><span class="nav-number">4.</span> <span class="nav-text">lec01 Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LinearAlgebra-lec02"><span class="nav-number">5.</span> <span class="nav-text">LinearAlgebra lec02</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transformation-lec03-lec04%E9%83%A8%E5%88%86"><span class="nav-number">6.</span> <span class="nav-text">Transformation lec03+lec04部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-why-study-transformation"><span class="nav-number">6.1.</span> <span class="nav-text">0 why study transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%812D-transformations"><span class="nav-number">6.2.</span> <span class="nav-text">1、2D transformations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87"><span class="nav-number">6.2.1.</span> <span class="nav-text">齐次坐标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81-3D-transformations"><span class="nav-number">6.3.</span> <span class="nav-text">2、 3D transformations</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Viewing-Transformation-%E8%A7%82%E6%B5%8B%E5%8F%98%E6%8D%A2-lec04"><span class="nav-number">7.</span> <span class="nav-text">Viewing Transformation 观测变换 lec04</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Rasterization"><span class="nav-number">8.</span> <span class="nav-text">Rasterization</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Antialiasing-and-Visibility-lec6-lec07%E9%83%A8%E5%88%86"><span class="nav-number">9.</span> <span class="nav-text">Antialiasing and Visibility  lec6+lec07部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shading-lec789"><span class="nav-number">10.</span> <span class="nav-text">Shading lec789</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Blinn-Phong-Reflection-Model-%E4%B8%89%E7%A7%8D%E5%85%89%E7%85%A7%E7%9A%84%E7%BB%84%E5%90%88"><span class="nav-number">10.1.</span> <span class="nav-text">Blinn-Phong Reflection Model: 三种光照的组合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF%EF%BC%9A3D%E5%9C%BA%E6%99%AF%E5%88%B02D%E5%9B%BE%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">10.2.</span> <span class="nav-text">实时渲染管线：3D场景到2D图的过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Texture-Mapping-%E7%BA%B9%E7%90%86%E6%98%A0%E5%B0%84"><span class="nav-number">10.3.</span> <span class="nav-text">Texture Mapping 纹理映射</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Exam"><span class="nav-number">1.</span> <span class="nav-text">Exam</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Drawing-Triangles-to-the-Screen-by-Sampling%E7%94%A8%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%8A%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2"><span class="nav-number">1.1.</span> <span class="nav-text">Drawing Triangles to the Screen by Sampling用采样方法在屏幕上绘制三角形</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Drawing-Machines-%E6%88%90%E5%83%8F%E8%AE%BE%E5%A4%87-%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">Drawing Machines  成像设备 （了解）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Drawing-to-Raster-Displays%E7%94%BB%E5%88%B0%E5%85%89%E6%A0%85%E6%98%BE%E7%A4%BA%E5%99%A8-%E5%85%89%E6%A0%85%E5%8C%96-%E9%87%8D%E8%A6%8110"><span class="nav-number">1.3.</span> <span class="nav-text">Drawing to Raster Displays画到光栅显示器 &#x3D; 光栅化 [重要10]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Signal-Reconstruction-on-Real-Displays-%E7%9C%9F%E5%AE%9E%E6%98%BE%E7%A4%BA%E5%99%A8%E4%B8%8A%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8D%E6%9E%84"><span class="nav-number">1.4.</span> <span class="nav-text">Signal Reconstruction on Real Displays 真实显示器上的信号重构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Things-to-Remember"><span class="nav-number">1.4.1.</span> <span class="nav-text">Things to Remember</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lecture-3-Intro-to-Signal-Processing-Sampling-Aliasing-Antialiasing"><span class="nav-number">2.</span> <span class="nav-text">Lecture 3: Intro to Signal Processing:Sampling, Aliasing, Antialiasing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Things-to-Remember-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">Things to Remember</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0%E4%B8%80%E4%BA%9B%E9%BB%98%E8%AE%A4%E7%9A%84%E4%BB%A5%E5%8F%8A%E5%9C%A8%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">3.</span> <span class="nav-text">0一些默认的以及在图形学的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lec01-Introduction"><span class="nav-number">4.</span> <span class="nav-text">lec01 Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LinearAlgebra-lec02"><span class="nav-number">5.</span> <span class="nav-text">LinearAlgebra lec02</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transformation-lec03-lec04%E9%83%A8%E5%88%86"><span class="nav-number">6.</span> <span class="nav-text">Transformation lec03+lec04部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-why-study-transformation"><span class="nav-number">6.1.</span> <span class="nav-text">0 why study transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%812D-transformations"><span class="nav-number">6.2.</span> <span class="nav-text">1、2D transformations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87"><span class="nav-number">6.2.1.</span> <span class="nav-text">齐次坐标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81-3D-transformations"><span class="nav-number">6.3.</span> <span class="nav-text">2、 3D transformations</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Viewing-Transformation-%E8%A7%82%E6%B5%8B%E5%8F%98%E6%8D%A2-lec04"><span class="nav-number">7.</span> <span class="nav-text">Viewing Transformation 观测变换 lec04</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Rasterization"><span class="nav-number">8.</span> <span class="nav-text">Rasterization</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Antialiasing-and-Visibility-lec6-lec07%E9%83%A8%E5%88%86"><span class="nav-number">9.</span> <span class="nav-text">Antialiasing and Visibility  lec6+lec07部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shading-lec789"><span class="nav-number">10.</span> <span class="nav-text">Shading lec789</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Blinn-Phong-Reflection-Model-%E4%B8%89%E7%A7%8D%E5%85%89%E7%85%A7%E7%9A%84%E7%BB%84%E5%90%88"><span class="nav-number">10.1.</span> <span class="nav-text">Blinn-Phong Reflection Model: 三种光照的组合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF%EF%BC%9A3D%E5%9C%BA%E6%99%AF%E5%88%B02D%E5%9B%BE%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">10.2.</span> <span class="nav-text">实时渲染管线：3D场景到2D图的过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Texture-Mapping-%E7%BA%B9%E7%90%86%E6%98%A0%E5%B0%84"><span class="nav-number">10.3.</span> <span class="nav-text">Texture Mapping 纹理映射</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
