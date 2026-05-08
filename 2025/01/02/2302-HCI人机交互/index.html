@@ -1,0 +1,798 @@
+
+<!DOCTYPE html><html lang="zh-CN" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>HCI 人机交互 - Lwh</title>
+
+  
+    <meta name="description" content="人机交互课程复习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HCI 人机交互">
+<meta property="og:url" content="https://liiliilf.github.io/2025/01/02/2302-HCI%E4%BA%BA%E6%9C%BA%E4%BA%A4%E4%BA%92/">
+<meta property="og:site_name" content="Lwh">
+<meta property="og:description" content="人机交互课程复习笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-01-02T06:04:56.000Z">
+<meta property="article:modified_time" content="2026-05-08T17:28:05.057Z">
+<meta property="article:author" content="Lwh">
+<meta property="article:tag" content="HCI">
+<meta property="article:tag" content="人机交互">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="HCI,人机交互">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Lwh","sameAs":[]},"dateCreated":"2025-01-02T14:04:56+08:00","dateModified":"2026-05-09T01:28:05+08:00","datePublished":"2025-01-02T14:04:56+08:00","description":"","headline":"HCI 人机交互","mainEntityOfPage":{"@type":"WebPage","@id":"https://liiliilf.github.io/2025/01/02/2302-HCI%E4%BA%BA%E6%9C%BA%E4%BA%A4%E4%BA%92/"},"publisher":{"@type":"Organization","name":"Lwh","sameAs":[]},"url":"https://liiliilf.github.io/2025/01/02/2302-HCI%E4%BA%BA%E6%9C%BA%E4%BA%A4%E4%BA%92/","keywords":"HCI, 人机交互","image":[]}</script>
+  
+</head>
+<body>
+
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="title" href="/"><div class="main">Lwh</div><div class="sub cap">技术笔记 / 游戏设计 / 随笔</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item active" title="首页" href="/" style="color:#2563eb"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="分类" href="/categories/" style="color:#16a34a"><svg style="margin-bottom:1px" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6.95c0-.883 0-1.324.07-1.692A4 4 0 0 1 5.257 2.07C5.626 2 6.068 2 6.95 2c.386 0 .58 0 .766.017a4 4 0 0 1 2.18.904c.144.119.28.255.554.529L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .848.352C14.098 6 14.675 6 15.828 6h.374c2.632 0 3.949 0 4.804.77c.079.07.154.145.224.224c.77.855.77 2.172.77 4.804V14c0 3.771 0 5.657-1.172 6.828C19.657 22 17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172C2 19.657 2 17.771 2 14z" opacity=".5"/><path fill="currentColor" d="M20 6.238c0-.298-.005-.475-.025-.63a3 3 0 0 0-2.583-2.582C17.197 3 16.965 3 16.5 3H9.988c.116.104.247.234.462.45L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .849.352C14.098 6 14.675 6 15.829 6h.373c1.78 0 2.957 0 3.798.238"/><path fill="currentColor" fill-rule="evenodd" d="M12.25 10a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75" clip-rule="evenodd"/></svg></a><a class="nav-item" title="标签" href="/tags/" style="color:#f97316"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+<widget class="widget-wrapper linklist"><div class="widget-header dis-select"><span class="name">内容分类</span></div><div class="widget-body fs14">
+<div class="linklist left" style="grid-template-columns:repeat(1,1fr);">
+<a class="link" title="技术笔记" href="/categories/tech-notes/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg><span>技术笔记</span></div></a>
+<a class="link" title="游戏设计" href="/game-design/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg><span>游戏设计</span></div></a>
+<a class="link" title="随笔" href="/categories/essays/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m13.629 20.472l-.542.916c-.483.816-1.69.816-2.174 0l-.542-.916c-.42-.71-.63-1.066-.968-1.262c-.338-.197-.763-.204-1.613-.219c-1.256-.021-2.043-.098-2.703-.372a5 5 0 0 1-2.706-2.706C2 14.995 2 13.83 2 11.5v-1c0-3.273 0-4.91.737-6.112a5 5 0 0 1 1.65-1.651C5.59 2 7.228 2 10.5 2h3c3.273 0 4.91 0 6.113.737a5 5 0 0 1 1.65 1.65C22 5.59 22 7.228 22 10.5v1c0 2.33 0 3.495-.38 4.413a5 5 0 0 1-2.707 2.706c-.66.274-1.447.35-2.703.372c-.85.015-1.275.022-1.613.219c-.338.196-.548.551-.968 1.262" opacity=".5"/><path fill="currentColor" d="M10.99 14.308c-1.327-.978-3.49-2.84-3.49-4.593c0-2.677 2.475-3.677 4.5-1.609c2.025-2.068 4.5-1.068 4.5 1.609c0 1.752-2.163 3.615-3.49 4.593c-.454.335-.681.502-1.01.502c-.329 0-.556-.167-1.01-.502"/></svg><span>随笔</span></div></a></div></div></widget>
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2024/11/18/%E3%80%8A%E5%B9%95%E5%90%8E%E4%BA%A7%E5%93%81%E3%80%8B/"><span class="title">《幕后产品》</span></a><a class="item title" href="/2025/01/02/2302-HCI%E4%BA%BA%E6%9C%BA%E4%BA%A4%E4%BA%92/"><span class="title">HCI 人机交互</span></a><a class="item title" href="/2025/01/02/2301-%E6%95%B0%E6%8D%AE%E5%BA%93DB/"><span class="title">数据库 DB</span></a><a class="item title" href="/2026/05/09/Hexo-GitHub-Pages-%E9%83%A8%E7%BD%B2%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/"><span class="title">Hexo + GitHub Pages 部署修复记录</span></a><a class="item title" href="/2025/02/17/ML/"><span class="title">ML</span></a><a class="item title" href="/2024/07/08/%E3%80%8A%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF%E3%80%8B/"><span class="title">《游戏设计艺术》</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/tech-notes/">技术笔记</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-01-02T06:04:56.000Z">2025-01-02</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-08T17:28:05.057Z">2026-05-09</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>HCI 人机交互</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="第一章-绪论-5"><a href="#第一章-绪论-5" class="headerlink" title="第一章 绪论  5"></a>第一章 绪论  5</h1><p>预计 一个名词解释。5分<br>人机交互HCI是关于<strong>设计、评价和实现</strong>供人们使用的交互式计算机系统，且围绕这些方面的主要现象进行研究的科学。<br>人与计算机各自擅长什么？难的模糊的。简单的 定义明确的<br><strong>多通道交互</strong>主要研究多通道交互界面的表示模型、多通道交互界面的评估方法以及多通道信息的融合等。</p>
+<p>HCI的发展阶段<br>命令行 图形用户界面 自然和谐的交互</p>
+<p>1 什么是人机交互技术？<br>2 简单介绍人机交互技术的发展历史和现状。<br>    以前：人适应计算机。未来：计算机不断适应人。<br>    命令行-图形用户界面GUI-<strong>自然</strong>和谐的交互阶段。<br>    早期：打字机 一种<strong>字符终端</strong>的交互。<br>    GUI <strong>图形终端</strong>特点：桌面隐喻、WIMP技术、直接操纵和所见即所得。自然性、效率提高。<br>    随着VR的飞速发展。基于语音、视线跟踪、表情等输入手段的多通道交互。目的是使人能以<strong>声音、动作、表情</strong>等自然方式进行交互操作<br>3 简要说明人机交互技术与其它相关学科的关系。<br>    理论基础：认知心理学、人机工程学。交叉渗透：多媒体技术、VR<br>4 人机交互研究内容有哪些？<br>    后面的各个章节<br>    多媒体交互技术<br>    人机交互界面表示模型与设计方法（第六章）<br>    Web设计（第七章）<br>    移动界面设计<br>    可用性分析与评估（第九章） </p>
+<h1 id="第二章-感知和认知基础-10"><a href="#第二章-感知和认知基础-10" class="headerlink" title="第二章 感知和认知基础 10"></a>第二章 感知和认知基础 10</h1><p>人的<strong>感知</strong>即通过<strong>人体器官和组织</strong>进行人与外部世界的信息的交流和传递。<br><strong>认知</strong>是人们在进行日常活动时<strong>发生于头脑中的事情</strong>，它涉及思维、记忆、学习、幻想、决策、看、读、写和交谈等<br>人的感知是认知的<strong>基础</strong>，认知是将感知获取的信息<strong>综合运用</strong></p>
+<p>影响认知的因素：<br>    <strong>情感因素</strong>会影响人的感知和认知能力。把计算机系统设计成能够像人类一样识别和表达感情，这被称为“<strong>情感计算</strong>”<br>    <strong>个体差异</strong>：性别 情感 年龄</p>
+<p> 人机交互过程中人们经常利用的感知有哪几种？每种感知有什么特点？<br>    视觉80 听觉 嗅觉 味觉 触觉。<br> 颜色模型有哪几种？并简要说明。 面向设备 RGB CMYK 面向用户 HSV<br> 人的认知过程分为哪几类？各有什么特点<br>    相互依赖 一个活动涉及多个不同的过程<br>    注意<br>    <strong>感知和识别</strong><br>    声音图标文字。不同媒体的复合信息：电影配音：唇形与话同步。图标易懂。声音可辨识。文字易读。<br>    文字清晰易读不受背景干扰。<br>    记忆<br>    学习<br>    阅读<br>    说话和聆听<br>    解题、规划、推理和决策</p>
+<p>格式塔心理学：<strong>完形心理学</strong><br>格式塔的意思是<strong>动态的整体</strong><br>完形律：具有最好、最简单和最稳定特征的结构最有可能被知觉为一个目标&#x2F;整体。<br>接近、相似、连续、闭合</p>
+<h1 id="第三章-交互设备-5"><a href="#第三章-交互设备-5" class="headerlink" title="第三章 交互设备 5"></a>第三章 交互设备 5</h1><p>给出一个实际应用中交互设备整合应用的实例，并说明各交互设备的功能。<br> 图示说明各个输入设备及其对应的感知通道，以及各设备的输入信号等信息。<br> 图示说明各个输出信号，及其对应的输出设备<br>山大博物馆 数据手套</p>
+<h1 id="第四章-交互技术-应该是论述题20分"><a href="#第四章-交互技术-应该是论述题20分" class="headerlink" title="第四章 交互技术 应该是论述题20分"></a>第四章 交互技术 应该是论述题20分</h1><p>命令行：早期无设备-&gt;人机交互方式只能是<strong>命令和询问方式</strong>。<strong>用户输入文本命令，系统也以文本的形式表示对命令的响应</strong> .<br>命令行界面：<strong>第一代人机界面</strong><br>缺点：未分开应用与界面。需<strong>记忆</strong>很多命令且命令需遵守<strong>语法规则</strong>，交互自然性差、界面不友好、较难学。优点：对于专业用户来说 <strong>效率高</strong></p>
+<p>文本菜单：优点<strong>不用记忆功能命令</strong>缺点：选项复杂 慢</p>
+<p>图形用户界面GUI&#x2F;WIMP（windows、icons、menus、pointing device）形成桌面desktop<br>图形用户界面的共同特点是<strong>以窗口管理系统为核心</strong>，使用键盘和鼠标器作为输入设备。<br> 窗口管理系统除了<strong>基于可重叠多窗口管理技术</strong>外，广泛采用的另一核心技术是<strong>事件驱动(Event-Driven)技术。</strong><br>WIMP界面：第二代人机界面<br>在WIMP界面中，<strong>界面的输出可以为静态或动态的二维图形或图像等信息。</strong><br>三个重要思想：桌面隐喻、所见即所得、直接操纵<br><strong>桌面隐喻是指在用户界面中用人们熟悉的桌面上的图例清楚地表示计算机可以处理的能力。</strong> 用 图例和文字表达。文字表达某些抽象概念。图例易于识别占空间少<br>    直接隐喻：表格、图表的图标 分别代表了操纵对象<br>    工具隐喻：打印机图标隐喻打印 最普遍<br>    过程隐喻：例如 撤销 重做图标<br>所见即所得：在WYSIWYG交互界面中显示的用户交互行为与应用程序最终产生的结果是一致的<br>非WYSIWYG：例如 latex编辑器<br>直接操纵：用 指点设备（鼠标、触摸屏、数据手套等）<strong>直接从屏幕上获取形象化命令与数据</strong>的过程。<br>    特性：对象是动作或数据的形象隐喻（形象隐喻应与实际内容相近，使用户能通过隐喻直接想象或感知其内容）<br>    用 <strong>指点和选择</strong>代替键盘输入 操作简便<br>    操作结果立即可见<br>    支持<strong>逆向操作</strong> 恢复到出现错误之前的状态。<br>    优缺点：<strong>依赖于视觉和手动控制的参与</strong>，可以直接操作，有利于解决问题和进行学习。但是<strong>表示复杂语义、抽象语义比较困难。</strong><br>嗯我觉得比如说手机 全面屏的手势操作。通过触摸屏 比如上划返回桌面（动作形象隐喻） 输入的内容有误可以晃动手机撤销键入。指点选择 逆向操作 立即可见。</p>
+<p>人机交互输入模式<br>由于输入设备是多种多样的，而且对一个应用程序而言，可以有多个输入设备，同一个设备又可能为多个任务服务，这就<strong>要求对输入过程的处理要有合理的模式</strong><br>请求：ID的启动是在P中设置的<br>采样：ID和P独立工作 当P的处理时间较长时，可能会失掉某些输入信息<br>事件：ID和P并行工作</p>
+<p>图形交互技术（几何约束、引力场、拖动、<strong>橡皮筋技术、操作柄技术</strong>、三维交互技术）<br><strong>橡皮筋：被拖动对象的形状和位置随着光标位置的不同而变化。</strong><br>操作柄： 对 <strong>图形对象</strong>进行 缩放 旋转等几何变换。</p>
+<p>多通道用户界面 MMI<br>为了适应目前和未来的计算机系统要求，人机界面应能<strong>支持时变媒体，实现三维、非精确及隐含的人机交互。</strong>（要求） 途径：多通道人机界面。<br>综合采用<strong>视线、语音、手势</strong>等新的交互通道、设备和交互技术，使用户利用多个通道以<strong>自然、并行、协作</strong>的方式进行人机对话，提高人机交互的<strong>自然性和高效性</strong>（目标）与GUI<strong>兼容</strong><br>基本特点：多个感觉和效应通道、允许非精确的交互、三维和直接操纵、交互的双向性、交互的隐含性<br>    <strong>感觉通道</strong>侧重于多媒体信息的<strong>接受</strong>，<strong>效应通道</strong>侧重于交互过程中控制与信息的<strong>输入</strong> 相互配合 <strong>并行、协作的通道配合关系</strong><br>    因为人类语言具有<strong>高度模糊性</strong>，日常使用 非精确的信息交流。 <strong>以充分性代替精确性</strong><br>    感觉和效应通道之间双向性：视觉可看、可注视。手可控制、可感触。<strong>视线跟踪系统可促成视觉交互双向性</strong><br>    不需要显式说明每个交互成分，<strong>隐含说明</strong>。</p>
+<p>VR<br>向用户提供<strong>沉浸</strong>和<strong>多感觉通道体验</strong> （视觉 听觉 触觉 三种刺激）<br>人是<strong>主动参与者</strong><br>重要特点：沉浸感、交互性、构想性 3I<br>根据 概念模型记忆<br>从虚拟环境对人的作用来看，虚拟现实的概念模型可以看作为<strong>显示&#x2F;检测”模型</strong>。<br>从人对虚拟环境的作用来看，也就是从用户的角度看，上述概念模型可以看作<strong>输入&#x2F;输出”模型</strong>。</p>
+<p>虚拟现实技术正是一种以集成为主的技术，其人机界面可以分解为多媒体、多通道界面。<br>多媒体用户界面技术侧重解决<strong>计算机信息表现及输出</strong>的自然性和多样性问题，<br>而多通道技术侧重解决<strong>计算机信息输入及理解</strong>的自然性和多样性问题。</p>
+<h1 id="第五章-界面设计-5分应该不止"><a href="#第五章-界面设计-5分应该不止" class="headerlink" title="第五章 界面设计 5分应该不止"></a>第五章 界面设计 5分应该不止</h1><p>一般性原则：一致性、快捷方式、错误处理能力、可逆、反馈、联机帮助<br>窗口的设计</p>
+<p>为什么2课时在复习课件中这么多</p>
+<p>一般性原则<br>    界面要具有<strong>一致性</strong>：菜单和联机帮助中使用<strong>相同的术语</strong>。 菜单选择、命令输入、数据显示<strong>保持风格一致</strong><br>    常用操作要有<strong>快捷方式</strong> ：复制粘贴<br>    提供必要的<strong>错误处理能力</strong> 二次确认<br>    对操作人员的重要操作要有<strong>信息反馈</strong><br>    允许操作<strong>可逆</strong>： 大多数动作应该允许 恢复&#x2F;撤销 undo<br>    设计良好的<strong>联机帮助</strong>：提供<strong>上下文敏感的求助系统</strong><br>    合理划分并高效地使用显示屏。</p>
+<p><strong>使用一个矩形框（称为窗口）来显示一个应用程序的组件或者一个文件夹的内容</strong><br>窗口状态：最大化、最小化、还原<br>    平铺 提供<strong>拖放</strong>方法<br>    层叠 视觉良好的窗口<strong>组织</strong> 有效利用空间，由系统管理器决定<br>    重叠 <strong>高效利用有限的屏幕资源</strong> 自定义<br>    中断层叠<br>窗口界面<br>    多文档界面 <strong>以应用程序为中心</strong><br>    单文档界面<br>    选项卡式界面</p>
+<p>窗口暂时跳过123-144</p>
+<p><strong>用户是人类的一部分。用户是产品的使用者。</strong><br>如何衡量交互质量：有效性、效率和用户主观满意度。<br>UX 用户体验 使用产品时的全面体验和满意度。四个元素：品牌、使用性、功能性、内容<br>用户的区别<br>    1用户的分类：偶然型 生疏型 熟练型 专家型 不同的用户会有不同的经验、能力和要求。 例如，偶然型和生疏型用户要求系统给出更多的<strong>支持和帮助</strong>；熟练型和专家型用户要求系统运行<strong>效率高，能灵活使用</strong>。<br>    2<strong>计算机领域经验</strong>和<strong>问题领域经验</strong>的区别（2个维度）</p>
+<p>用户交互分析：在理解用户的基础上需要针对软件的功能和目标用户，全面分析用户的交互内容，主要包括：、<br>    产品策略分析：<strong>确定产品的设计方向和预期目标；同类型产品的竞争特点</strong><br>    用户分析 <strong>目标用户</strong><br>    用户交互特性分析 对<strong>目标用户</strong>分析得到具体的<strong>用户特征</strong></p>
+<p>设计流程<br>    用户的观察和分析<br>        情景访谈：走进<strong>用户的现实环境</strong><br>        焦点小组：组织一组用户进行讨论<br>        单独访谈：<strong>一对一的用户讨论</strong><br>    设计<br>        <strong>对象模型化：将用户分析的结果按照讨论的对象进行分类整理，并且以各种图示的方法描述其属性、行为和关系。</strong><br>    实施：投入市场后要进一步搜集建议和<strong>评价</strong> <strong>利于下一代产品的开发和研制</strong></p>
+<p>任务分析<br>UML统一建模语言：描述用户行为的工具</p>
+<p>以用户为中心的界面设计<br>四个重要原则<br>    <strong>及早以用户为中心</strong>：在设计过程的早起就致力于了解用户<strong>需求</strong>。<br>    <strong>综合设计</strong>：所有方面齐头发展<br>    <strong>及早并持续进行测试</strong> 通过在开发的全过程引入可用性测试，可以使用户有机会在产品推出之前就设计提供反馈意见。<br>    <strong>反复式设计</strong> 大问题往往会掩盖小问题的存在。设计人员和开发人员应当在整个测试过程中反复对设计进行修改。</p>
+<p>OVID方法 176 暂放 航班订票例子<br>概要设计、全面设计</p>
+<p>5.1请简要论述界面设计的<strong>一般原则</strong>。<br> 5.2请描述<strong>任务分析</strong>主要包括哪些内容？<br> 5.3 利用本章介绍的人机交互界面设计方法，完成网上银行系统的交互界面分析和设计，包括账户查询、存款、取款、转账等业务流程。该系统要能够支持浏览器方式（可参考互联网上实际网上银行的设计）。<br> 5.4 画出ATM系统用例图和ATM取款时序图</p>
+<h1 id="第六章-人机交互界面的表示模型"><a href="#第六章-人机交互界面的表示模型" class="headerlink" title="第六章 人机交互界面的表示模型"></a>第六章 人机交互界面的表示模型</h1><p>三种：行为模型、结构模型、表现模型<br>行为模型：从<strong>用户和任务</strong>的角度。GOMS、UAN 和 LOTOS模型<br>结构模型：从<strong>系统</strong>的角度来表示人机交互界面。状态转换网络STN和产生式规则PR</p>
+<p>GOMS：目标 操作 方法 选择规则（selection） <strong>分而治之</strong><br>GOMS在计算机系统的<strong>评估</strong>方面有广泛的应用，局限性：<strong>没有清楚的描述错误处理的过程</strong>、任务之间关系只有 <strong>顺序和选择</strong></p>
+<p>LOTOS：时序关系说明语言。适用于具有 <strong>并发、交互、反馈和不确定性</strong>等特点的<strong>并发</strong>系统中的行为。描述任务之间的<strong>时序约束关系</strong><br>LOTOS与GOMS结合：<strong>用GOMS模型描述任务的分解过程，用LOTOS给出子任务之间的约束关系</strong>。但是<strong>无法描述目标异常结束的缺陷</strong></p>
+<p>UAN（<strong>用户行为标注</strong>）模型主要用于<strong>原子目标的描述</strong>。主要魔术<strong>用户的行为序列</strong>以及在<strong>执行任务时所用的界面物理对象</strong>。</p>
+<h1 id="第七章-Web界面设计"><a href="#第七章-Web界面设计" class="headerlink" title="第七章 Web界面设计"></a>第七章 Web界面设计</h1><p>概念<br>超文本：一种<strong>非线性的信息组织方式</strong> 信息元素之间可以相互<strong>交叉引用</strong></p>
+<p>Web界面设计基本原则<br> 1．以用户为中心： 类别不同的Web网站面向的<strong>访问群体不同</strong>；兼顾用户习惯<br> 2．一致性（内容、形式）<br> 3．简洁与明确（eg chrome）醒目标题<br> 4．体现特色<br> 5．兼顾不同的浏览器<br> 6．明确的导航设计</p>
+<p>技术基础<br> 1. 超文本标记语言HTML:<strong>符号标记语言、跨平台语言</strong>、元素是说明<strong>如何在浏览器中显示HTML文档的指令或标记符</strong><br> 2．客户端脚本语言JavaScript<br> 3．JavaApplet<br> 4．服务器端脚本语言</p>
+<p>可用性。5个方面 易学 有效 易记 错误 满意程度</p>
+<p>然后界面设计再来一道20分</p>
+<h3 id="去年作业"><a href="#去年作业" class="headerlink" title="去年作业"></a>去年作业</h3><p>请谈谈ChatGPT或畅想未来的人机交互。<br>请画出多通道人机界面的概念模型。<br>请画出读者借书时序图和协作关系图。<br>画出ATM系统用例图和ATM取款时序图。</p>
+<p>第六章人机交互界面的表示模型 190-</p>
+<p>1.请用状态转换图描述一个绘制折线的对话过程。<br>2.画出<code>[ ](G0,G1,G2)</code>的状态转换网络。<br>3.设计一个“用户使用自动取款机”任务的LOTOS模型，并转换为状态转换网络（至少三个目标或子目标的状态转换网络）。</p>
+<p>GOMS模型 目标 操作符 方法 选择规则<br>只能模拟用户不出错的情况<br>启发式评估：第一个特点 专家 启发式原则10个 是否符合原则 可以用真正的系统也可以用原型<br> 1.系统状态可见性 （进度条 光标）<br> 2.系统与用户现实世界相互匹配 （文件夹 桌面 回收站）桌面隐喻概念<br> 3.用户控制与自由<br> 4.一致性与标准<br> 5.错误预防<br> 6.识别而不是回忆 （验证码 不用记忆）<br> 7.使用的灵活性与效率 快捷键<br> 8.美观而精炼的设计<br> 9.帮助用户认识、诊断和修正错误<br> 10.帮助和文档 用户手册</p>
+<p>认知性遍历 p58<br>三步：行动方案 选择 评估</p>
+</article>
+
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2025/01/02/2301-%E6%95%B0%E6%8D%AE%E5%BA%93DB/">数据库 DB</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/11/18/%E3%80%8A%E5%B9%95%E5%90%8E%E4%BA%A7%E5%93%81%E3%80%8B/">《幕后产品》</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="sitemap" style="column-count:1;"><div class="sitemap-group"><span class="fs15">内容</span><a href="/">近期发布</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div></div><div class="text"><p>本站使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA-5"><span class="toc-text">第一章 绪论  5</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E6%84%9F%E7%9F%A5%E5%92%8C%E8%AE%A4%E7%9F%A5%E5%9F%BA%E7%A1%80-10"><span class="toc-text">第二章 感知和认知基础 10</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E4%BA%A4%E4%BA%92%E8%AE%BE%E5%A4%87-5"><span class="toc-text">第三章 交互设备 5</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E4%BA%A4%E4%BA%92%E6%8A%80%E6%9C%AF-%E5%BA%94%E8%AF%A5%E6%98%AF%E8%AE%BA%E8%BF%B0%E9%A2%9820%E5%88%86"><span class="toc-text">第四章 交互技术 应该是论述题20分</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%95%8C%E9%9D%A2%E8%AE%BE%E8%AE%A1-5%E5%88%86%E5%BA%94%E8%AF%A5%E4%B8%8D%E6%AD%A2"><span class="toc-text">第五章 界面设计 5分应该不止</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E4%BA%BA%E6%9C%BA%E4%BA%A4%E4%BA%92%E7%95%8C%E9%9D%A2%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%A8%A1%E5%9E%8B"><span class="toc-text">第六章 人机交互界面的表示模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-Web%E7%95%8C%E9%9D%A2%E8%AE%BE%E8%AE%A1"><span class="toc-text">第七章 Web界面设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%BB%E5%B9%B4%E4%BD%9C%E4%B8%9A"><span class="toc-text">去年作业</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
