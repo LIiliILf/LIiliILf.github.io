@@ -1,0 +1,1339 @@
+
+<!DOCTYPE html><html lang="zh-CN" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>ML - Lwh</title>
+
+  
+    <meta name="description" content="机器学习大纲">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ML">
+<meta property="og:url" content="https://liiliilf.github.io/2025/02/17/ML/">
+<meta property="og:site_name" content="Lwh">
+<meta property="og:description" content="机器学习大纲">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211105317-y6b4y1j.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211105350-po6qlri.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211105810-uu21qpr.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211110931-hcmho1l.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211111115-tmwzt6h.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211154354-u1hizbq.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211154404-8ja05t2.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211154417-tk1jfao.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211155301-4jo3p7j.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211162749-lrlg9br.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211162950-4dstmdr.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211163207-8hsym4k.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211163227-8gk0tzb.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211164528-f5uomhi.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211164559-5mut3xj.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211164732-9r4by63.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211164814-cjdf60i.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211164933-bouhpqk.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211165124-7cardz2.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211165317-ba849ux.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211165353-054v39p.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211165506-bmol5w5.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211165846-q1wp9bg.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211171414-8cyvalx.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211172335-wkeo84c.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211175118-x6wq8hr.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211225943-ynn06vi.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211230115-t00n9sh.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211230204-riusyzo.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211230401-hg5e2ts.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211230635-alivjo4.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211230706-xyxvpg9.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211231133-bf074m2.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212123717-0yxpqdp.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212123922-c8d1kte.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212162436-yarflee.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/202501262003995.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212201733-771c5jt.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212202040-223skw3.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212170040-7eel36j.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212170052-fkodpa4.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212211751-b17z9pv.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212211855-nuqmczq.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212211938-qasymxy.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212213638-zifswp4.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212213824-w5d4o28.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212213917-0b7f2rp.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212214404-1rdj8dd.png">
+<meta property="og:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212214428-1vvrdmv.png">
+<meta property="article:published_time" content="2025-02-17T09:24:33.000Z">
+<meta property="article:modified_time" content="2026-05-08T16:11:56.922Z">
+<meta property="article:author" content="Lwh">
+<meta property="article:tag" content="ML">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211105317-y6b4y1j.png">
+  
+  
+  
+  <meta name="keywords" content="ML,机器学习">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Lwh","sameAs":[]},"dateCreated":"2025-02-17T17:24:33+08:00","dateModified":"2026-05-09T00:11:56+08:00","datePublished":"2025-02-17T17:24:33+08:00","description":"","headline":"ML","mainEntityOfPage":{"@type":"WebPage","@id":"https://liiliilf.github.io/2025/02/17/ML/"},"publisher":{"@type":"Organization","name":"Lwh","sameAs":[]},"url":"https://liiliilf.github.io/2025/02/17/ML/","keywords":"ML, 机器学习","image":[]}</script>
+  
+</head>
+<body>
+
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="title" href="/"><div class="main">Lwh</div><div class="sub cap">技术笔记 / 游戏设计 / 随笔</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item active" title="首页" href="/" style="color:#2563eb"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="分类" href="/categories/" style="color:#16a34a"><svg style="margin-bottom:1px" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6.95c0-.883 0-1.324.07-1.692A4 4 0 0 1 5.257 2.07C5.626 2 6.068 2 6.95 2c.386 0 .58 0 .766.017a4 4 0 0 1 2.18.904c.144.119.28.255.554.529L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .848.352C14.098 6 14.675 6 15.828 6h.374c2.632 0 3.949 0 4.804.77c.079.07.154.145.224.224c.77.855.77 2.172.77 4.804V14c0 3.771 0 5.657-1.172 6.828C19.657 22 17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172C2 19.657 2 17.771 2 14z" opacity=".5"/><path fill="currentColor" d="M20 6.238c0-.298-.005-.475-.025-.63a3 3 0 0 0-2.583-2.582C17.197 3 16.965 3 16.5 3H9.988c.116.104.247.234.462.45L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .849.352C14.098 6 14.675 6 15.829 6h.373c1.78 0 2.957 0 3.798.238"/><path fill="currentColor" fill-rule="evenodd" d="M12.25 10a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75" clip-rule="evenodd"/></svg></a><a class="nav-item" title="标签" href="/tags/" style="color:#f97316"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+<widget class="widget-wrapper linklist"><div class="widget-header dis-select"><span class="name">内容分类</span></div><div class="widget-body fs14">
+<div class="linklist left" style="grid-template-columns:repeat(1,1fr);">
+<a class="link" title="技术笔记" href="/categories/tech-notes/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg><span>技术笔记</span></div></a>
+<a class="link" title="游戏设计" href="/game-design/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg><span>游戏设计</span></div></a>
+<a class="link" title="随笔" href="/categories/essays/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m13.629 20.472l-.542.916c-.483.816-1.69.816-2.174 0l-.542-.916c-.42-.71-.63-1.066-.968-1.262c-.338-.197-.763-.204-1.613-.219c-1.256-.021-2.043-.098-2.703-.372a5 5 0 0 1-2.706-2.706C2 14.995 2 13.83 2 11.5v-1c0-3.273 0-4.91.737-6.112a5 5 0 0 1 1.65-1.651C5.59 2 7.228 2 10.5 2h3c3.273 0 4.91 0 6.113.737a5 5 0 0 1 1.65 1.65C22 5.59 22 7.228 22 10.5v1c0 2.33 0 3.495-.38 4.413a5 5 0 0 1-2.707 2.706c-.66.274-1.447.35-2.703.372c-.85.015-1.275.022-1.613.219c-.338.196-.548.551-.968 1.262" opacity=".5"/><path fill="currentColor" d="M10.99 14.308c-1.327-.978-3.49-2.84-3.49-4.593c0-2.677 2.475-3.677 4.5-1.609c2.025-2.068 4.5-1.068 4.5 1.609c0 1.752-2.163 3.615-3.49 4.593c-.454.335-.681.502-1.01.502c-.329 0-.556-.167-1.01-.502"/></svg><span>随笔</span></div></a></div></div></widget>
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/05/09/Hexo-GitHub-Pages-%E9%83%A8%E7%BD%B2%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/"><span class="title">Hexo + GitHub Pages 部署修复记录</span></a><a class="item title" href="/2025/02/17/ML/"><span class="title">ML</span></a><a class="item title" href="/2024/07/08/%E3%80%8A%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF%E3%80%8B/"><span class="title">《游戏设计艺术》</span></a><a class="item title" href="/2024/07/08/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF-%E9%80%8F%E9%95%9C/"><span class="title">游戏设计艺术-透镜</span></a><a class="item title" href="/2024/07/08/%E3%80%8A%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF%E3%80%8BCH2%E8%AE%BE%E8%AE%A1%E5%B8%88%E5%88%9B%E9%80%A0%E4%BD%93%E9%AA%8C/"><span class="title">《游戏设计艺术》CH2设计师创造体验</span></a><a class="item title" href="/2024/07/08/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AFCH1/"><span class="title">我是游戏设计师</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/tech-notes/">技术笔记</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-02-17T09:24:33.000Z">2025-02-17</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-08T16:11:56.922Z">2026-05-09</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>ML</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="ML大纲"><a href="#ML大纲" class="headerlink" title="ML大纲"></a>ML大纲</h2><p>1.绪论<br>    a) 机器学习相关基本概念<br>    b) 机器学习任务中数据处理、优化方法相关基本原理(正则化、归一化等)<br>2.模型评估与选择<br>    a) 训练&#x2F;验证&#x2F;测试集划分方法及相关概念<br>    b) 二分类、三分类场景下的性能度量方法(殊途同归)<br>    c) 过拟合、 欠拟合相关知识和解决方案<br>3.线性模型<br>    a) 线性回归与最小二乘法求解<br>    b) 广义线性回归和对数几率回归<br>    c) 多分类学习: 拆分策略<br>4.决策树<br>    a) 决策树基本概念、 基本构建流程<br>    b) ID3算法、C4.5算法相关原理<br>    c) 信息熵、信息增益等相关参数计算、属性选择和树的构建<br>5.神经网络<br>    a) 人工神经网络、感知机算法基本原理<br>    b) 卷积神经网络相关原理、维度计算等<br>    c) 梯度下降、BP等优化算法的基本原理<br>6.支持向量机<br>    a) 支持向量机的基本型+拉格朗日函数<br>    b) 软间隔与正则化相关原理<br>7.集成学习<br>    a) 基本原理<br>    b) 训练样本扰动相关方法<br>    c) 随机森林相关概念</p>
+<h1 id="ML"><a href="#ML" class="headerlink" title="ML"></a>ML</h1><p>推荐参考资料《机器学习》周志华<br>《统计学习方法》李航</p>
+<h2 id="L1绪论"><a href="#L1绪论" class="headerlink" title="L1绪论"></a>L1绪论</h2><h3 id="a-机器学习相关基本概念"><a href="#a-机器学习相关基本概念" class="headerlink" title="a) 机器学习相关基本概念"></a>a) 机器学习相关基本概念</h3><ul>
+<li><h4 id="是什么-定义"><a href="#是什么-定义" class="headerlink" title="是什么(定义)"></a>是什么(定义)</h4><ul>
+<li>计算机利用已有的数据（经验），得出了某种模型，并利用此模型预测的一种方法。</li>
+<li>机器学习通过经验（数据）获得预测技能。人类-》观察、积累经验&#x3D;》掌握某项技能或能力。</li>
+</ul>
+</li>
+<li><h4 id="为什么？"><a href="#为什么？" class="headerlink" title="为什么？"></a>为什么？</h4><ul>
+<li>(获取难、数据量大）人对于一些<strong>数据或者信息的获取困难</strong>，可能是一些人无法识别的事物，或是数据信息量特别大；</li>
+<li>（处理效率低）<strong>人的处理满足不了需求</strong>，比如：定义很多的规则满足物体识别或者其他需求；在短时间内通过大量信息做出判断等等</li>
+</ul>
+</li>
+<li><h4 id="什么场景？"><a href="#什么场景？" class="headerlink" title="什么场景？"></a>什么场景？</h4><ul>
+<li>三个条件<ul>
+<li>事物本身存在某种<strong>潜在</strong>规律</li>
+<li>某些问题<strong>难以</strong>使用普通编程解决</li>
+<li>有<strong>大量</strong>的数据样本可供使用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="区别联系？"><a href="#区别联系？" class="headerlink" title="区别联系？"></a>区别联系？</h4><ul>
+<li>数据挖掘：从<strong>海量数据</strong>中找出有用的知识。比如：分类、回归、聚类、关联分析等等。可视为ML和数据库的交叉（利用ML<strong>分析</strong>海量数据，利用数据库<strong>管理</strong>）</li>
+<li>人工智能包含机器学习包含深度学习<ul>
+<li>AI：机器展现的人类智能</li>
+<li>DL：实现ML的一种技术</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><ul>
+<li>DM、视觉、医学诊断、NPL、搜索引擎、生物特征识别、自动驾驶、机器人</li>
+<li>检测信用卡欺诈、证券市场分析、DNA序列测序、语音手写识别、战略游戏</li>
+</ul>
+</li>
+<li><h4 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h4><ul>
+<li>假设收集了一批西瓜的数据</li>
+<li>所有记录的集合为：<strong>数据集</strong></li>
+<li>每一条记录为：一个<strong>实例（instance）或样本（sample）</strong>，例如： 色泽或敲声</li>
+<li>单个的特点为<strong>特征（feature） 或属性（attribute）</strong></li>
+<li>针对每个样本给的真实值：<strong>标签</strong>（比如“是”好瓜）</li>
+<li>每个西瓜可用坐标轴中的一个点表示，称为一个<strong>特征向量（feature vector）</strong>。</li>
+<li>一个样本的特征数为：<strong>维数（dimensionality）</strong>。</li>
+<li>模型训练过程中，每一条记录称为一个“<strong>训练样本</strong>”，所有训练样本的集合为：<strong>训练集（trainning set）</strong>，[特殊]；</li>
+<li>模型训练后，使用新的样本来测试模型的效果，每个新样本称为“<strong>测试样本</strong>”。所有测试样本的集合为：<strong>测试集（test set）</strong>，[一般]。</li>
+<li>**泛化能力 (generalization)**：机器学习出来的模型 适用于 新样本的能力。也就是 特殊到一般</li>
+</ul>
+</li>
+<li><h4 id="一般步骤"><a href="#一般步骤" class="headerlink" title="一般步骤"></a>一般步骤</h4><ul>
+<li>ML 用历史数据训练模型，将新的数据输入模型预测未知属性。数据搜集-》数据清洗-》特征工程-》数据建模</li>
+<li>人积累经验归纳成规律，遇到新的问题通过规律预测未来。</li>
+</ul>
+</li>
+<li><h4 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h4><ul>
+<li>监督学习（有标签：对于输入数据X能预测Y）<ul>
+<li>分类：目标是预测<strong>离散</strong>标签（如图像识别中的狗、猫分类）</li>
+<li>回归：目标是预测<strong>连续</strong>数值（如房价预测）。</li>
+</ul>
+</li>
+<li>无监督学习（对于输入数据X能发现什么）<ul>
+<li>聚类（Clustering）</li>
+<li>降维（Dimensionality Reduction）将原高维空间中的数据点映射到低维度的空间中</li>
+</ul>
+</li>
+<li>强化学习 RL（序列决策问题）<ul>
+<li>用于描述和解决智能体（agent）在与环境的交互过程中通过学习策略以达成回报最大化或实现特定目标的问题。eg.alpha go</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="b-机器学习任务中数据处理、优化方法相关基本原理-正则化、归一化等"><a href="#b-机器学习任务中数据处理、优化方法相关基本原理-正则化、归一化等" class="headerlink" title="b) 机器学习任务中数据处理、优化方法相关基本原理(正则化、归一化等)"></a>b) 机器学习任务中数据处理、优化方法相关基本原理(正则化、归一化等)</h3><ul>
+<li><h4 id="正则化-regularization"><a href="#正则化-regularization" class="headerlink" title="正则化(regularization)"></a>正则化(regularization)</h4><ul>
+<li>正则化保留所有的特征，但是减少参数的大小（magnitude），它可以改善或者减少<strong>过拟合</strong>问题。</li>
+<li>L1正则化可以产生稀疏模型，L2正则化可以防止过拟合&#x2F;降低参数范数的总和。</li>
+</ul>
+</li>
+<li><h4 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h4><ul>
+<li>将数据映射到指定的范围，消除不同数据之间的量纲。</li>
+</ul>
+</li>
+<li><h4 id="标准化"><a href="#标准化" class="headerlink" title="标准化"></a>标准化</h4><ul>
+<li>解决特征值范围差异过大的问题。</li>
+</ul>
+</li>
+</ul>
+<h2 id="L2模型评估与选择"><a href="#L2模型评估与选择" class="headerlink" title="L2模型评估与选择"></a>L2模型评估与选择</h2><h3 id="a-训练-验证-测试集划分方法及相关概念"><a href="#a-训练-验证-测试集划分方法及相关概念" class="headerlink" title="a)训练&#x2F;验证&#x2F;测试集划分方法及相关概念"></a>a)训练&#x2F;验证&#x2F;测试集划分方法及相关概念</h3><h4 id="评估方法"><a href="#评估方法" class="headerlink" title="评估方法"></a>评估方法</h4><p>采用一个“测试集”来测试学习器对新样本的判别能力，然后以“测试集”上的“测试误差”作为“泛化误差”的近似</p>
+<ul>
+<li><h5 id="测试集划分"><a href="#测试集划分" class="headerlink" title="测试集划分"></a>测试集划分</h5><ul>
+<li>留出法（hold-out）</li>
+<li>交叉验证法（cross validation）<ul>
+<li>优势：S与D很接近，并且每个样本都单独测试了</li>
+<li>不足：计算开销（1万个样本就需要训练1万个模型）</li>
+</ul>
+</li>
+<li>自助法（bootstrap）<ul>
+<li>训练集与原样本集同规模，在数据集较小，难以有效划分训练集&#x2F;测试集时较有用</li>
+<li>数据分布有所改变, 引入估计偏差，因此数据足够时留出法和交叉验证法更常用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h5 id="验证集"><a href="#验证集" class="headerlink" title="验证集"></a>验证集</h5><ul>
+<li>意义：用测试集估计泛化误差，从而调节参数，可能模型在测试集上的 误差很低，但是部署到真实场景中去使用，效果可能会比较差。</li>
+</ul>
+</li>
+<li><h5 id="“调参”与最终模型"><a href="#“调参”与最终模型" class="headerlink" title="“调参”与最终模型"></a>“调参”与最终模型</h5><ul>
+<li>算法的参数：一般由人工设定，亦称“超参数”</li>
+<li>模型的参数：一般由学习确定</li>
+</ul>
+</li>
+</ul>
+<h4 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h4><ul>
+<li><h5 id="误差"><a href="#误差" class="headerlink" title="误差"></a>误差</h5>  学习器对样本的实际预测结果与样本的真实值之间的差异<ul>
+<li>训练误差&#x2F;经验误差：训练集上的误差（太好会“过拟合”）</li>
+<li>测试误差：测试集上的误差</li>
+<li>泛化误差：学习器在所有新样本上的误差（越小越好）</li>
+</ul>
+</li>
+<li><h5 id="错误率与精度"><a href="#错误率与精度" class="headerlink" title="错误率与精度"></a>错误率与精度</h5><ul>
+<li>错误率：<br>  分类错误的样本数占样本总数的比例<br>  在 m 个样本中有 a 个样本分类错误，则错误率 E&#x3D; a&#x2F;m;</li>
+<li>“精度” ：<br>   (1-a&#x2F;m) * 100%</li>
+</ul>
+</li>
+</ul>
+<h3 id="b-二分类、三分类场景下的性能度量方法-殊途同归"><a href="#b-二分类、三分类场景下的性能度量方法-殊途同归" class="headerlink" title="b) 二分类、三分类场景下的性能度量方法(殊途同归)"></a>b) 二分类、三分类场景下的性能度量方法(殊途同归)</h3><ul>
+<li><h4 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h4><ul>
+<li>回归任务<ul>
+<li>均方误差<img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211105317-y6b4y1j.png" alt="image-20231211105317-y6b4y1j"></li>
+</ul>
+</li>
+<li>分类任务<ul>
+<li>错误率</li>
+<li>精度<img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211105350-po6qlri.png" alt="image-20231211105350-po6qlri"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="二分类问题"><a href="#二分类问题" class="headerlink" title="二分类问题"></a>二分类问题</h4></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>真实情况</th>
+<th>预测结果</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>正例</td>
+<td>反例</td>
+</tr>
+<tr>
+<td>正例</td>
+<td>TP（真正例）</td>
+<td>FN（假反例）</td>
+</tr>
+<tr>
+<td>反例</td>
+<td>FP（假正例）</td>
+<td>TN（真反例）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>查准率P 查全率R<img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211105810-uu21qpr.png" alt="image-20231211105810-uu21qpr"></li>
+<li>PR曲线：描述查准&#x2F;查全率之间矛盾变化的曲线<ul>
+<li>完全包住（A包住C：A优于C）</li>
+<li>曲线交叉（A,B交叉：看曲线下面积，不好计算）</li>
+<li>平衡点 （Break-Event Point，简称 BEP）</li>
+<li><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211110931-hcmho1l.png" alt="image-20231211110931-hcmho1l"></li>
+</ul>
+</li>
+<li>ROC曲线和AUC<img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211111115-tmwzt6h.png" alt="image-20231211111115-tmwzt6h"></li>
+</ul>
+<h3 id="c-过拟合、-欠拟合相关知识和解决方案"><a href="#c-过拟合、-欠拟合相关知识和解决方案" class="headerlink" title="c)过拟合、 欠拟合相关知识和解决方案"></a>c)过拟合、 欠拟合相关知识和解决方案</h3><ul>
+<li><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul>
+<li>过拟合：学习能力过强，以至于把训练样本所包含的不太一般的特性都学到了。</li>
+<li>欠拟合：学习能力太差，训练样本的一般性质尚未学好</li>
+</ul>
+</li>
+<li><h4 id="过拟合的处理"><a href="#过拟合的处理" class="headerlink" title="过拟合的处理"></a>过拟合的处理</h4><ol>
+<li><strong>获得更多的训练数据</strong><br>   使用更多的训练数据是解决过拟合问题最有效的手段，因为更多的样本能够让模型学习 到更多更有效的特征，减小噪声的影响。</li>
+<li>降维<br>   即丢弃一些不能帮助我们正确预测的特征。可以是手工选择保留哪些特征，或者使用一 些模型选择的算法来帮忙（例如PCA）。</li>
+<li><strong>正则化</strong><br>正则化(regularization)的技术，保留所有的特征，但是减少参数的大小（magnitude） ，它可以改善或者减少过拟合问题。<ul>
+<li>𝑳𝟏正则化可以产生稀疏模型</li>
+<li>𝑳𝟐正则化可以防止过拟合</li>
+</ul>
+</li>
+<li>集成学习方法<ul>
+<li>集成学习是把多个模型集成在一起，来降低单一模型的过拟合风险</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><h4 id="欠拟合的处理"><a href="#欠拟合的处理" class="headerlink" title="欠拟合的处理"></a>欠拟合的处理</h4><ol>
+<li><strong>添加新特征</strong><ul>
+<li>当特征不足或者现有特征与样本标签的相关性不强时，模型容易出现欠拟合。通过挖掘组合特征等新的特征，往往能够取得更好的效果。</li>
+</ul>
+</li>
+<li>增加模型复杂度<ul>
+<li>简单模型的学习能力较差，通过增加模型的复杂度可以使模型拥有更强的拟合能力。例如，在线性模型中添加高次项，在神经网络模型中增加网络层数或神经元 个数等。</li>
+</ul>
+</li>
+<li>减小正则化系数<ul>
+<li>正则化是用来防止过拟合的，但当模型出现欠拟合现象时，则需要有针对性地减小正则化系数。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="3-线性模型"><a href="#3-线性模型" class="headerlink" title="3.线性模型"></a>3.线性模型</h2><h3 id="a-线性回归与最小二乘法求解"><a href="#a-线性回归与最小二乘法求解" class="headerlink" title="a)线性回归与最小二乘法求解"></a>a)线性回归与最小二乘法求解</h3><p>线性回归是一种通过属性的线性组合来进行预测的<strong>线性模型</strong>，其目的是找到一条直线或者一个平面或者更高维的超平面，<strong>使得预测值与真实值之间的误差最小化</strong>。</p>
+<h4 id="评价指标-1"><a href="#评价指标-1" class="headerlink" title="评价指标"></a>评价指标</h4><ul>
+<li>均方误差MSE<img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211154354-u1hizbq.png" alt="image-20231211154354-u1hizbq"></li>
+<li>均方根误差RMSE<img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211154404-8ja05t2.png" alt="image-20231211154404-8ja05t2"></li>
+<li>平均绝对误差MAE<img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211154417-tk1jfao.png" alt="image-20231211154417-tk1jfao"></li>
+</ul>
+<h3 id="b-广义线性回归和对数几率回归"><a href="#b-广义线性回归和对数几率回归" class="headerlink" title="b) 广义线性回归和对数几率回归"></a>b) 广义线性回归和对数几率回归</h3><ul>
+<li><p>对率 (逻辑斯蒂) 回归 （Logistic Regression）</p>
+<p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211155301-4jo3p7j.png" alt="image-20231211155301-4jo3p7j"></p>
+</li>
+</ul>
+<h3 id="c-多分类学习-拆分策略"><a href="#c-多分类学习-拆分策略" class="headerlink" title="c) 多分类学习: 拆分策略"></a>c) 多分类学习: 拆分策略</h3><p>线性模型处理如下问题：</p>
+<ul>
+<li><h3 id="实现非线性分类的途径："><a href="#实现非线性分类的途径：" class="headerlink" title="实现非线性分类的途径："></a>实现非线性分类的途径：</h3><ul>
+<li>一个模型：<ul>
+<li>能刻画非线性的决策边界</li>
+</ul>
+</li>
+<li>多个模型：<ul>
+<li>多个模型（线性&#x2F;非线性）组合成非线性决策边界</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="one-to-all"><a href="#one-to-all" class="headerlink" title="one to all"></a>one to all</h3><ul>
+<li><h4 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h4><ul>
+<li>假设条件：每个类与剩余类线性可分</li>
+<li>针对每个类 Ci ，单独训练一个线性分类器： 𝑓𝑖 𝑥 &#x3D; 𝒘𝑖𝑇𝑥 + 𝑤𝑖0</li>
+<li>每个分类器 𝑓𝑖(𝑥)用来识别样本𝑥是否属于类 Ci</li>
+<li>设类别个数为 K： K &gt; 2</li>
+<li>总共需要训练K个分类器。</li>
+</ul>
+</li>
+<li><h4 id="判别公式-决策边界"><a href="#判别公式-决策边界" class="headerlink" title="判别公式&amp;决策边界"></a>判别公式&amp;决策边界</h4><ul>
+<li>给定测试样本𝑥 ， 其属于分类器输出值为正的那个<img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211162749-lrlg9br.png" alt="image-20231211162749-lrlg9br"></li>
+<li>决策边界：<ul>
+<li>每个线性方程 𝑓𝑖(𝑥) &#x3D; 0表示 Ci 类与剩余类的决策边界（记作Hi）， 如图实线所示</li>
+<li>这里的每条决策边界Hi 垂直于𝒘i<img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211162950-4dstmdr.png" alt="image-20231211162950-4dstmdr"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="K-1个分类器"><a href="#K-1个分类器" class="headerlink" title="K-1个分类器"></a>K-1个分类器</h4><ul>
+<li><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211163207-8hsym4k.png" alt="image-20231211163207-8hsym4k"></li>
+</ul>
+</li>
+<li><h4 id="训练样本选择"><a href="#训练样本选择" class="headerlink" title="训练样本选择"></a>训练样本选择</h4><ul>
+<li><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211163227-8gk0tzb.png" alt="image-20231211163227-8gk0tzb"></li>
+</ul>
+</li>
+<li><h4 id="存在问题-混淆区域"><a href="#存在问题-混淆区域" class="headerlink" title="存在问题-混淆区域"></a>存在问题-混淆区域</h4><ul>
+<li>拒绝选项：针对单个测试样本𝑥，所 有分类器输出都不是正值</li>
+<li>重叠： 针对单个测试样本 𝑥，出现多个分类器输出为正，形成多个类重叠的区域</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="线性机"><a href="#线性机" class="headerlink" title="线性机"></a>线性机</h3><ul>
+<li><h4 id="基本思想-1"><a href="#基本思想-1" class="headerlink" title="基本思想"></a>基本思想</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211164528-f5uomhi.png" alt="image-20231211164528-f5uomhi"></p>
+</li>
+<li><h4 id="为什么取输出值最大？"><a href="#为什么取输出值最大？" class="headerlink" title="为什么取输出值最大？"></a>为什么取输出值最大？</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211164559-5mut3xj.png" alt="image-20231211164559-5mut3xj"></p>
+</li>
+<li><h4 id="决策过程数学表达"><a href="#决策过程数学表达" class="headerlink" title="决策过程数学表达"></a>决策过程数学表达</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211164732-9r4by63.png" alt="image"></p>
+</li>
+<li><h4 id="决策边界"><a href="#决策边界" class="headerlink" title="决策边界"></a>决策边界</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211164814-cjdf60i.png" alt="image-20231211164814-cjdf60i"></p>
+</li>
+<li><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211164933-bouhpqk.png" alt="image-20231211164933-bouhpqk"></p>
+</li>
+<li><h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211165124-7cardz2.png" alt="image-20231211165124-7cardz2"></p>
+</li>
+</ul>
+</li>
+<li><h3 id="one-to-one策略"><a href="#one-to-one策略" class="headerlink" title="one to one策略"></a>one to one策略</h3><ul>
+<li><h4 id="基本思想-2"><a href="#基本思想-2" class="headerlink" title="基本思想"></a>基本思想</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211165317-ba849ux.png" alt="image-20231211165317-ba849ux"></p>
+</li>
+<li><h4 id="训练样本选择-1"><a href="#训练样本选择-1" class="headerlink" title="训练样本选择"></a>训练样本选择</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211165353-054v39p.png" alt="image-20231211165353-054v39p"></p>
+</li>
+<li><h4 id="判别公式-决策边界-1"><a href="#判别公式-决策边界-1" class="headerlink" title="判别公式&amp;决策边界"></a>判别公式&amp;决策边界</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211165506-bmol5w5.png" alt="image-20231211165506-bmol5w5"></p>
+</li>
+<li><h4 id="优点和问题"><a href="#优点和问题" class="headerlink" title="优点和问题"></a>优点和问题</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211165846-q1wp9bg.png" alt="image-20231211165846-q1wp9bg"></p>
+</li>
+<li><h4 id="避免reject-case"><a href="#避免reject-case" class="headerlink" title="避免reject case"></a>避免reject case</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211171414-8cyvalx.png" alt="image-20231211171414-8cyvalx"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-决策树"><a href="#4-决策树" class="headerlink" title="4.决策树"></a>4.决策树</h2><h3 id="a-决策树基本概念、-基本构建流程"><a href="#a-决策树基本概念、-基本构建流程" class="headerlink" title="a)决策树基本概念、 基本构建流程"></a>a)决策树基本概念、 基本构建流程</h3><h4 id="决策树模型介绍"><a href="#决策树模型介绍" class="headerlink" title="决策树模型介绍"></a>决策树模型介绍</h4><ul>
+<li>决策树算法是一种<strong>归纳分类</strong>算法，它通过对训练集的学习，挖掘出有用的规则，用于对新数据进行预测。</li>
+<li>决策树算法属于<strong>监督学习</strong>方法。</li>
+<li>决策树归纳的基本算法是<strong>贪心算法</strong>，自顶向下来构建决策树。<ul>
+<li>贪心算法：在每一步选择中都采取在当前状态下最好&#x2F;优的选择。</li>
+</ul>
+</li>
+<li>在决策树的生成过程中，分割方法即<strong>属性选择的度量</strong>是关键</li>
+</ul>
+<h4 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h4><ul>
+<li>选择最好的属性作为测试属性并创建树的根结点</li>
+<li>为测试属性每个可能的取值产生一个分支</li>
+<li>训练样本划分到适当的分支形成子结点</li>
+<li>对每个子结点，重复上面的过程，直到所有的 结点都是叶子结点</li>
+<li>递归返回的条件：3种<img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211172335-wkeo84c.png" alt="image-20231211172335-wkeo84c"></li>
+</ul>
+<h3 id="b-ID3算法、C4-5算法相关原理"><a href="#b-ID3算法、C4-5算法相关原理" class="headerlink" title="b) ID3算法、C4.5算法相关原理"></a>b) ID3算法、C4.5算法相关原理</h3><h4 id="ID3算法"><a href="#ID3算法" class="headerlink" title="ID3算法"></a>ID3算法</h4><p>以信息增益为准则来选择最优划分属性</p>
+<ul>
+<li>以信息论为基础，以信息增益为衡量标准<br>  算法的核心是“<strong>信息熵</strong>”，期望信息越小，信息熵越大， 样本纯度越低。<br>  计算每个属性的信息增益，并选取具有最高增益的属性作为给定的测试属性</li>
+</ul>
+<h4 id="C4-5算法"><a href="#C4-5算法" class="headerlink" title="C4.5算法"></a>C4.5算法</h4><p>基于信息增益率准则选择最优分割属性的算法</p>
+<h4 id="CART算法"><a href="#CART算法" class="headerlink" title="CART算法"></a>CART算法</h4><p>以基尼系数为准则选择最优划分属性，可以应用于分类和回归</p>
+<h3 id="c-信息熵、信息增益等相关参数计算、属性选择和树的构建"><a href="#c-信息熵、信息增益等相关参数计算、属性选择和树的构建" class="headerlink" title="c) 信息熵、信息增益等相关参数计算、属性选择和树的构建"></a>c) 信息熵、信息增益等相关参数计算、属性选择和树的构建</h3><h2 id="5-神经网络"><a href="#5-神经网络" class="headerlink" title="5.神经网络"></a>5.神经网络</h2><h3 id="a-人工神经网络、感知机算法基本原理"><a href="#a-人工神经网络、感知机算法基本原理" class="headerlink" title="a) 人工神经网络、感知机算法基本原理"></a>a) 人工神经网络、感知机算法基本原理</h3><p>人工神经网络主要由大量的神经元以及它们之间的有向连接构成。<br>因此考虑三方面：</p>
+<h4 id="网络的拓扑结构"><a href="#网络的拓扑结构" class="headerlink" title="网络的拓扑结构"></a>网络的拓扑结构</h4><ul>
+<li><p>不同神经元之间的连接关系。</p>
+</li>
+<li><h4 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h4></li>
+<li><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211175118-x6wq8hr.png" alt="image-20231211175118-x6wq8hr"></p>
+</li>
+<li><h4 id="（a）前馈网络"><a href="#（a）前馈网络" class="headerlink" title="（a）前馈网络"></a>（a）前馈网络<img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211225943-ynn06vi.png" alt="image-20231211225943-ynn06vi"></h4><ul>
+<li>各神经元分别属于不同的层，层内无连接。</li>
+<li>整个网络中的信息是朝一个方向传播，没有反向的信息传播。</li>
+<li>可用一个有向无环图表示。</li>
+<li>可以看做一个函数，通过简单的非线性函数多次复合，实现输入空 间到输出空间的复杂映射。</li>
+<li>典型：全连接前馈网络、CNN等</li>
+</ul>
+</li>
+<li><h4 id="（b）记忆网络"><a href="#（b）记忆网络" class="headerlink" title="（b）记忆网络"></a>（b）记忆网络</h4><p>  <img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211230115-t00n9sh.png" alt="image-20231211230115-t00n9sh"></p>
+<ul>
+<li>可以接收其它神经元的信号，也可以接收自己的反馈信号</li>
+<li>具有记忆功能，在不同的时刻具有不同的状态</li>
+<li>反馈神经网络中的信息传播可以是单向或双向传递，因此可用一个 有向循环图或无向图来表示</li>
+<li>典型：循环神经网络（RNN），玻尔兹曼机等</li>
+</ul>
+</li>
+<li><h4 id="（c）图网络"><a href="#（c）图网络" class="headerlink" title="（c）图网络"></a>（c）图网络</h4><p>  <img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211230204-riusyzo.png" alt="image-20231211230204-riusyzo"></p>
+<ul>
+<li>定义在图结构上的神经网络，每个节点都由一个或一组神经元构成</li>
+<li>节点间连接可以有向&#x2F;无向</li>
+<li>每个节点可以收到来自相邻节点或自身信息</li>
+<li>图网络是前馈网络和记忆网络的泛化</li>
+<li>典型：GCN，MPNN等</li>
+</ul>
+</li>
+</ul>
+<h4 id="神经元的激活规则"><a href="#神经元的激活规则" class="headerlink" title="神经元的激活规则"></a>神经元的激活规则</h4><ul>
+<li><p>主要是指神经元输入到输出之间的映射关系，一般为非线性函数。</p>
+</li>
+<li><h4 id="MP神经元模型"><a href="#MP神经元模型" class="headerlink" title="MP神经元模型"></a>MP神经元模型</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211230401-hg5e2ts.png" alt="image-20231211230401-hg5e2ts"></p>
+</li>
+<li><h4 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h4><ul>
+<li><p>对神经元所获得的网络输入的进行变换， 也称为激励函数。</p>
+</li>
+<li><p>激活函数在神经元中非常重要的。为了增强网络的表示能力和学习能力，激活函数需要具备以下几点性质：</p>
+<ul>
+<li>➢ 连续并可导的非线性函数（允许少数点不可导，ReLU）</li>
+<li>➢ 计算效率高</li>
+<li>➢ 值域在一定范围</li>
+</ul>
+</li>
+<li><h5 id="阶跃函数"><a href="#阶跃函数" class="headerlink" title="阶跃函数"></a>阶跃函数</h5><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211230635-alivjo4.png" alt="image-20231211230635-alivjo4"></p>
+</li>
+<li><h5 id="Sigmoid函数"><a href="#Sigmoid函数" class="headerlink" title="Sigmoid函数"></a>Sigmoid函数</h5><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211230706-xyxvpg9.png" alt="image-20231211230706-xyxvpg9"></p>
+<ul>
+<li>优点：<ul>
+<li><ol>
+<li>函数处处连续，便于求导</li>
+<li>可将函数值的范围压缩至[0,1]，可用于压缩数据，且幅度不变</li>
+<li>便于前向传输</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li><ol>
+<li>在趋向无穷的地方，函数值变化很小，容易出现梯度消失，不利于深层神经网络的反馈传输</li>
+<li>幂函数的梯度计算复杂</li>
+<li>收敛速度比较慢</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231211231133-bf074m2.png" alt="image-20231211231133-bf074m2"></p>
+<ul>
+<li>优点<ul>
+<li>使用ReLU的SGD算法的收敛速度比 sigmoid 和 tanh 快。</li>
+<li>在x&gt;0区域上，不会出现梯度饱和、梯度消失的问题。</li>
+<li>计算复杂度低，不需要进行指数运算，只要一个阈值就可以得到激活值。</li>
+<li>代表性稀疏，ReLu会使一部分神经元的输出为0，这样就造成了网络的稀 疏性，并且减少了参数的相互依存关系，缓解了过拟合问题的发生。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>非0均值，影响收敛</li>
+<li>梯度消失（Dead ReLU Problem，神经元坏死现象）：x&lt;0梯度为0，之后为0</li>
+<li>梯度爆炸：x&gt;0无上界</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="ELU"><a href="#ELU" class="headerlink" title="ELU"></a>ELU</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212123717-0yxpqdp.png" alt="image-20231212123717-0yxpqdp"></p>
+</li>
+<li><h4 id="SoftMax"><a href="#SoftMax" class="headerlink" title="SoftMax"></a>SoftMax</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212123922-c8d1kte.png" alt="image-20231212123922-c8d1kte"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="学习算法"><a href="#学习算法" class="headerlink" title="学习算法"></a>学习算法</h4><ul>
+<li><p>通过训练数据来学习神经网络的参数</p>
+<ul>
+<li><h4 id="感知机"><a href="#感知机" class="headerlink" title="感知机"></a>感知机</h4><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212162436-yarflee.png" alt="image-20231212162436-yarflee"></p>
+</li>
+<li><h4 id="梯度下降算法"><a href="#梯度下降算法" class="headerlink" title="梯度下降算法"></a>梯度下降算法</h4><p>具体：<a target="_blank" rel="noopener" href="https://bilibili.com/video/BV1oY411N7Xz/?spm_id_from=333.337.search-card.all.click&vd_source=ff2d708a8743797f5bd00777f8987dfb">b站视频</a></p>
+<h5 id="问题：样本多时"><a href="#问题：样本多时" class="headerlink" title="问题：样本多时"></a>问题：样本多时</h5><ul>
+<li>内存开销大</li>
+<li>更新速度慢</li>
+</ul>
+<h5 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h5><ul>
+<li>随机梯度下降（每次取部分样本优化）</li>
+</ul>
+<h5 id="学习率："><a href="#学习率：" class="headerlink" title="学习率："></a>学习率：</h5><p>自动调整（学习率设置）</p>
+<ul>
+<li>先比较大：快速找到收敛方向</li>
+<li>逐渐降低：细致优化防止震荡</li>
+</ul>
+<h5 id="动量（找到损失函数最小值）："><a href="#动量（找到损失函数最小值）：" class="headerlink" title="动量（找到损失函数最小值）："></a>动量（找到损失函数最小值）：</h5><p>加一个阻尼</p>
+<ul>
+<li>AdaGrad</li>
+<li>RMSProp</li>
+</ul>
+</li>
+<li><h4 id="单层感知机：学习能力"><a href="#单层感知机：学习能力" class="headerlink" title="单层感知机：学习能力"></a>单层感知机：学习能力</h4></li>
+<li><h4 id="反向传播（BP）算法"><a href="#反向传播（BP）算法" class="headerlink" title="反向传播（BP）算法"></a>反向传播（BP）算法</h4><ul>
+<li><h5 id="具体视频："><a href="#具体视频：" class="headerlink" title="具体视频："></a>具体视频：</h5><p><a target="_blank" rel="noopener" href="https://bilibili.com/video/BV1oY411N7Xz/?spm_id_from=333.337.search-card.all.click&vd_source=ff2d708a8743797f5bd00777f8987dfb"> bp算法</a></p>
+<p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/202501262003995.png" alt="image-20231212200328-dqsdpip"></p>
+</li>
+<li><h5 id="主要步骤："><a href="#主要步骤：" class="headerlink" title="主要步骤："></a>主要步骤：</h5><ul>
+<li>第一步，对样本明确预测输出值与损失函数</li>
+<li>第二步，明确参数调整策略</li>
+<li>第三步，依据链式法则优化参数<ul>
+<li>前馈计算每一层的净输入𝒛(𝑙) 和激活值𝒂(𝑙)， 直到最后一层；</li>
+<li>反向传播计算每一层的误差项𝛿(𝑙)；</li>
+<li>计算每一层参数的偏导数， 并更新参数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h5 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h5><ol>
+<li>能够自适应、自主学习。BP可以根据预设参数更新规则，通过不断调整神经网络中的参数，已达到最符合期望的输出。</li>
+<li>拥有很强的非线性映射能力。</li>
+<li>误差的反向传播采用的是成熟的链式法则， 推导过程严谨且科学。</li>
+<li>算法泛化能力很强。</li>
+</ol>
+</li>
+<li><h5 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h5><ol>
+<li>BP神经网络参数众多，每次迭代需要更 新较多数量的阈值和权值，故收敛速度比较慢。</li>
+<li>网络中隐层含有的节点数目没有明确的准则，需要不断设置节点数字试凑，根据网络误差结果最终确定隐层节点个数</li>
+<li>BP算法是一种速度较快的梯度下降算法， 容易陷入局部极小值的问题。</li>
+</ol>
+</li>
+<li><h5 id="过拟合缓解："><a href="#过拟合缓解：" class="headerlink" title="过拟合缓解："></a>过拟合缓解：</h5><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212201733-771c5jt.png" alt="image-20231212201733-771c5jt"></p>
+</li>
+<li><h5 id="全局最小-vs-局部极小："><a href="#全局最小-vs-局部极小：" class="headerlink" title="全局最小 vs. 局部极小："></a>全局最小 vs. 局部极小：</h5><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212202040-223skw3.png" alt="image-20231212202040-223skw3"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="b-卷积神经网络相关原理、维度计算等"><a href="#b-卷积神经网络相关原理、维度计算等" class="headerlink" title="b) 卷积神经网络相关原理、维度计算等"></a>b) 卷积神经网络相关原理、维度计算等</h3><ul>
+<li><ul>
+<li><p>全连接前馈神经网络（问题&#x2F;不足）</p>
+<ul>
+<li><p>权重矩阵的参数非常多</p>
+</li>
+<li><p>局部不变性特征</p>
+<ul>
+<li>自然图像中的物体都具有局部不变性特征（尺度缩放、平移、旋转等操作不影响其语义信息。）</li>
+<li>全连接前馈网络很难提取这些局部不变特征很</li>
+</ul>
+</li>
+<li><h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><ul>
+<li><p>Kernel size: 卷积核&#x2F;滤波器大小</p>
+</li>
+<li><p>Stride：步长，即卷积核滑动时的步长。 Stride&gt;&#x3D;2 可以对图像下采样</p>
+</li>
+<li><p>Padding：填充，通过在边界周围填充0来 保持输出的大小与输入一致。</p>
+</li>
+<li><p>下图是使用Kernel size&#x3D;3，Stride&#x3D;1和 Padding&#x3D;1的2D-卷积：</p>
+<p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212170040-7eel36j.png" alt="image-20231212170040-7eel36j"></p>
+</li>
+<li><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212170052-fkodpa4.png" alt="image-20231212170052-fkodpa4"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="c-梯度下降、BP等优化算法的基本原理"><a href="#c-梯度下降、BP等优化算法的基本原理" class="headerlink" title="c) 梯度下降、BP等优化算法的基本原理"></a>c) 梯度下降、BP等优化算法的基本原理</h3><p>见上a</p>
+<h2 id="6-支持向量机"><a href="#6-支持向量机" class="headerlink" title="6.支持向量机"></a>6.支持向量机</h2><h3 id="a-支持向量机的基本型-拉格朗日函数"><a href="#a-支持向量机的基本型-拉格朗日函数" class="headerlink" title="a)支持向量机的基本型+拉格朗日函数"></a>a)支持向量机的基本型+拉格朗日函数</h3><h4 id="1-支持向量机基本概念"><a href="#1-支持向量机基本概念" class="headerlink" title="1. 支持向量机基本概念"></a>1. 支持向量机基本概念</h4><p>✓ 如果两个类线性可分，则存在着<strong>多个线性决策平面</strong>用作决策边界。</p>
+<ul>
+<li>感知机从最小化分类误差的角度进行来设计。<img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212211751-b17z9pv.png" alt="image-20231212211751-b17z9pv"></li>
+</ul>
+<h3 id="设计动机"><a href="#设计动机" class="headerlink" title="设计动机"></a>设计动机</h3><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212211855-nuqmczq.png" alt="image-20231212211855-nuqmczq"></p>
+<h3 id="设计思路"><a href="#设计思路" class="headerlink" title="设计思路"></a>设计思路</h3><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212211938-qasymxy.png" alt="image-20231212211938-qasymxy"></p>
+<h4 id="2-拉格朗日乘数法"><a href="#2-拉格朗日乘数法" class="headerlink" title="2. 拉格朗日乘数法"></a>2. 拉格朗日乘数法</h4><h4 id="3-拉格朗日对偶问题"><a href="#3-拉格朗日对偶问题" class="headerlink" title="3. 拉格朗日对偶问题"></a>3. 拉格朗日对偶问题</h4><h4 id="4-支持向量机学习算法"><a href="#4-支持向量机学习算法" class="headerlink" title="4. 支持向量机学习算法"></a>4. 支持向量机学习算法</h4><h3 id="b-软间隔与正则化相关原理"><a href="#b-软间隔与正则化相关原理" class="headerlink" title="b)软间隔与正则化相关原理"></a>b)软间隔与正则化相关原理</h3><ul>
+<li><p>软间隔：克服过拟合</p>
+</li>
+<li><p>有些训练样本带有噪声或者是离群点，如 果严格限制所有样本都在间隔区域之外， 噪声点可能被选做支持向量， 使得决策边界过于拟合噪声</p>
+</li>
+<li><p>可以将SVM的硬间隔（hard margin）放宽到软间隔 （soft margin），允许一些训练样本出现在间隔区域内， 从而具备一定的克服过拟合的能力</p>
+<p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212213638-zifswp4.png" alt="image-20231212213638-zifswp4"></p>
+</li>
+</ul>
+<h3 id="设计思路-1"><a href="#设计思路-1" class="headerlink" title="设计思路"></a>设计思路</h3><ul>
+<li><p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212213824-w5d4o28.png" alt="image-20231212213824-w5d4o28"></p>
+<p>分类器表达</p>
+<p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212213917-0b7f2rp.png" alt="image-20231212213917-0b7f2rp"></p>
+<p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212214404-1rdj8dd.png" alt="image-20231212214404-1rdj8dd"></p>
+<p><img src="https://lwhw.oss-cn-shenzhen.aliyuncs.com/img/image-20231212214428-1vvrdmv.png" alt="image-20231212214428-1vvrdmv"></p>
+</li>
+</ul>
+<h2 id="7-集成学习"><a href="#7-集成学习" class="headerlink" title="7.集成学习"></a>7.集成学习</h2><h3 id="a-基本原理"><a href="#a-基本原理" class="headerlink" title="a)基本原理"></a>a)基本原理</h3><h3 id="b-训练样本扰动相关方法"><a href="#b-训练样本扰动相关方法" class="headerlink" title="b)训练样本扰动相关方法"></a>b)训练样本扰动相关方法</h3><h3 id="c-随机森林相关概念"><a href="#c-随机森林相关概念" class="headerlink" title="c) 随机森林相关概念"></a>c) 随机森林相关概念</h3></article>
+
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2026/05/08/test/">Test</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/07/08/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AFCH1/">我是游戏设计师</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="sitemap" style="column-count:1;"><div class="sitemap-group"><span class="fs15">内容</span><a href="/">近期发布</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div></div><div class="text"><p>本站使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ML%E5%A4%A7%E7%BA%B2"><span class="toc-text">ML大纲</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ML"><span class="toc-text">ML</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#L1%E7%BB%AA%E8%AE%BA"><span class="toc-text">L1绪论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">a) 机器学习相关基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-%E5%AE%9A%E4%B9%89"><span class="toc-text">是什么(定义)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">为什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="toc-text">什么场景？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%BA%E5%88%AB%E8%81%94%E7%B3%BB%EF%BC%9F"><span class="toc-text">区别联系？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-text">应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%9C%AF%E8%AF%AD"><span class="toc-text">基本术语</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4"><span class="toc-text">一般步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B"><span class="toc-text">类型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%BB%E5%8A%A1%E4%B8%AD%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E3%80%81%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95%E7%9B%B8%E5%85%B3%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86-%E6%AD%A3%E5%88%99%E5%8C%96%E3%80%81%E5%BD%92%E4%B8%80%E5%8C%96%E7%AD%89"><span class="toc-text">b) 机器学习任务中数据处理、优化方法相关基本原理(正则化、归一化等)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96-regularization"><span class="toc-text">正则化(regularization)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BD%92%E4%B8%80%E5%8C%96"><span class="toc-text">归一化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E5%8C%96"><span class="toc-text">标准化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#L2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9"><span class="toc-text">L2模型评估与选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-%E8%AE%AD%E7%BB%83-%E9%AA%8C%E8%AF%81-%E6%B5%8B%E8%AF%95%E9%9B%86%E5%88%92%E5%88%86%E6%96%B9%E6%B3%95%E5%8F%8A%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-text">a)训练&#x2F;验证&#x2F;测试集划分方法及相关概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%84%E4%BC%B0%E6%96%B9%E6%B3%95"><span class="toc-text">评估方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E9%9B%86%E5%88%92%E5%88%86"><span class="toc-text">测试集划分</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E9%9B%86"><span class="toc-text">验证集</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E2%80%9C%E8%B0%83%E5%8F%82%E2%80%9D%E4%B8%8E%E6%9C%80%E7%BB%88%E6%A8%A1%E5%9E%8B"><span class="toc-text">“调参”与最终模型</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="toc-text">评价指标</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%AF%E5%B7%AE"><span class="toc-text">误差</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E7%8E%87%E4%B8%8E%E7%B2%BE%E5%BA%A6"><span class="toc-text">错误率与精度</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-%E4%BA%8C%E5%88%86%E7%B1%BB%E3%80%81%E4%B8%89%E5%88%86%E7%B1%BB%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E6%80%A7%E8%83%BD%E5%BA%A6%E9%87%8F%E6%96%B9%E6%B3%95-%E6%AE%8A%E9%80%94%E5%90%8C%E5%BD%92"><span class="toc-text">b) 二分类、三分类场景下的性能度量方法(殊途同归)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%BA%A6%E9%87%8F"><span class="toc-text">性能度量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98"><span class="toc-text">二分类问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-%E8%BF%87%E6%8B%9F%E5%90%88%E3%80%81-%E6%AC%A0%E6%8B%9F%E5%90%88%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">c)过拟合、 欠拟合相关知识和解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%87%E6%8B%9F%E5%90%88%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-text">过拟合的处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AC%A0%E6%8B%9F%E5%90%88%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-text">欠拟合的处理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="toc-text">3.线性模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E4%B8%8E%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E6%B1%82%E8%A7%A3"><span class="toc-text">a)线性回归与最小二乘法求解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87-1"><span class="toc-text">评价指标</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%92%8C%E5%AF%B9%E6%95%B0%E5%87%A0%E7%8E%87%E5%9B%9E%E5%BD%92"><span class="toc-text">b) 广义线性回归和对数几率回归</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-%E5%A4%9A%E5%88%86%E7%B1%BB%E5%AD%A6%E4%B9%A0-%E6%8B%86%E5%88%86%E7%AD%96%E7%95%A5"><span class="toc-text">c) 多分类学习: 拆分策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E7%9A%84%E9%80%94%E5%BE%84%EF%BC%9A"><span class="toc-text">实现非线性分类的途径：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#one-to-all"><span class="toc-text">one to all</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-text">基本思想</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A4%E5%88%AB%E5%85%AC%E5%BC%8F-%E5%86%B3%E7%AD%96%E8%BE%B9%E7%95%8C"><span class="toc-text">判别公式&amp;决策边界</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#K-1%E4%B8%AA%E5%88%86%E7%B1%BB%E5%99%A8"><span class="toc-text">K-1个分类器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%A0%B7%E6%9C%AC%E9%80%89%E6%8B%A9"><span class="toc-text">训练样本选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%9C%A8%E9%97%AE%E9%A2%98-%E6%B7%B7%E6%B7%86%E5%8C%BA%E5%9F%9F"><span class="toc-text">存在问题-混淆区域</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%9C%BA"><span class="toc-text">线性机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3-1"><span class="toc-text">基本思想</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%96%E8%BE%93%E5%87%BA%E5%80%BC%E6%9C%80%E5%A4%A7%EF%BC%9F"><span class="toc-text">为什么取输出值最大？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B%E6%95%B0%E5%AD%A6%E8%A1%A8%E8%BE%BE"><span class="toc-text">决策过程数学表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%B3%E7%AD%96%E8%BE%B9%E7%95%8C"><span class="toc-text">决策边界</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#one-to-one%E7%AD%96%E7%95%A5"><span class="toc-text">one to one策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3-2"><span class="toc-text">基本思想</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%A0%B7%E6%9C%AC%E9%80%89%E6%8B%A9-1"><span class="toc-text">训练样本选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A4%E5%88%AB%E5%85%AC%E5%BC%8F-%E5%86%B3%E7%AD%96%E8%BE%B9%E7%95%8C-1"><span class="toc-text">判别公式&amp;决策边界</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E7%82%B9%E5%92%8C%E9%97%AE%E9%A2%98"><span class="toc-text">优点和问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%BF%E5%85%8Dreject-case"><span class="toc-text">避免reject case</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%86%B3%E7%AD%96%E6%A0%91"><span class="toc-text">4.决策树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-%E5%86%B3%E7%AD%96%E6%A0%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E3%80%81-%E5%9F%BA%E6%9C%AC%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B"><span class="toc-text">a)决策树基本概念、 基本构建流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D"><span class="toc-text">决策树模型介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%92%E5%BD%92"><span class="toc-text">递归</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-ID3%E7%AE%97%E6%B3%95%E3%80%81C4-5%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3%E5%8E%9F%E7%90%86"><span class="toc-text">b) ID3算法、C4.5算法相关原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ID3%E7%AE%97%E6%B3%95"><span class="toc-text">ID3算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#C4-5%E7%AE%97%E6%B3%95"><span class="toc-text">C4.5算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CART%E7%AE%97%E6%B3%95"><span class="toc-text">CART算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-%E4%BF%A1%E6%81%AF%E7%86%B5%E3%80%81%E4%BF%A1%E6%81%AF%E5%A2%9E%E7%9B%8A%E7%AD%89%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0%E8%AE%A1%E7%AE%97%E3%80%81%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%92%8C%E6%A0%91%E7%9A%84%E6%9E%84%E5%BB%BA"><span class="toc-text">c) 信息熵、信息增益等相关参数计算、属性选择和树的构建</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-text">5.神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-%E4%BA%BA%E5%B7%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E3%80%81%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%AE%97%E6%B3%95%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">a) 人工神经网络、感知机算法基本原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%9A%84%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84"><span class="toc-text">网络的拓扑结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="toc-text">网络结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88a%EF%BC%89%E5%89%8D%E9%A6%88%E7%BD%91%E7%BB%9C"><span class="toc-text">（a）前馈网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88b%EF%BC%89%E8%AE%B0%E5%BF%86%E7%BD%91%E7%BB%9C"><span class="toc-text">（b）记忆网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88c%EF%BC%89%E5%9B%BE%E7%BD%91%E7%BB%9C"><span class="toc-text">（c）图网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A5%9E%E7%BB%8F%E5%85%83%E7%9A%84%E6%BF%80%E6%B4%BB%E8%A7%84%E5%88%99"><span class="toc-text">神经元的激活规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MP%E7%A5%9E%E7%BB%8F%E5%85%83%E6%A8%A1%E5%9E%8B"><span class="toc-text">MP神经元模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="toc-text">激活函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%98%B6%E8%B7%83%E5%87%BD%E6%95%B0"><span class="toc-text">阶跃函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Sigmoid%E5%87%BD%E6%95%B0"><span class="toc-text">Sigmoid函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ReLU"><span class="toc-text">ReLU</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ELU"><span class="toc-text">ELU</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SoftMax"><span class="toc-text">SoftMax</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95"><span class="toc-text">学习算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="toc-text">感知机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95"><span class="toc-text">梯度下降算法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%EF%BC%9A%E6%A0%B7%E6%9C%AC%E5%A4%9A%E6%97%B6"><span class="toc-text">问题：样本多时</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9A"><span class="toc-text">解决方案：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87%EF%BC%9A"><span class="toc-text">学习率：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A8%E9%87%8F%EF%BC%88%E6%89%BE%E5%88%B0%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E6%9C%80%E5%B0%8F%E5%80%BC%EF%BC%89%EF%BC%9A"><span class="toc-text">动量（找到损失函数最小值）：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%EF%BC%9A%E5%AD%A6%E4%B9%A0%E8%83%BD%E5%8A%9B"><span class="toc-text">单层感知机：学习能力</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%EF%BC%88BP%EF%BC%89%E7%AE%97%E6%B3%95"><span class="toc-text">反向传播（BP）算法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E8%A7%86%E9%A2%91%EF%BC%9A"><span class="toc-text">具体视频：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E6%AD%A5%E9%AA%A4%EF%BC%9A"><span class="toc-text">主要步骤：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%98%E7%82%B9%EF%BC%9A"><span class="toc-text">优点：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9%EF%BC%9A"><span class="toc-text">缺点：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%87%E6%8B%9F%E5%90%88%E7%BC%93%E8%A7%A3%EF%BC%9A"><span class="toc-text">过拟合缓解：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E6%9C%80%E5%B0%8F-vs-%E5%B1%80%E9%83%A8%E6%9E%81%E5%B0%8F%EF%BC%9A"><span class="toc-text">全局最小 vs. 局部极小：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E5%8E%9F%E7%90%86%E3%80%81%E7%BB%B4%E5%BA%A6%E8%AE%A1%E7%AE%97%E7%AD%89"><span class="toc-text">b) 卷积神经网络相关原理、维度计算等</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-text">相关概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#c-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E3%80%81BP%E7%AD%89%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">c) 梯度下降、BP等优化算法的基本原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA"><span class="toc-text">6.支持向量机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%9E%8B-%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%87%BD%E6%95%B0"><span class="toc-text">a)支持向量机的基本型+拉格朗日函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">1. 支持向量机基本概念</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8A%A8%E6%9C%BA"><span class="toc-text">设计动机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="toc-text">设计思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0%E6%B3%95"><span class="toc-text">2. 拉格朗日乘数法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98"><span class="toc-text">3. 拉格朗日对偶问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95"><span class="toc-text">4. 支持向量机学习算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-%E8%BD%AF%E9%97%B4%E9%9A%94%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96%E7%9B%B8%E5%85%B3%E5%8E%9F%E7%90%86"><span class="toc-text">b)软间隔与正则化相关原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF-1"><span class="toc-text">设计思路</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0"><span class="toc-text">7.集成学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">a)基本原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-%E8%AE%AD%E7%BB%83%E6%A0%B7%E6%9C%AC%E6%89%B0%E5%8A%A8%E7%9B%B8%E5%85%B3%E6%96%B9%E6%B3%95"><span class="toc-text">b)训练样本扰动相关方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-text">c) 随机森林相关概念</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

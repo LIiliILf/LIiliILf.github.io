@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
   
-  <meta name="robots" content="noindex,follow">
+  
   <meta name="generator" content="Hexo 6.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
   
@@ -17,22 +17,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   <meta name="theme-color" content="#f9fafb">
-  <title>标签：游戏设计 - Lwh</title>
+  <title>Hexo + GitHub Pages 部署修复记录 - Lwh</title>
 
   
-    <meta name="description" content="个人博客，记录计算机课程笔记、游戏设计思考和生活随笔。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lwh">
-<meta property="og:url" content="https://liiliilf.github.io/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/">
+    <meta name="description" content="记录一次 Hexo 项目缺少核心依赖导致无法构建的排查和修复过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo + GitHub Pages 部署修复记录">
+<meta property="og:url" content="https://liiliilf.github.io/2026/05/09/Hexo-GitHub-Pages-%E9%83%A8%E7%BD%B2%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/">
 <meta property="og:site_name" content="Lwh">
-<meta property="og:description" content="个人博客，记录计算机课程笔记、游戏设计思考和生活随笔。">
+<meta property="og:description" content="记录一次 Hexo 项目缺少核心依赖导致无法构建的排查和修复过程。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-09T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-08T16:22:40.071Z">
 <meta property="article:author" content="Lwh">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="GitHub Pages">
+<meta property="article:tag" content="部署">
+<meta property="article:tag" content="博客">
 <meta name="twitter:card" content="summary">
   
   
   
-  
+  <meta name="keywords" content="Hexo,GitHub Pages,部署,博客">
 
   <!-- feed -->
   
@@ -44,12 +50,12 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://liiliilf.github.io","author":{"@type":"Person","name":"Lwh","sameAs":[]},"name":"Lwh","description":"个人博客，记录计算机课程笔记、游戏设计思考和生活随笔。","url":"https://liiliilf.github.io"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Lwh","sameAs":[]},"dateCreated":"2026-05-09T12:00:00+08:00","dateModified":"2026-05-09T00:22:40+08:00","datePublished":"2026-05-09T12:00:00+08:00","description":"","headline":"Hexo + GitHub Pages 部署修复记录","mainEntityOfPage":{"@type":"WebPage","@id":"https://liiliilf.github.io/2026/05/09/Hexo-GitHub-Pages-%E9%83%A8%E7%BD%B2%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/"},"publisher":{"@type":"Organization","name":"Lwh","sameAs":[]},"url":"https://liiliilf.github.io/2026/05/09/Hexo-GitHub-Pages-%E9%83%A8%E7%BD%B2%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/","keywords":"Hexo, GitHub Pages, 部署, 博客","image":[]}</script>
   
 </head>
 <body>
 
-<div class="l_body index" id="start" layout="undefined" type="undefined" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
 
 
 <header class="header"><div class="logo-wrap"><a class="title" href="/"><div class="main">Lwh</div><div class="sub cap">技术笔记 / 游戏设计 / 随笔</div></a></div></header>
@@ -68,49 +74,110 @@
 <a class="link" title="随笔" href="/categories/essays/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m13.629 20.472l-.542.916c-.483.816-1.69.816-2.174 0l-.542-.916c-.42-.71-.63-1.066-.968-1.262c-.338-.197-.763-.204-1.613-.219c-1.256-.021-2.043-.098-2.703-.372a5 5 0 0 1-2.706-2.706C2 14.995 2 13.83 2 11.5v-1c0-3.273 0-4.91.737-6.112a5 5 0 0 1 1.65-1.651C5.59 2 7.228 2 10.5 2h3c3.273 0 4.91 0 6.113.737a5 5 0 0 1 1.65 1.65C22 5.59 22 7.228 22 10.5v1c0 2.33 0 3.495-.38 4.413a5 5 0 0 1-2.707 2.706c-.66.274-1.447.35-2.703.372c-.85.015-1.275.022-1.613.219c-.338.196-.548.551-.968 1.262" opacity=".5"/><path fill="currentColor" d="M10.99 14.308c-1.327-.978-3.49-2.84-3.49-4.593c0-2.677 2.475-3.677 4.5-1.609c2.025-2.068 4.5-1.068 4.5 1.609c0 1.752-2.163 3.615-3.49 4.593c-.454.335-.681.502-1.01.502c-.329 0-.556-.167-1.01-.502"/></svg><span>随笔</span></div></a></div></div></widget>
 
 <widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/05/09/Hexo-GitHub-Pages-%E9%83%A8%E7%BD%B2%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/"><span class="title">Hexo + GitHub Pages 部署修复记录</span></a><a class="item title" href="/2025/02/17/ML/"><span class="title">ML</span></a><a class="item title" href="/2024/07/08/%E3%80%8A%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF%E3%80%8B/"><span class="title">《游戏设计艺术》</span></a><a class="item title" href="/2024/07/08/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF-%E9%80%8F%E9%95%9C/"><span class="title">游戏设计艺术-透镜</span></a><a class="item title" href="/2024/07/08/%E3%80%8A%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF%E3%80%8BCH2%E8%AE%BE%E8%AE%A1%E5%B8%88%E5%88%9B%E9%80%A0%E4%BD%93%E9%AA%8C/"><span class="title">《游戏设计艺术》CH2设计师创造体验</span></a><a class="item title" href="/2024/07/08/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AFCH1/"><span class="title">我是游戏设计师</span></a></div></widget>
-
-<widget class="widget-wrapper tagcloud"><div class="widget-header dis-select"><span class="name">标签</span></div><div class="widget-body fs14"><a href="/tags/GAMES101/" style="font-size: 12px;" class="tag -0">GAMES101<span class="count">1</span></a> <a href="/tags/GitHub-Pages/" style="font-size: 12px;" class="tag -0">GitHub Pages<span class="count">1</span></a> <a href="/tags/Hexo/" style="font-size: 12px;" class="tag -0">Hexo<span class="count">1</span></a> <a href="/tags/ML/" style="font-size: 12px;" class="tag -0">ML<span class="count">1</span></a> <a href="/tags/test/" style="font-size: 12px;" class="tag -0">test<span class="count">1</span></a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 12px;" class="tag -0">博客<span class="count">1</span></a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 12px;" class="tag -0">机器学习<span class="count">1</span></a> <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="font-size: 24px;" class="tag -10">游戏设计<span class="count">4</span></a> <a href="/tags/%E7%8E%A9%E6%B3%95%E5%88%86%E6%9E%90/" style="font-size: 12px;" class="tag -0">玩法分析<span class="count">1</span></a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" style="font-size: 12px;" class="tag -0">计算机图形学<span class="count">1</span></a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 12px;" class="tag -0">部署<span class="count">1</span></a></div></widget>
 </div>
 
 </div></aside><div class="l_main" id="main">
 
-<header class="header mobile-only"><div class="logo-wrap"><a class="title" href="/"><div class="main">Lwh</div><div class="sub cap">技术笔记 / 游戏设计 / 随笔</div></a></div></header>
-
- 
 
 
 
 
-<div class="navbar top"><div class="navbar-blur"><div class="navbar-container"><nav class="post"><a href="/">近期发布</a><a href="/categories/">分类</a><a class="active" href="/tags/">标签：游戏设计</a><a href="/archives/">归档</a></nav></div></div></div>
-<div class="post-list post"><a class="post-card post" href="/2024/07/08/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AFCH1/">
-<article class="md-text"><h2 class="post-title">我是游戏设计师</h2><div class="excerpt"><p>1 启始： 我是游戏设计师
-咒语：随时随地告诉别人，也告诉自己，我是游戏设计师
-最重要的技能（五种倾听）
-团队 第26、27章 他们拥有你所没有的技能
-受众 第9至11章、第24、25、33章 他们才是评判你是否成功的人
-游戏 本书的大部分章节 工匠必须了解自己的造物
-客户 (第30至32章) 客户是指已经付费的...</p></div><div class="meta cap"><span class="cap" id="post-meta"><svg style="margin-bottom:2px" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M6.94 2c.416 0 .753.324.753.724v1.46c.668-.012 1.417-.012 2.26-.012h4.015c.842 0 1.591 0 2.259.013v-1.46c0-.4.337-.725.753-.725s.753.324.753.724V4.25c1.445.111 2.394.384 3.09 1.055c.698.67.982 1.582 1.097 2.972L22 9H2v-.724c.116-1.39.4-2.302 1.097-2.972c.697-.67 1.645-.944 3.09-1.055V2.724c0-.4.337-.724.753-.724"/><path fill="currentColor" d="M22 14v-2c0-.839-.004-2.335-.017-3H2.01c-.013.665-.01 2.161-.01 3v2c0 3.771 0 5.657 1.172 6.828C4.343 22 6.228 22 10 22h4c3.77 0 5.656 0 6.828-1.172C22 19.658 22 17.772 22 14" opacity=".5"/><path fill="currentColor" d="M18 17a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></svg><time datetime="2024-07-08T12:00:00.000Z">2024-07-08</time></span><span class="cap breadcrumb" style="--text-p2:#16a34a;--theme-block:#16a34a20"><svg style="margin-bottom:1px" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6.95c0-.883 0-1.324.07-1.692A4 4 0 0 1 5.257 2.07C5.626 2 6.068 2 6.95 2c.386 0 .58 0 .766.017a4 4 0 0 1 2.18.904c.144.119.28.255.554.529L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .848.352C14.098 6 14.675 6 15.828 6h.374c2.632 0 3.949 0 4.804.77c.079.07.154.145.224.224c.77.855.77 2.172.77 4.804V14c0 3.771 0 5.657-1.172 6.828C19.657 22 17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172C2 19.657 2 17.771 2 14z" opacity=".5"/><path fill="currentColor" d="M20 6.238c0-.298-.005-.475-.025-.63a3 3 0 0 0-2.583-2.582C17.197 3 16.965 3 16.5 3H9.988c.116.104.247.234.462.45L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .849.352C14.098 6 14.675 6 15.829 6h.373c1.78 0 2.957 0 3.798.238"/><path fill="currentColor" fill-rule="evenodd" d="M12.25 10a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75" clip-rule="evenodd"/></svg><span>游戏设计</span></span></div></article>
-</a><a class="post-card post" href="/2024/07/08/%E3%80%8A%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF%E3%80%8BCH2%E8%AE%BE%E8%AE%A1%E5%B8%88%E5%88%9B%E9%80%A0%E4%BD%93%E9%AA%8C/">
-<article class="md-text"><h2 class="post-title">《游戏设计艺术》CH2设计师创造体验</h2><div class="excerpt"><p>2 设计师创造体验
-游戏是提供的体验的方法，但不等于体验，也不同于书籍、电影之类的提供的体验，它是交互式的、是非线性的，会产生特定的感受——像选择感、自由感、责任感、成就感、友情等。那么为了做出能给他人提供满意体验的游戏，游戏设计师得先从自己的体验着手——毕竟你永远无法了解其他人的体验，你拥有的只有你自己的体验。...</p></div><div class="meta cap"><span class="cap" id="post-meta"><svg style="margin-bottom:2px" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M6.94 2c.416 0 .753.324.753.724v1.46c.668-.012 1.417-.012 2.26-.012h4.015c.842 0 1.591 0 2.259.013v-1.46c0-.4.337-.725.753-.725s.753.324.753.724V4.25c1.445.111 2.394.384 3.09 1.055c.698.67.982 1.582 1.097 2.972L22 9H2v-.724c.116-1.39.4-2.302 1.097-2.972c.697-.67 1.645-.944 3.09-1.055V2.724c0-.4.337-.724.753-.724"/><path fill="currentColor" d="M22 14v-2c0-.839-.004-2.335-.017-3H2.01c-.013.665-.01 2.161-.01 3v2c0 3.771 0 5.657 1.172 6.828C4.343 22 6.228 22 10 22h4c3.77 0 5.656 0 6.828-1.172C22 19.658 22 17.772 22 14" opacity=".5"/><path fill="currentColor" d="M18 17a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></svg><time datetime="2024-07-08T12:00:00.000Z">2024-07-08</time></span><span class="cap breadcrumb" style="--text-p2:#16a34a;--theme-block:#16a34a20"><svg style="margin-bottom:1px" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6.95c0-.883 0-1.324.07-1.692A4 4 0 0 1 5.257 2.07C5.626 2 6.068 2 6.95 2c.386 0 .58 0 .766.017a4 4 0 0 1 2.18.904c.144.119.28.255.554.529L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .848.352C14.098 6 14.675 6 15.828 6h.374c2.632 0 3.949 0 4.804.77c.079.07.154.145.224.224c.77.855.77 2.172.77 4.804V14c0 3.771 0 5.657-1.172 6.828C19.657 22 17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172C2 19.657 2 17.771 2 14z" opacity=".5"/><path fill="currentColor" d="M20 6.238c0-.298-.005-.475-.025-.63a3 3 0 0 0-2.583-2.582C17.197 3 16.965 3 16.5 3H9.988c.116.104.247.234.462.45L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .849.352C14.098 6 14.675 6 15.829 6h.373c1.78 0 2.957 0 3.798.238"/><path fill="currentColor" fill-rule="evenodd" d="M12.25 10a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75" clip-rule="evenodd"/></svg><span>游戏设计</span></span></div></article>
-</a><a class="post-card post" href="/2024/07/08/%E3%80%8A%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF%E3%80%8B/">
-<article class="md-text"><h2 class="post-title">《游戏设计艺术》</h2><div class="excerpt"><p>书单 拓展阅读CH1
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/tech-notes/">技术笔记</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-05-09T04:00:00.000Z">2026-05-09</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-08T16:22:40.071Z">2026-05-09</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Hexo + GitHub Pages 部署修复记录</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p>这篇记录一下这次 Hexo + GitHub Pages 个人博客无法使用的排查过程。最后发现问题不在 GitHub Pages，而是在本地 Hexo 项目缺少核心依赖。</p>
+<h2 id="问题现象"><a href="#问题现象" class="headerlink" title="问题现象"></a>问题现象</h2><p>博客项目目录是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F:\Blog\myblog</span><br></pre></td></tr></table></figure>
 
-《太阳马戏团:火花-点燃我们心中的创意之火》​，约翰·U·培根、琳恩·休厄德著。这是一本很棒的小书，教你怎么找到自己的道路。
-《游戏设计师修炼秘籍》​，布伦达·布瑞斯韦特、施雷伯著。这是一套非常出色的习题集，想要锻炼你的游戏设计肌肉时可以做。
+<p>之前清理文件时可能误删了一些依赖或配置，导致 Hexo 无法正常构建。执行构建时出现类似错误：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cannot find module &#x27;hexo&#x27;</span><br></pre></td></tr></table></figure>
 
-CH3
+<p>这类错误说明本地项目里找不到 Hexo 的核心包。</p>
+<h2 id="根因"><a href="#根因" class="headerlink" title="根因"></a>根因</h2><p>这个项目是 Hexo 项目，但 <code>package.json</code> 里当时只有 <code>hexo-cli</code>，缺少真正用于运行站点的 <code>hexo</code> 依赖。</p>
+<p>这两个东西不是一回事：</p>
+<ul>
+<li><code>hexo-cli</code>：提供 <code>hexo</code> 命令入口。</li>
+<li><code>hexo</code>：Hexo 的核心依赖，负责真正生成站点。</li>
+</ul>
+<p>只有命令入口、没有核心包时，执行 <code>hexo generate</code> 或 <code>npm run build</code> 就会失败。</p>
+<h2 id="修复方法"><a href="#修复方法" class="headerlink" title="修复方法"></a>修复方法</h2><p>在博客目录中安装 Hexo 核心依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> F:\Blog\myblog</span><br><span class="line">npm install hexo@6.3.0 --save</span><br></pre></td></tr></table></figure>
 
-克里斯多弗·亚历山大等人撰写的《建...</p></div><div class="meta cap"><span class="cap" id="post-meta"><svg style="margin-bottom:2px" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M6.94 2c.416 0 .753.324.753.724v1.46c.668-.012 1.417-.012 2.26-.012h4.015c.842 0 1.591 0 2.259.013v-1.46c0-.4.337-.725.753-.725s.753.324.753.724V4.25c1.445.111 2.394.384 3.09 1.055c.698.67.982 1.582 1.097 2.972L22 9H2v-.724c.116-1.39.4-2.302 1.097-2.972c.697-.67 1.645-.944 3.09-1.055V2.724c0-.4.337-.724.753-.724"/><path fill="currentColor" d="M22 14v-2c0-.839-.004-2.335-.017-3H2.01c-.013.665-.01 2.161-.01 3v2c0 3.771 0 5.657 1.172 6.828C4.343 22 6.228 22 10 22h4c3.77 0 5.656 0 6.828-1.172C22 19.658 22 17.772 22 14" opacity=".5"/><path fill="currentColor" d="M18 17a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></svg><time datetime="2024-07-08T12:00:00.000Z">2024-07-08</time></span><span class="cap breadcrumb" style="--text-p2:#16a34a;--theme-block:#16a34a20"><svg style="margin-bottom:1px" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6.95c0-.883 0-1.324.07-1.692A4 4 0 0 1 5.257 2.07C5.626 2 6.068 2 6.95 2c.386 0 .58 0 .766.017a4 4 0 0 1 2.18.904c.144.119.28.255.554.529L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .848.352C14.098 6 14.675 6 15.828 6h.374c2.632 0 3.949 0 4.804.77c.079.07.154.145.224.224c.77.855.77 2.172.77 4.804V14c0 3.771 0 5.657-1.172 6.828C19.657 22 17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172C2 19.657 2 17.771 2 14z" opacity=".5"/><path fill="currentColor" d="M20 6.238c0-.298-.005-.475-.025-.63a3 3 0 0 0-2.583-2.582C17.197 3 16.965 3 16.5 3H9.988c.116.104.247.234.462.45L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .849.352C14.098 6 14.675 6 15.829 6h.373c1.78 0 2.957 0 3.798.238"/><path fill="currentColor" fill-rule="evenodd" d="M12.25 10a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75" clip-rule="evenodd"/></svg><span>游戏设计</span></span></div></article>
-</a><a class="post-card post" href="/2024/07/08/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF-%E9%80%8F%E9%95%9C/">
-<article class="md-text"><h2 class="post-title">游戏设计艺术-透镜</h2><div class="excerpt"><p>CH2 透镜1-2 情感 本质体验1号透镜 情感 确定自己想创造的情感是正确的。 我希望玩家能体验到怎样的情感?为什么？ 当人们玩游戏时，产生了怎样的情感？为什么？ 我怎么缩小人们的实际体验与我设想之间的距离？2号透镜 本质体验 思考玩家体验 我想要让玩家获得怎样的体验？这种体验的本质是什么？我的游戏如何抓住这种...</p></div><div class="meta cap"><span class="cap" id="post-meta"><svg style="margin-bottom:2px" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M6.94 2c.416 0 .753.324.753.724v1.46c.668-.012 1.417-.012 2.26-.012h4.015c.842 0 1.591 0 2.259.013v-1.46c0-.4.337-.725.753-.725s.753.324.753.724V4.25c1.445.111 2.394.384 3.09 1.055c.698.67.982 1.582 1.097 2.972L22 9H2v-.724c.116-1.39.4-2.302 1.097-2.972c.697-.67 1.645-.944 3.09-1.055V2.724c0-.4.337-.724.753-.724"/><path fill="currentColor" d="M22 14v-2c0-.839-.004-2.335-.017-3H2.01c-.013.665-.01 2.161-.01 3v2c0 3.771 0 5.657 1.172 6.828C4.343 22 6.228 22 10 22h4c3.77 0 5.656 0 6.828-1.172C22 19.658 22 17.772 22 14" opacity=".5"/><path fill="currentColor" d="M18 17a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></svg><time datetime="2024-07-08T12:00:00.000Z">2024-07-08</time></span><span class="cap breadcrumb" style="--text-p2:#16a34a;--theme-block:#16a34a20"><svg style="margin-bottom:1px" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6.95c0-.883 0-1.324.07-1.692A4 4 0 0 1 5.257 2.07C5.626 2 6.068 2 6.95 2c.386 0 .58 0 .766.017a4 4 0 0 1 2.18.904c.144.119.28.255.554.529L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .848.352C14.098 6 14.675 6 15.828 6h.374c2.632 0 3.949 0 4.804.77c.079.07.154.145.224.224c.77.855.77 2.172.77 4.804V14c0 3.771 0 5.657-1.172 6.828C19.657 22 17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172C2 19.657 2 17.771 2 14z" opacity=".5"/><path fill="currentColor" d="M20 6.238c0-.298-.005-.475-.025-.63a3 3 0 0 0-2.583-2.582C17.197 3 16.965 3 16.5 3H9.988c.116.104.247.234.462.45L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .849.352C14.098 6 14.675 6 15.829 6h.373c1.78 0 2.957 0 3.798.238"/><path fill="currentColor" fill-rule="evenodd" d="M12.25 10a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75" clip-rule="evenodd"/></svg><span>游戏设计</span></span></div></article>
-</a></div>
+<p>安装后会更新两个文件：</p>
+<ul>
+<li><code>package.json</code></li>
+<li><code>package-lock.json</code></li>
+</ul>
+<p>修复后的依赖大概是这样：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;hexo&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^6.3.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-cli&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.3.2&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="验证修复"><a href="#验证修复" class="headerlink" title="验证修复"></a>验证修复</h2><p>先确认项目里已经能找到 Hexo：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="built_in">ls</span> hexo</span><br></pre></td></tr></table></figure>
+
+<p>期望能看到类似结果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo@6.3.0</span><br></pre></td></tr></table></figure>
+
+<p>然后重新构建：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<p>如果输出里出现：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INFO  Generated</span><br></pre></td></tr></table></figure>
+
+<p>并且没有报错，就说明本地构建恢复正常。</p>
+<p>这次修复后，<code>npm run build</code> 已经可以通过，并生成静态文件。</p>
+<h2 id="再处理部署"><a href="#再处理部署" class="headerlink" title="再处理部署"></a>再处理部署</h2><p>本地构建成功后，才需要考虑部署到 GitHub Pages。</p>
+<p>部署配置在 <code>_config.yml</code> 里：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">git@github.com:LIiliILf/LIiliILf.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure>
+
+<p>这里表示 Hexo 会把生成后的静态文件推送到 GitHub Pages 仓库的 <code>main</code> 分支。</p>
+<p>我当时没有直接执行部署命令，因为 <code>npm run deploy</code> 会推送到 GitHub，需要本机 SSH &#x2F; GitHub 凭据。</p>
+<h2 id="为什么网站内容看起来很少"><a href="#为什么网站内容看起来很少" class="headerlink" title="为什么网站内容看起来很少"></a>为什么网站内容看起来很少</h2><p>本地构建恢复后，网站能显示什么，取决于 <code>source/_posts/</code> 下面有多少篇文章。</p>
+<p>Hexo 不会自动把以前的普通 HTML 页面变成文章。文章需要是 Markdown 文件，并放在：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source/_posts/</span><br></pre></td></tr></table></figure>
+
+<p>如果只剩默认文章，就只会看到 <code>Hello World</code>。新文章部署后也可能因为 GitHub Pages 缓存有几分钟延迟，不一定马上刷新。</p>
+<h2 id="以后发布文章的流程"><a href="#以后发布文章的流程" class="headerlink" title="以后发布文章的流程"></a>以后发布文章的流程</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm run clean</span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<p>确认本地构建成功后再部署：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run deploy</span><br></pre></td></tr></table></figure>
+
+<p>GitHub Pages 有时不会立刻刷新，部署成功后等几分钟再打开网站是正常的。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这次真正的修复点是：</p>
+<ul>
+<li>根因：<code>package.json</code> 缺少 Hexo 核心依赖，导致 <code>Cannot find module &#39;hexo&#39;</code>。</li>
+<li>修复：补回 <code>hexo@6.3.0</code>，并同步更新 <code>package-lock.json</code>。</li>
+<li>验证：<code>npm ls hexo</code> 能看到 <code>hexo@6.3.0</code>，<code>npm run build</code> 能成功生成静态文件。</li>
+</ul>
+<p>以后遇到 Hexo + GitHub Pages 部署问题，先不要急着看 GitHub Pages，应该先确认本地能否成功 <code>npm run build</code>。本地构建通过后，再检查部署命令和 GitHub Pages 刷新延迟。</p>
+</article>
+
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2026/05/08/GMTK-%E8%82%89%E9%B8%BD%EF%BC%9A%E6%B0%B8%E4%B9%85%E6%95%88%E6%9E%9C%E4%B8%8E%E8%BF%9B%E5%BA%A6%E4%BF%9D%E7%95%99/">肉鸽：永久效果与进度保留</a></div></section></div>
+
+
+
+
 
 
 <footer class="page-footer footnote"><hr><div class="sitemap" style="column-count:1;"><div class="sitemap-group"><span class="fs15">内容</span><a href="/">近期发布</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div></div><div class="text"><p>本站使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
-</aside><div class='float-panel'>
+<div class="widgets">
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E7%8E%B0%E8%B1%A1"><span class="toc-text">问题现象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B9%E5%9B%A0"><span class="toc-text">根因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8D%E6%96%B9%E6%B3%95"><span class="toc-text">修复方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E4%BF%AE%E5%A4%8D"><span class="toc-text">验证修复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%8D%E5%A4%84%E7%90%86%E9%83%A8%E7%BD%B2"><span class="toc-text">再处理部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BD%91%E7%AB%99%E5%86%85%E5%AE%B9%E7%9C%8B%E8%B5%B7%E6%9D%A5%E5%BE%88%E5%B0%91"><span class="toc-text">为什么网站内容看起来很少</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A5%E5%90%8E%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-text">以后发布文章的流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
   </button>
