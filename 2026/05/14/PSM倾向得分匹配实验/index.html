@@ -1,0 +1,928 @@
+
+<!DOCTYPE html><html lang="zh-CN" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>Titanic PSM 倾向得分匹配实验整理 - Lwh</title>
+
+  
+    <meta name="description" content="使用 Titanic 数据集整理 PSM 倾向得分匹配实验">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Titanic PSM 倾向得分匹配实验整理">
+<meta property="og:url" content="https://liiliilf.github.io/2026/05/14/PSM%E5%80%BE%E5%90%91%E5%BE%97%E5%88%86%E5%8C%B9%E9%85%8D%E5%AE%9E%E9%AA%8C/">
+<meta property="og:site_name" content="Lwh">
+<meta property="og:description" content="使用 Titanic 数据集整理 PSM 倾向得分匹配实验">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-14T09:50:19.000Z">
+<meta property="article:modified_time" content="2026-05-15T14:06:57.395Z">
+<meta property="article:author" content="Lwh">
+<meta property="article:tag" content="PSM">
+<meta property="article:tag" content="因果推断">
+<meta property="article:tag" content="数据分析">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="PSM,因果推断,数据分析">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Lwh","sameAs":[]},"dateCreated":"2026-05-14T17:50:19+08:00","dateModified":"2026-05-15T22:06:57+08:00","datePublished":"2026-05-14T17:50:19+08:00","description":"","headline":"Titanic PSM 倾向得分匹配实验整理","mainEntityOfPage":{"@type":"WebPage","@id":"https://liiliilf.github.io/2026/05/14/PSM%E5%80%BE%E5%90%91%E5%BE%97%E5%88%86%E5%8C%B9%E9%85%8D%E5%AE%9E%E9%AA%8C/"},"publisher":{"@type":"Organization","name":"Lwh","sameAs":[]},"url":"https://liiliilf.github.io/2026/05/14/PSM%E5%80%BE%E5%90%91%E5%BE%97%E5%88%86%E5%8C%B9%E9%85%8D%E5%AE%9E%E9%AA%8C/","keywords":"PSM, 因果推断, 数据分析","image":[]}</script>
+  
+</head>
+<body><div class="sitebg"><div class="siteblur"></div></div>
+
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="title" href="/"><div class="main">Lwh</div><div class="sub cap">技术笔记 / 游戏设计 / 随笔</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item active" title="首页" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="分类" href="/categories/" style="color:#3DC550"><svg style="margin-bottom:1px" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6.95c0-.883 0-1.324.07-1.692A4 4 0 0 1 5.257 2.07C5.626 2 6.068 2 6.95 2c.386 0 .58 0 .766.017a4 4 0 0 1 2.18.904c.144.119.28.255.554.529L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .848.352C14.098 6 14.675 6 15.828 6h.374c2.632 0 3.949 0 4.804.77c.079.07.154.145.224.224c.77.855.77 2.172.77 4.804V14c0 3.771 0 5.657-1.172 6.828C19.657 22 17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172C2 19.657 2 17.771 2 14z" opacity=".5"/><path fill="currentColor" d="M20 6.238c0-.298-.005-.475-.025-.63a3 3 0 0 0-2.583-2.582C17.197 3 16.965 3 16.5 3H9.988c.116.104.247.234.462.45L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .849.352C14.098 6 14.675 6 15.829 6h.373c1.78 0 2.957 0 3.798.238"/><path fill="currentColor" fill-rule="evenodd" d="M12.25 10a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75" clip-rule="evenodd"/></svg></a><a class="nav-item" title="标签" href="/tags/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+<widget class="widget-wrapper linklist"><div class="widget-header dis-select"><span class="name">内容分类</span></div><div class="widget-body fs14">
+<div class="linklist left" style="grid-template-columns:repeat(1,1fr);">
+<a class="link" title="技术笔记" href="/categories/tech-notes/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg><span>技术笔记</span></div></a>
+<a class="link" title="游戏设计" href="/game-design/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg><span>游戏设计</span></div></a>
+<a class="link" title="随笔" href="/categories/essays/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m13.629 20.472l-.542.916c-.483.816-1.69.816-2.174 0l-.542-.916c-.42-.71-.63-1.066-.968-1.262c-.338-.197-.763-.204-1.613-.219c-1.256-.021-2.043-.098-2.703-.372a5 5 0 0 1-2.706-2.706C2 14.995 2 13.83 2 11.5v-1c0-3.273 0-4.91.737-6.112a5 5 0 0 1 1.65-1.651C5.59 2 7.228 2 10.5 2h3c3.273 0 4.91 0 6.113.737a5 5 0 0 1 1.65 1.65C22 5.59 22 7.228 22 10.5v1c0 2.33 0 3.495-.38 4.413a5 5 0 0 1-2.707 2.706c-.66.274-1.447.35-2.703.372c-.85.015-1.275.022-1.613.219c-.338.196-.548.551-.968 1.262" opacity=".5"/><path fill="currentColor" d="M10.99 14.308c-1.327-.978-3.49-2.84-3.49-4.593c0-2.677 2.475-3.677 4.5-1.609c2.025-2.068 4.5-1.068 4.5 1.609c0 1.752-2.163 3.615-3.49 4.593c-.454.335-.681.502-1.01.502c-.329 0-.556-.167-1.01-.502"/></svg><span>随笔</span></div></a></div></div></widget>
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2024/07/08/%E3%80%8A%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF%E3%80%8BCH2%E8%AE%BE%E8%AE%A1%E5%B8%88%E5%88%9B%E9%80%A0%E4%BD%93%E9%AA%8C/"><span class="title">《游戏设计艺术》CH2设计师创造体验</span></a><a class="item title" href="/2024/07/08/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AFCH1/"><span class="title">我是游戏设计师</span></a><a class="item title" href="/2026/05/14/PSM%E5%80%BE%E5%90%91%E5%BE%97%E5%88%86%E5%8C%B9%E9%85%8D%E5%AE%9E%E9%AA%8C/"><span class="title">Titanic PSM 倾向得分匹配实验整理</span></a><a class="item title" href="/2026/05/15/PSM%E5%80%BE%E5%90%91%E5%BE%97%E5%88%86%E5%8C%B9%E9%85%8D/"><span class="title">PSM 倾向得分匹配</span></a><a class="item title" href="/2026/05/10/Skill%EF%BC%9A%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD%E7%9A%84%E8%83%BD%E5%8A%9B%E5%8C%85/"><span class="title">Skill：按需加载的能力包</span></a><a class="item title" href="/2025/10/13/RAG%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%81%E4%B8%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E7%A6%BB%E4%B8%8D%E5%BC%80%E5%AE%83/"><span class="title">RAG 是什么？为什么企业知识库都绕不开它？</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/tech-notes/">技术笔记</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-05-14T09:50:19.000Z">2026-05-14</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-15T14:06:57.395Z">2026-05-15</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Titanic PSM 倾向得分匹配实验整理</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="Titanic-PSM-倾向得分匹配实验整理"><a href="#Titanic-PSM-倾向得分匹配实验整理" class="headerlink" title="Titanic PSM 倾向得分匹配实验整理"></a>Titanic PSM 倾向得分匹配实验整理</h1><p>GitHub链接：<a target="_blank" rel="noopener" href="https://github.com/LIiliILf/titanic-psm">https://github.com/LIiliILf/titanic-psm</a></p>
+<h2 id="实验目标"><a href="#实验目标" class="headerlink" title="实验目标"></a>实验目标</h2><p>本实验使用 Titanic 数据集，将是否拥有 Cabin 信息定义为 treatment：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">treatment = 1：有 Cabin 信息</span><br><span class="line">treatment = 0：没有 Cabin 信息</span><br></pre></td></tr></table></figure>
+
+<p>结果变量为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">outcome = Survived</span><br></pre></td></tr></table></figure>
+
+<p>实验目标是通过倾向得分匹配，比较“有 Cabin 的乘客”和“特征相似但没有 Cabin 的乘客”在生还率上的差异，并估计 ATT。</p>
+<hr>
+<h1 id="0-准备：导包与辅助函数"><a href="#0-准备：导包与辅助函数" class="headerlink" title="0. 准备：导包与辅助函数"></a>0. 准备：导包与辅助函数</h1><p>这一部分主要是导入后续实验需要的库，并定义辅助函数。</p>
+<p>包括：</p>
+<ul>
+<li><code>LogisticRegression</code>：估计 propensity score。</li>
+<li><code>Pipeline</code>：串联标准化和逻辑回归。</li>
+<li><code>StandardScaler</code>：对变量标准化。</li>
+<li><code>NearestNeighbors</code>：寻找最近邻匹配样本。</li>
+<li><code>metrics</code>：评估倾向得分模型。</li>
+<li><code>pandas / numpy</code>：数据处理。</li>
+<li><code>matplotlib / seaborn</code>：可视化。</li>
+<li><code>statsmodels</code>：可选，用于后续统计分析。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># =========================</span></span><br><span class="line"><span class="comment"># 0. 导入库和辅助函数</span></span><br><span class="line"><span class="comment"># =========================</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 机器学习建模：用于估计 propensity score</span></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression <span class="keyword">as</span> lr</span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> NearestNeighbors</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics</span><br><span class="line"></span><br><span class="line"><span class="comment"># 基础数据处理与数学计算</span></span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 functions.py 中导入自定义函数</span></span><br><span class="line"><span class="comment"># 包括 hasCabin(), logit(), cohenD() 等</span></span><br><span class="line"><span class="keyword">from</span> functions <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 统计分析</span></span><br><span class="line"><span class="keyword">import</span> statsmodels.api <span class="keyword">as</span> sm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可视化</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.style.use(<span class="string">&#x27;classic&#x27;</span>)</span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">sns.<span class="built_in">set</span>(rc=&#123;<span class="string">&#x27;figure.figsize&#x27;</span>: (<span class="number">16</span>, <span class="number">10</span>)&#125;, font_scale=<span class="number">1.3</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>functions.py</code> 中的辅助函数如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">logit</span>(<span class="params">p</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    将概率 p 转换成 logit 值。</span></span><br><span class="line"><span class="string">    logit(p) = log(p / (1 - p))</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> math.log(p / (<span class="number">1</span> - p))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hasCabin</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    判断乘客是否有 Cabin 信息。</span></span><br><span class="line"><span class="string">    Cabin 缺失：返回 0</span></span><br><span class="line"><span class="string">    Cabin 不缺失：返回 1</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> pd.isna(x):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cohenD</span>(<span class="params">tmp, metricName</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    计算 treatment 组和 control 组在某个变量上的标准化均值差异 Cohen&#x27;s d。</span></span><br><span class="line"><span class="string">    在 PSM 中用于检查匹配前后协变量是否平衡。</span></span><br><span class="line"><span class="string">    d 越接近 0，说明两组越相似。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    treated_metric = tmp[tmp.treatment == <span class="number">1</span>][metricName]</span><br><span class="line">    untreated_metric = tmp[tmp.treatment == <span class="number">0</span>][metricName]</span><br><span class="line"></span><br><span class="line">    pooled_std = math.sqrt(</span><br><span class="line">        (</span><br><span class="line">            (treated_metric.count() - <span class="number">1</span>) * treated_metric.std() ** <span class="number">2</span></span><br><span class="line">            + (untreated_metric.count() - <span class="number">1</span>) * untreated_metric.std() ** <span class="number">2</span></span><br><span class="line">        )</span><br><span class="line">        / (treated_metric.count() + untreated_metric.count() - <span class="number">2</span>)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    d = (treated_metric.mean() - untreated_metric.mean()) / pooled_std</span><br><span class="line">    <span class="keyword">return</span> d</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="1-读取数据与清洗"><a href="#1-读取数据与清洗" class="headerlink" title="1. 读取数据与清洗"></a>1. 读取数据与清洗</h1><p>这一部分读取 Titanic 数据，并删除关键变量中的缺失值。</p>
+<p>清洗的目的，是保证后续估计 propensity score 和进行匹配时，不会因为缺失值导致模型报错。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># =========================</span></span><br><span class="line"><span class="comment"># 1. 读取数据与基础清洗</span></span><br><span class="line"><span class="comment"># =========================</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取 Titanic 训练数据</span></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;train.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除关键变量中的缺失值</span></span><br><span class="line"><span class="comment"># 这样做是为了保证后续建模和匹配不会因为缺失值报错</span></span><br><span class="line">df = df[~df.Age.isna()]</span><br><span class="line">df = df[~df.Embarked.isna()]</span><br><span class="line">df = df[~df.Sex.isna()]</span><br><span class="line">df = df[~df.SibSp.isna()]</span><br><span class="line">df = df[~df.Parch.isna()]</span><br><span class="line">df = df[~df.Pclass.isna()]</span><br><span class="line">df = df[~df.Fare.isna()]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置索引</span></span><br><span class="line"><span class="comment"># drop=True 可以避免旧索引变成一列</span></span><br><span class="line">df = df.reset_index(drop=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="2-定义-treatment、outcome-和-covariates"><a href="#2-定义-treatment、outcome-和-covariates" class="headerlink" title="2. 定义 treatment、outcome 和 covariates"></a>2. 定义 treatment、outcome 和 covariates</h1><p>这一部分是 PSM 的核心设定。</p>
+<p>在本实验中：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">outcome = Survived</span><br><span class="line">treatment = 是否有 Cabin 信息</span><br><span class="line">covariates = Sex, Age, SibSp, Parch, Embarked, Pclass, Fare</span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<ul>
+<li><code>Survived</code> 是结果变量。</li>
+<li><code>Cabin</code> 是否缺失被用来构造 treatment。</li>
+<li>其他变量作为协变量，用来估计 propensity score。</li>
+</ul>
+<p>需要注意的是，<code>Pclass</code> 不应该被删除。它很可能同时影响是否有 Cabin 和是否生还，因此应该作为协变量被控制。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># =========================</span></span><br><span class="line"><span class="comment"># 2. 定义 outcome 、 treatment 和 covariates</span></span><br><span class="line"><span class="comment"># =========================</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 Survived 单独取出来，作为 outcome</span></span><br><span class="line">y = df[[<span class="string">&#x27;Survived&#x27;</span>]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 df 中删除 Survived，避免后面用 outcome 预测 treatment</span></span><br><span class="line">df = df.drop(columns=[<span class="string">&#x27;Survived&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造 treatment 变量</span></span><br><span class="line"><span class="comment"># treatment = 1 表示有 Cabin 信息</span></span><br><span class="line"><span class="comment"># treatment = 0 表示没有 Cabin 信息</span></span><br><span class="line">df[<span class="string">&#x27;treatment&#x27;</span>] = df.Cabin.apply(hasCabin)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 treatment 和 Pclass 的关系</span></span><br><span class="line"><span class="comment"># 这里是为了观察有 Cabin 和无 Cabin 的乘客在舱位等级上的分布差异</span></span><br><span class="line">pivot = pd.pivot_table(</span><br><span class="line">    df[[<span class="string">&#x27;treatment&#x27;</span>, <span class="string">&#x27;Pclass&#x27;</span>, <span class="string">&#x27;PassengerId&#x27;</span>]],</span><br><span class="line">    values=<span class="string">&#x27;PassengerId&#x27;</span>,</span><br><span class="line">    index=<span class="string">&#x27;treatment&#x27;</span>,</span><br><span class="line">    columns=<span class="string">&#x27;Pclass&#x27;</span>,</span><br><span class="line">    aggfunc=np.count_nonzero</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">display(pivot)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保留用于估计 propensity score 的变量</span></span><br><span class="line"><span class="comment"># treatment 是要预测的处理变量</span></span><br><span class="line"><span class="comment"># 其他变量是协变量 X</span></span><br><span class="line">df_data = df[[<span class="string">&#x27;treatment&#x27;</span>, <span class="string">&#x27;Sex&#x27;</span>, <span class="string">&#x27;Age&#x27;</span>, <span class="string">&#x27;SibSp&#x27;</span>, <span class="string">&#x27;Parch&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>, <span class="string">&#x27;Pclass&#x27;</span>, <span class="string">&#x27;Fare&#x27;</span>]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拆分 treatment T 和协变量 X</span></span><br><span class="line">T = df_data.treatment</span><br><span class="line">X = df_data.loc[:, df_data.columns != <span class="string">&#x27;treatment&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对类别变量做 One-Hot 编码</span></span><br><span class="line"><span class="comment"># 机器学习模型不能直接处理 male/female、S/C/Q、1/2/3 这类类别值</span></span><br><span class="line"><span class="comment"># 所以需要转成 0/1 虚拟变量</span></span><br><span class="line">X_encoded = pd.get_dummies(</span><br><span class="line">    X,</span><br><span class="line">    columns=[<span class="string">&#x27;Sex&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>, <span class="string">&#x27;Pclass&#x27;</span>],</span><br><span class="line">    prefix=&#123;<span class="string">&#x27;Sex&#x27;</span>: <span class="string">&#x27;sex&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>: <span class="string">&#x27;embarked&#x27;</span>, <span class="string">&#x27;Pclass&#x27;</span>: <span class="string">&#x27;class&#x27;</span>&#125;,</span><br><span class="line">    drop_first=<span class="literal">False</span>,</span><br><span class="line">    dtype=<span class="built_in">int</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">display(X_encoded.head())</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="3-用协变量-X-估计-propensity-score"><a href="#3-用协变量-X-估计-propensity-score" class="headerlink" title="3. 用协变量 X 估计 propensity score"></a>3. 用协变量 X 估计 propensity score</h1><p>PSM 中的 propensity score 定义为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e(X) = P(T = 1 | X)</span><br></pre></td></tr></table></figure>
+
+<p>在本实验中就是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">给定乘客的 Sex、Age、Pclass、Fare 等特征后，</span><br><span class="line">这个乘客拥有 Cabin 信息的概率。</span><br></pre></td></tr></table></figure>
+
+<p>这里使用逻辑回归估计 propensity score。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># =========================</span></span><br><span class="line"><span class="comment"># 3. 用逻辑回归估计 propensity score</span></span><br><span class="line"><span class="comment"># =========================</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建建模流水线：</span></span><br><span class="line"><span class="comment"># 先标准化变量，再用逻辑回归预测 treatment</span></span><br><span class="line">pipe = Pipeline([</span><br><span class="line">    (<span class="string">&#x27;scaler&#x27;</span>, StandardScaler()),</span><br><span class="line">    (<span class="string">&#x27;logistic_classifier&#x27;</span>, lr())</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练模型</span></span><br><span class="line"><span class="comment"># 用 X_encoded 预测 treatment</span></span><br><span class="line">pipe.fit(X_encoded, T)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预测每个样本属于 treatment=0 和 treatment=1 的概率</span></span><br><span class="line">predictions = pipe.predict_proba(X_encoded)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二列 predictions[:, 1] 就是 P(T=1 | X)，也就是 propensity score</span></span><br><span class="line">propensity_score = predictions[:, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预测二分类结果，仅用于诊断模型是否能区分 treatment/control</span></span><br><span class="line">predictions_binary = pipe.predict(X_encoded)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出模型诊断结果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Accuracy: &#123;:.4f&#125;\n&#x27;</span>.<span class="built_in">format</span>(metrics.accuracy_score(T, predictions_binary)))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Confusion matrix:\n&#123;&#125;\n&#x27;</span>.<span class="built_in">format</span>(metrics.confusion_matrix(T, predictions_binary)))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;F1 score is: &#123;:.4f&#125;&#x27;</span>.<span class="built_in">format</span>(metrics.f1_score(T, predictions_binary)))</span><br></pre></td></tr></table></figure>
+
+<p>这里的 Accuracy 和 F1 不是最终评价指标。<br> 它们只是用来辅助判断：这些协变量是否能够解释 treatment 的分配。</p>
+<p>PSM 真正关心的是后续两件事：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. treatment 组和 control 组是否存在 common support</span><br><span class="line">2. 匹配后协变量是否达到平衡</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="4-检查-propensity-score-分布和-common-support"><a href="#4-检查-propensity-score-分布和-common-support" class="headerlink" title="4. 检查 propensity score 分布和 common support"></a>4. 检查 propensity score 分布和 common support</h1><p>这一部分先把 propensity score 转换为 logit 值，然后检查 treatment 组和 control 组是否有重叠区域。</p>
+<p>如果两组分布存在明显重叠，说明有相似样本，可以进行匹配。<br> 如果两组几乎完全分开，说明两组差异太大，匹配会比较困难。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># =========================</span></span><br><span class="line"><span class="comment"># 4. logit 转换与 common support 检查</span></span><br><span class="line"><span class="comment"># =========================</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 propensity score 转换成 logit(propensity score)</span></span><br><span class="line">predictions_logit = np.array([logit(xi) <span class="keyword">for</span> xi <span class="keyword">in</span> propensity_score])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 画出 propensity score 和 logit(propensity score) 的分布</span></span><br><span class="line">fig, ax = plt.subplots(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">fig.suptitle(<span class="string">&#x27;Density distribution plots for propensity score and logit(propensity score).&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 左图：原始 propensity score 分布</span></span><br><span class="line">sns.kdeplot(x=propensity_score, hue=T, ax=ax[<span class="number">0</span>])</span><br><span class="line">ax[<span class="number">0</span>].set_title(<span class="string">&#x27;Propensity Score&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 右图：logit propensity score 分布</span></span><br><span class="line">sns.kdeplot(x=predictions_logit, hue=T, ax=ax[<span class="number">1</span>])</span><br><span class="line">ax[<span class="number">1</span>].axvline(-<span class="number">0.4</span>, ls=<span class="string">&#x27;--&#x27;</span>)</span><br><span class="line">ax[<span class="number">1</span>].set_title(<span class="string">&#x27;Logit of Propensity Score&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p>图的理解：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">如果 treatment=1 和 treatment=0 的分布有重叠，</span><br><span class="line">说明存在相似样本，可以做匹配。</span><br><span class="line"></span><br><span class="line">如果两组几乎完全分开，</span><br><span class="line">说明 treatment 组和 control 组差异太大，匹配困难。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="5-用最近邻方法进行匹配"><a href="#5-用最近邻方法进行匹配" class="headerlink" title="5. 用最近邻方法进行匹配"></a>5. 用最近邻方法进行匹配</h1><p>这一部分是 PSM 的核心操作。</p>
+<p>原本代码里可以合并为四个小步骤：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">5.1 整合匹配所需数据</span><br><span class="line">5.2 建立最近邻模型</span><br><span class="line">5.3 为 treatment 样本寻找 matched control</span><br><span class="line">5.4 提取 control 样本并合并匹配数据</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="5-1-整合匹配所需数据"><a href="#5-1-整合匹配所需数据" class="headerlink" title="5.1 整合匹配所需数据"></a>5.1 整合匹配所需数据</h2><p>先把 propensity score、logit propensity score、outcome 加回数据表。</p>
+<p>这样后面可以在同一张表中完成匹配、平衡性检查和 ATT 估计。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># =========================</span></span><br><span class="line"><span class="comment"># 5.1 整合 propensity score、logit 和 outcome</span></span><br><span class="line"><span class="comment"># =========================</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义共同支撑区域</span></span><br><span class="line"><span class="comment"># 当前设置为 -10 到 10，通常不会删掉样本</span></span><br><span class="line">common_support = (predictions_logit &gt; -<span class="number">10</span>) &amp; (predictions_logit &lt; <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给原始可读版 df_data 添加 propensity score、logit 和 outcome</span></span><br><span class="line">df_data.loc[:, <span class="string">&#x27;propensity_score&#x27;</span>] = propensity_score</span><br><span class="line">df_data.loc[:, <span class="string">&#x27;propensity_score_logit&#x27;</span>] = predictions_logit</span><br><span class="line">df_data.loc[:, <span class="string">&#x27;outcome&#x27;</span>] = y.Survived.values</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给编码后的 X_encoded 也添加这些变量</span></span><br><span class="line"><span class="comment"># 这张表后面会作为匹配用的数据表</span></span><br><span class="line">match_data = X_encoded.copy()</span><br><span class="line">match_data.loc[:, <span class="string">&#x27;propensity_score&#x27;</span>] = propensity_score</span><br><span class="line">match_data.loc[:, <span class="string">&#x27;propensity_score_logit&#x27;</span>] = predictions_logit</span><br><span class="line">match_data.loc[:, <span class="string">&#x27;outcome&#x27;</span>] = y.Survived.values</span><br><span class="line">match_data.loc[:, <span class="string">&#x27;treatment&#x27;</span>] = df_data.treatment.values</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置索引，确保后面 NearestNeighbors 返回的位置索引和 DataFrame 行号一致</span></span><br><span class="line">match_data = match_data.reset_index(drop=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">display(df_data.head())</span><br><span class="line">display(match_data.head())</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(df_data.shape)</span><br><span class="line"><span class="built_in">print</span>(match_data.shape)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="5-2-建立最近邻模型"><a href="#5-2-建立最近邻模型" class="headerlink" title="5.2 建立最近邻模型"></a>5.2 建立最近邻模型</h2><p>这里用 <code>NearestNeighbors</code>，基于 <code>propensity_score_logit</code> 寻找距离最近的样本。</p>
+<p>caliper 表示最大允许匹配距离。<br> 这里设置为 logit propensity score 标准差的 25%。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># =========================</span></span><br><span class="line"><span class="comment"># 5.2 最近邻匹配：建立 KNN 搜索结构</span></span><br><span class="line"><span class="comment"># =========================</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 caliper，即最大允许匹配距离</span></span><br><span class="line"><span class="comment"># 这里使用 logit(propensity score) 标准差的 25%</span></span><br><span class="line">caliper = np.std(match_data.propensity_score_logit) * <span class="number">0.25</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\nCaliper (radius) is: &#123;:.4f&#125;\n&#x27;</span>.<span class="built_in">format</span>(caliper))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用 logit propensity score 建立最近邻模型</span></span><br><span class="line">knn = NearestNeighbors(</span><br><span class="line">    n_neighbors=<span class="number">10</span>,</span><br><span class="line">    p=<span class="number">2</span>,</span><br><span class="line">    radius=caliper</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">knn.fit(match_data[[<span class="string">&#x27;propensity_score_logit&#x27;</span>]].to_numpy())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 为每个样本找到 logit propensity score 最接近的 10 个样本</span></span><br><span class="line">distances, indexes = knn.kneighbors(</span><br><span class="line">    match_data[[<span class="string">&#x27;propensity_score_logit&#x27;</span>]].to_numpy(),</span><br><span class="line">    n_neighbors=<span class="number">10</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看第 0 个样本最近的前 4 个距离</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;For item 0, the 4 closest distances are (first item is self):&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> ds <span class="keyword">in</span> distances[<span class="number">0</span>, <span class="number">0</span>:<span class="number">4</span>]:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Element distance: &#123;:4f&#125;&#x27;</span>.<span class="built_in">format</span>(ds))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;...&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看第 0 个样本最近的前 4 个索引</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;For item 0, the 4 closest indexes are (first item is self):&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> idx <span class="keyword">in</span> indexes[<span class="number">0</span>, <span class="number">0</span>:<span class="number">4</span>]:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Element index: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(idx))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;...&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这一步只是找到最近邻候选样本，还没有真正完成 treatment-control 配对。</p>
+<hr>
+<h2 id="5-3-为-treatment-样本寻找-matched-control"><a href="#5-3-为-treatment-样本寻找-matched-control" class="headerlink" title="5.3 为 treatment 样本寻找 matched control"></a>5.3 为 treatment 样本寻找 matched control</h2><p>这一步定义匹配函数。</p>
+<p>匹配逻辑是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">只给 treatment=1 的样本找匹配对象；</span><br><span class="line">在最近邻候选样本中，找到第一个 treatment=0 的样本；</span><br><span class="line">把这个 control 样本的索引存入 matched_element。</span><br></pre></td></tr></table></figure>
+
+<p>这是：1-to-1 matching with replacement。也就是一个 control 样本可以被多个 treatment 样本重复使用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># =========================</span></span><br><span class="line"><span class="comment"># 5.3 为 treatment 样本寻找 matched control</span></span><br><span class="line"><span class="comment"># =========================</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">perform_matching_v2</span>(<span class="params">row, indexes, match_data</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    对每一个 treatment=1 的样本，</span></span><br><span class="line"><span class="string">    在最近邻候选中寻找第一个 treatment=0 的样本。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 当前样本的位置索引</span></span><br><span class="line">    current_index = <span class="built_in">int</span>(row.name)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 遍历当前样本最近的 10 个邻居</span></span><br><span class="line">    <span class="keyword">for</span> idx <span class="keyword">in</span> indexes[current_index, :]:</span><br><span class="line">        <span class="keyword">if</span> (</span><br><span class="line">            current_index != idx                     <span class="comment"># 不能匹配自己</span></span><br><span class="line">            <span class="keyword">and</span> row.treatment == <span class="number">1</span>                   <span class="comment"># 当前样本必须是 treatment 组</span></span><br><span class="line">            <span class="keyword">and</span> match_data.iloc[idx].treatment == <span class="number">0</span>  <span class="comment"># 匹配对象必须是 control 组</span></span><br><span class="line">        ):</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">int</span>(idx)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果没有找到合适匹配对象，则返回缺失值</span></span><br><span class="line">    <span class="keyword">return</span> np.nan</span><br><span class="line"></span><br><span class="line"><span class="comment"># 为每个 treatment 样本记录其匹配到的 control 样本索引</span></span><br><span class="line">match_data[<span class="string">&#x27;matched_element&#x27;</span>] = match_data.apply(</span><br><span class="line">    perform_matching_v2,</span><br><span class="line">    axis=<span class="number">1</span>,</span><br><span class="line">    args=(indexes, match_data)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只保留成功匹配到 control 的 treatment 样本</span></span><br><span class="line">treated_matched_data = match_data.loc[match_data[<span class="string">&#x27;matched_element&#x27;</span>].notna()].copy()</span><br><span class="line"></span><br><span class="line">display(treated_matched_data.head(<span class="number">3</span>))</span><br><span class="line"><span class="built_in">print</span>(treated_matched_data.shape)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="5-4-提取-matched-control-并合并匹配数据"><a href="#5-4-提取-matched-control-并合并匹配数据" class="headerlink" title="5.4 提取 matched control 并合并匹配数据"></a>5.4 提取 matched control 并合并匹配数据</h2><p>上一步得到的是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">成功匹配的 treatment 样本</span><br><span class="line">以及每个 treatment 样本对应的 control 索引</span><br></pre></td></tr></table></figure>
+
+<p>这一部分根据 <code>matched_element</code>，从 <code>match_data</code> 中把对应的 control 样本取出来。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># =========================</span></span><br><span class="line"><span class="comment"># 5.4 根据 matched_element 提取 matched control</span></span><br><span class="line"><span class="comment"># =========================</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">obtain_match_details</span>(<span class="params">row, all_data, attribute</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    根据 matched_element 到原始 match_data 中取出对应 control 样本的属性。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> all_data.loc[<span class="built_in">int</span>(row.matched_element)][attribute]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 先创建一张只包含 matched_element 的表</span></span><br><span class="line">untreated_matched_data = pd.DataFrame(data=treated_matched_data.matched_element)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 需要从 control 样本中提取的变量</span></span><br><span class="line">attributes = [</span><br><span class="line">    <span class="string">&#x27;Age&#x27;</span>, <span class="string">&#x27;SibSp&#x27;</span>, <span class="string">&#x27;Parch&#x27;</span>, <span class="string">&#x27;Fare&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;sex_female&#x27;</span>, <span class="string">&#x27;sex_male&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;embarked_C&#x27;</span>, <span class="string">&#x27;embarked_Q&#x27;</span>, <span class="string">&#x27;embarked_S&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;class_1&#x27;</span>, <span class="string">&#x27;class_2&#x27;</span>, <span class="string">&#x27;class_3&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;propensity_score&#x27;</span>, <span class="string">&#x27;propensity_score_logit&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;outcome&#x27;</span>, <span class="string">&#x27;treatment&#x27;</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据 matched_element，把 matched control 的各个变量取出来</span></span><br><span class="line"><span class="keyword">for</span> attr <span class="keyword">in</span> attributes:</span><br><span class="line">    untreated_matched_data[attr] = untreated_matched_data.apply(</span><br><span class="line">        obtain_match_details,</span><br><span class="line">        axis=<span class="number">1</span>,</span><br><span class="line">        all_data=match_data,</span><br><span class="line">        attribute=attr</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 matched_element 设为索引</span></span><br><span class="line"><span class="comment"># 这样可以看出这些 control 样本来自 match_data 的哪一行</span></span><br><span class="line">untreated_matched_data = untreated_matched_data.set_index(<span class="string">&#x27;matched_element&#x27;</span>)</span><br><span class="line"></span><br><span class="line">display(untreated_matched_data.head(<span class="number">3</span>))</span><br><span class="line"><span class="built_in">print</span>(untreated_matched_data.shape)</span><br></pre></td></tr></table></figure>
+
+<p>然后把匹配后的 treatment 组和 control 组合并。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># =========================</span></span><br><span class="line"><span class="comment"># 5.5 合并匹配后的 treatment 和 control</span></span><br><span class="line"><span class="comment"># =========================</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Matched treated shape:&quot;</span>, treated_matched_data.shape)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Matched control shape:&quot;</span>, untreated_matched_data.shape)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 合并匹配后的 treatment 组和 control 组</span></span><br><span class="line">all_matched_data = pd.concat([treated_matched_data, untreated_matched_data])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查匹配后 treatment/control 数量是否平衡</span></span><br><span class="line"><span class="built_in">print</span>(all_matched_data.treatment.value_counts())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 control 样本是否被重复使用</span></span><br><span class="line">unique_control_count = untreated_matched_data.index.nunique()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Number of unique matched control samples:&quot;</span>, unique_control_count)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看哪些 control 被重复使用得最多</span></span><br><span class="line">display(untreated_matched_data.index.value_counts().head(<span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+
+<p>如果结果显示：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">matched control 行数：143</span><br><span class="line">唯一 control 样本数：50</span><br></pre></td></tr></table></figure>
+
+<p>说明虽然匹配后 treatment&#x2F;control 行数相等，但 control 样本存在重复使用。</p>
+<hr>
+<h1 id="6-检查匹配后平衡性"><a href="#6-检查匹配后平衡性" class="headerlink" title="6. 检查匹配后平衡性"></a>6. 检查匹配后平衡性</h1><p>匹配完成后，需要检查两组是否真的变得更相似。</p>
+<p>这一步可以分成三类检查：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">6.1 检查匹配前后 propensity score 分布</span><br><span class="line">6.2 检查匹配前后关键变量分布</span><br><span class="line">6.3 使用 Cohen&#x27;s d 检查协变量平衡性</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="6-1-可视化匹配前后-propensity-score-分布"><a href="#6-1-可视化匹配前后-propensity-score-分布" class="headerlink" title="6.1 可视化匹配前后 propensity score 分布"></a>6.1 可视化匹配前后 propensity score 分布</h2><p>这一部分比较匹配前后 treatment&#x2F;control 两组在 <code>propensity_score_logit</code> 上是否更接近。</p>
+<p>如果匹配有效，匹配后的两组点应该更重叠。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># =========================</span></span><br><span class="line"><span class="comment"># 6.1 可视化：匹配前后 logit propensity score 分布</span></span><br><span class="line"><span class="comment"># =========================</span></span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots(<span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">fig.suptitle(</span><br><span class="line">    <span class="string">&#x27;Comparison of propensity_score_logit split by outcome and treatment status&#x27;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 匹配前：使用 match_data</span></span><br><span class="line">sns.stripplot(</span><br><span class="line">    data=match_data,</span><br><span class="line">    y=<span class="string">&#x27;outcome&#x27;</span>,</span><br><span class="line">    x=<span class="string">&#x27;propensity_score_logit&#x27;</span>,</span><br><span class="line">    hue=<span class="string">&#x27;treatment&#x27;</span>,</span><br><span class="line">    orient=<span class="string">&#x27;h&#x27;</span>,</span><br><span class="line">    ax=ax[<span class="number">0</span>]</span><br><span class="line">).<span class="built_in">set</span>(title=<span class="string">&#x27;Before matching&#x27;</span>, xlim=(-<span class="number">6</span>, <span class="number">4</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 匹配后：使用 all_matched_data</span></span><br><span class="line">sns.stripplot(</span><br><span class="line">    data=all_matched_data,</span><br><span class="line">    y=<span class="string">&#x27;outcome&#x27;</span>,</span><br><span class="line">    x=<span class="string">&#x27;propensity_score_logit&#x27;</span>,</span><br><span class="line">    hue=<span class="string">&#x27;treatment&#x27;</span>,</span><br><span class="line">    orient=<span class="string">&#x27;h&#x27;</span>,</span><br><span class="line">    ax=ax[<span class="number">1</span>]</span><br><span class="line">).<span class="built_in">set</span>(title=<span class="string">&#x27;After matching&#x27;</span>, xlim=(-<span class="number">6</span>, <span class="number">4</span>))</span><br><span class="line"></span><br><span class="line">plt.subplots_adjust(hspace=<span class="number">0.3</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">fig.savefig(<span class="string">&quot;jitter_plot.png&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="6-2-可视化匹配前后关键变量分布"><a href="#6-2-可视化匹配前后关键变量分布" class="headerlink" title="6.2 可视化匹配前后关键变量分布"></a>6.2 可视化匹配前后关键变量分布</h2><p>这一部分画出匹配前后 <code>Age</code>、<code>Fare</code>、<code>propensity_score_logit</code> 的密度分布。</p>
+<p>目的是检查：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">匹配后 treatment/control 两组在这些变量上是否更接近。</span><br><span class="line"># =========================</span><br><span class="line"># 6.2 可视化：匹配前后关键变量分布</span><br><span class="line"># =========================</span><br><span class="line"></span><br><span class="line">args = [&#x27;Age&#x27;, &#x27;Fare&#x27;, &#x27;propensity_score_logit&#x27;]</span><br><span class="line"></span><br><span class="line">def plot_distribution_before_after_matching(arg):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    对某个变量画出匹配前后 treatment/control 的密度分布。</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    fig, ax = plt.subplots(1, 2)</span><br><span class="line"></span><br><span class="line">    fig.suptitle(</span><br><span class="line">        &#x27;Comparison of &#123;&#125; split by treatment status.&#x27;.format(arg)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    # 匹配前</span><br><span class="line">    sns.kdeplot(</span><br><span class="line">        data=match_data,</span><br><span class="line">        x=arg,</span><br><span class="line">        hue=&#x27;treatment&#x27;,</span><br><span class="line">        ax=ax[0]</span><br><span class="line">    ).set(title=&#x27;Density before matching&#x27;)</span><br><span class="line"></span><br><span class="line">    # 匹配后</span><br><span class="line">    sns.kdeplot(</span><br><span class="line">        data=all_matched_data,</span><br><span class="line">        x=arg,</span><br><span class="line">        hue=&#x27;treatment&#x27;,</span><br><span class="line">        ax=ax[1]</span><br><span class="line">    ).set(title=&#x27;Density after matching&#x27;)</span><br><span class="line"></span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line">    fig.savefig(&quot;&#123;&#125;_comparison.png&quot;.format(arg))</span><br><span class="line"></span><br><span class="line">for arg in args:</span><br><span class="line">    plot_distribution_before_after_matching(arg)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="6-3-使用-Cohen’s-d-检查协变量平衡性"><a href="#6-3-使用-Cohen’s-d-检查协变量平衡性" class="headerlink" title="6.3 使用 Cohen’s d 检查协变量平衡性"></a>6.3 使用 Cohen’s d 检查协变量平衡性</h2><p>这一部分用 Cohen’s d 检查匹配前后两组在各个协变量上的标准化均值差异。</p>
+<p>PSM 的关键目标是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">匹配后 treatment/control 两组在协变量上尽量平衡。</span><br></pre></td></tr></table></figure>
+
+<p>所以希望：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">匹配后的 effect_size 更接近 <span class="number">0</span>。</span><br><span class="line"><span class="comment"># =========================</span></span><br><span class="line"><span class="comment"># 6.3 匹配前后协变量平衡性检验</span></span><br><span class="line"><span class="comment"># =========================</span></span><br><span class="line"></span><br><span class="line">balance_data = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 需要检查平衡性的协变量</span></span><br><span class="line">cols = [</span><br><span class="line">    <span class="string">&#x27;Age&#x27;</span>, <span class="string">&#x27;SibSp&#x27;</span>, <span class="string">&#x27;Parch&#x27;</span>, <span class="string">&#x27;Fare&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;sex_female&#x27;</span>, <span class="string">&#x27;sex_male&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;embarked_C&#x27;</span>, <span class="string">&#x27;embarked_Q&#x27;</span>, <span class="string">&#x27;embarked_S&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;class_1&#x27;</span>, <span class="string">&#x27;class_2&#x27;</span>, <span class="string">&#x27;class_3&#x27;</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分别计算匹配前和匹配后的 Cohen&#x27;s d</span></span><br><span class="line"><span class="keyword">for</span> cl <span class="keyword">in</span> cols:</span><br><span class="line">    balance_data.append([cl, <span class="string">&#x27;before&#x27;</span>, cohenD(match_data, cl)])</span><br><span class="line">    balance_data.append([cl, <span class="string">&#x27;after&#x27;</span>, cohenD(all_matched_data, cl)])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 整理成 DataFrame</span></span><br><span class="line">balance_res = pd.DataFrame(</span><br><span class="line">    balance_data,</span><br><span class="line">    columns=[<span class="string">&#x27;variable&#x27;</span>, <span class="string">&#x27;matching&#x27;</span>, <span class="string">&#x27;effect_size&#x27;</span>]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">display(balance_res)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 画出匹配前后标准化均值差异</span></span><br><span class="line">sn_plot = sns.barplot(</span><br><span class="line">    data=balance_res,</span><br><span class="line">    y=<span class="string">&#x27;variable&#x27;</span>,</span><br><span class="line">    x=<span class="string">&#x27;effect_size&#x27;</span>,</span><br><span class="line">    hue=<span class="string">&#x27;matching&#x27;</span>,</span><br><span class="line">    orient=<span class="string">&#x27;h&#x27;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">sn_plot.<span class="built_in">set</span>(</span><br><span class="line">    title=<span class="string">&#x27;Standardised Mean Differences across Covariates Before and After Matching&#x27;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">sn_plot.figure.savefig(<span class="string">&quot;standardised_mean_differences.png&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">effect_size 越接近 0，</span><br><span class="line">说明 treatment/control 在该变量上越相似。</span><br></pre></td></tr></table></figure>
+
+<p>如果 after 明显比 before 更接近 0，说明匹配改善了平衡性。</p>
+<hr>
+<h1 id="7-估计-ATT"><a href="#7-估计-ATT" class="headerlink" title="7. 估计 ATT"></a>7. 估计 ATT</h1><p>最后一步估计 ATT。</p>
+<p>ATT 的公式是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ATT = treated group 的平均 outcome - matched control group 的平均 outcome</span><br></pre></td></tr></table></figure>
+
+<p>在本实验中：ATT &#x3D; 有 Cabin 组平均生还率 - 匹配后的无 Cabin 组平均生还率</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># =========================</span><br><span class="line"># 7. 估计 ATT</span><br><span class="line"># =========================</span><br><span class="line"></span><br><span class="line"># treatment 组的平均 outcome</span><br><span class="line">treated_mean = treated_matched_data[&#x27;outcome&#x27;].mean()</span><br><span class="line"></span><br><span class="line"># matched control 组的平均 outcome</span><br><span class="line">control_mean = untreated_matched_data[&#x27;outcome&#x27;].mean()</span><br><span class="line"></span><br><span class="line"># ATT = treated 平均 outcome - matched control 平均 outcome</span><br><span class="line">att = treated_mean - control_mean</span><br><span class="line"></span><br><span class="line">print(f&quot;Treated outcome mean: &#123;treated_mean:.4f&#125;&quot;)</span><br><span class="line">print(f&quot;Matched control outcome mean: &#123;control_mean:.4f&#125;&quot;)</span><br><span class="line">print(f&quot;ATT: &#123;att:.4f&#125;&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>实验结果为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Treated outcome mean: 0.6224</span><br><span class="line">Matched control outcome mean: 0.5035</span><br><span class="line">ATT: 0.1189</span><br></pre></td></tr></table></figure>
+
+<p>可以解释为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在匹配后的样本中，有 Cabin 信息的乘客平均生还率为 62.24%，</span><br><span class="line">与他们特征相似但没有 Cabin 信息的乘客平均生还率为 50.35%，</span><br><span class="line">两者相差 11.89 个百分点。</span><br></pre></td></tr></table></figure>
+
+<p>更正式的项目表述可以写成：</p>
+<blockquote>
+<p>本实验将是否拥有 Cabin 信息定义为 treatment，将 Survived 作为 outcome，并使用 Age、Sex、Fare、Pclass、Embarked 等变量估计 propensity score。通过最近邻匹配构造 matched control group 后，treated group 的平均生还率为 62.24%，matched control group 的平均生还率为 50.35%，估计 ATT 为 0.1189。这说明在匹配后的可比样本中，有 Cabin 组的生还率比相似的无 Cabin 组高约 11.89 个百分点。</p>
+</blockquote>
+<hr>
+<h1 id="结果解释与注意事项"><a href="#结果解释与注意事项" class="headerlink" title="结果解释与注意事项"></a>结果解释与注意事项</h1><p>这个实验完整展示了 PSM 的基本流程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 读取和清洗数据</span><br><span class="line">2. 定义 treatment、outcome 和 covariates</span><br><span class="line">3. 估计 propensity score</span><br><span class="line">4. 检查 common support</span><br><span class="line">5. 进行最近邻匹配</span><br><span class="line">6. 检查匹配后平衡性</span><br><span class="line">7. 估计 ATT</span><br></pre></td></tr></table></figure>
+
+<p>但是解释结果时要注意：</p>
+<p><code>Cabin</code> 不一定是真正的因果干预。它更可能代表：</p>
+<ul>
+<li>舱位等级</li>
+<li>财富水平</li>
+<li>票价水平</li>
+<li>记录完整程度</li>
+<li>社会经济地位</li>
+</ul>
+<p>所以不能直接说：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有 Cabin 导致生还率提高 11.89 个百分点。</span><br></pre></td></tr></table></figure>
+
+<p>更严谨的说法是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在控制 Age、Sex、Fare、Pclass、Embarked 等变量并完成匹配后，</span><br><span class="line">有 Cabin 组的平均生还率仍然高于匹配后的无 Cabin 组，</span><br><span class="line">差异约为 11.89 个百分点。</span><br></pre></td></tr></table></figure>
+
+<p>另外，本实验使用的是 <strong>with replacement matching</strong>。<br> 也就是说，部分 control 样本可能会被多个 treatment 样本重复使用。</p>
+<p>这在 control 样本不足时是常见做法，但如果要做正式统计推断，需要进一步处理标准误，例如使用 bootstrap 或 cluster robust standard error。</p>
+</article>
+
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2026/05/15/PSM%E5%80%BE%E5%90%91%E5%BE%97%E5%88%86%E5%8C%B9%E9%85%8D/">PSM 倾向得分匹配</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2026/05/10/Skill%EF%BC%9A%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD%E7%9A%84%E8%83%BD%E5%8A%9B%E5%8C%85/">Skill：按需加载的能力包</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="sitemap" style="column-count:1;"><div class="sitemap-group"><span class="fs15">内容</span><a href="/">近期发布</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div></div><div class="text"><p>本站使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Titanic-PSM-%E5%80%BE%E5%90%91%E5%BE%97%E5%88%86%E5%8C%B9%E9%85%8D%E5%AE%9E%E9%AA%8C%E6%95%B4%E7%90%86"><span class="toc-text">Titanic PSM 倾向得分匹配实验整理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%9B%AE%E6%A0%87"><span class="toc-text">实验目标</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0-%E5%87%86%E5%A4%87%EF%BC%9A%E5%AF%BC%E5%8C%85%E4%B8%8E%E8%BE%85%E5%8A%A9%E5%87%BD%E6%95%B0"><span class="toc-text">0. 准备：导包与辅助函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE%E4%B8%8E%E6%B8%85%E6%B4%97"><span class="toc-text">1. 读取数据与清洗</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%AE%9A%E4%B9%89-treatment%E3%80%81outcome-%E5%92%8C-covariates"><span class="toc-text">2. 定义 treatment、outcome 和 covariates</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E7%94%A8%E5%8D%8F%E5%8F%98%E9%87%8F-X-%E4%BC%B0%E8%AE%A1-propensity-score"><span class="toc-text">3. 用协变量 X 估计 propensity score</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E6%A3%80%E6%9F%A5-propensity-score-%E5%88%86%E5%B8%83%E5%92%8C-common-support"><span class="toc-text">4. 检查 propensity score 分布和 common support</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E7%94%A8%E6%9C%80%E8%BF%91%E9%82%BB%E6%96%B9%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%8C%B9%E9%85%8D"><span class="toc-text">5. 用最近邻方法进行匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E6%95%B4%E5%90%88%E5%8C%B9%E9%85%8D%E6%89%80%E9%9C%80%E6%95%B0%E6%8D%AE"><span class="toc-text">5.1 整合匹配所需数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E5%BB%BA%E7%AB%8B%E6%9C%80%E8%BF%91%E9%82%BB%E6%A8%A1%E5%9E%8B"><span class="toc-text">5.2 建立最近邻模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%E4%B8%BA-treatment-%E6%A0%B7%E6%9C%AC%E5%AF%BB%E6%89%BE-matched-control"><span class="toc-text">5.3 为 treatment 样本寻找 matched control</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-%E6%8F%90%E5%8F%96-matched-control-%E5%B9%B6%E5%90%88%E5%B9%B6%E5%8C%B9%E9%85%8D%E6%95%B0%E6%8D%AE"><span class="toc-text">5.4 提取 matched control 并合并匹配数据</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E6%A3%80%E6%9F%A5%E5%8C%B9%E9%85%8D%E5%90%8E%E5%B9%B3%E8%A1%A1%E6%80%A7"><span class="toc-text">6. 检查匹配后平衡性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E5%8F%AF%E8%A7%86%E5%8C%96%E5%8C%B9%E9%85%8D%E5%89%8D%E5%90%8E-propensity-score-%E5%88%86%E5%B8%83"><span class="toc-text">6.1 可视化匹配前后 propensity score 分布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E5%8F%AF%E8%A7%86%E5%8C%96%E5%8C%B9%E9%85%8D%E5%89%8D%E5%90%8E%E5%85%B3%E9%94%AE%E5%8F%98%E9%87%8F%E5%88%86%E5%B8%83"><span class="toc-text">6.2 可视化匹配前后关键变量分布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-%E4%BD%BF%E7%94%A8-Cohen%E2%80%99s-d-%E6%A3%80%E6%9F%A5%E5%8D%8F%E5%8F%98%E9%87%8F%E5%B9%B3%E8%A1%A1%E6%80%A7"><span class="toc-text">6.3 使用 Cohen’s d 检查协变量平衡性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-%E4%BC%B0%E8%AE%A1-ATT"><span class="toc-text">7. 估计 ATT</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C%E8%A7%A3%E9%87%8A%E4%B8%8E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">结果解释与注意事项</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
