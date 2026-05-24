@@ -1,0 +1,4 @@
+article.md-text.content > table:not([class]) th,
+article.md-text.content > table:not([class]) td {
+  text-align: center;
+}

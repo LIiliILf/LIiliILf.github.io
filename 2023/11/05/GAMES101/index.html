@@ -20,15 +20,15 @@
   <title>GAMES101 - Lwh</title>
 
   
-    <meta name="description" content="二三章对应lec56的视频。光栅化、光栅化会有锯齿问题；为什么会造成走样；如何解决（反走样）。信号那边傅里叶变换那块可以跳过。感觉这些可以考五六章对应lec789着色  三种光照 漫反射、镜面反射、环境光照。 着色频率第八章对应lec11几何的贝塞尔曲线。光线追踪感觉不会出计算。偏物理。蒙特卡洛积分可以考。 ExamTODOch1： 图形学和计算机视觉的比较。计算机视觉和计算机图形学的区别：一般来">
+    <meta name="description" content="计算机图形学一、课程主线 线性代数基础：用向量和矩阵表示点、方向和变换。 变换 Transformation：把模型从局部坐标变到世界、相机、屏幕坐标。 光栅化 Rasterization：把屏幕空间中的三角形变成像素。 采样与反走样 Sampling &#x2F; Antialiasing：解释为什么会有锯齿，以及如何减少锯齿。 可见性 Visibility：判断同一个像素上到底哪个物体可见。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GAMES101">
 <meta property="og:url" content="https://liiliilf.github.io/2023/11/05/GAMES101/">
 <meta property="og:site_name" content="Lwh">
-<meta property="og:description" content="二三章对应lec56的视频。光栅化、光栅化会有锯齿问题；为什么会造成走样；如何解决（反走样）。信号那边傅里叶变换那块可以跳过。感觉这些可以考五六章对应lec789着色  三种光照 漫反射、镜面反射、环境光照。 着色频率第八章对应lec11几何的贝塞尔曲线。光线追踪感觉不会出计算。偏物理。蒙特卡洛积分可以考。 ExamTODOch1： 图形学和计算机视觉的比较。计算机视觉和计算机图形学的区别：一般来">
+<meta property="og:description" content="计算机图形学一、课程主线 线性代数基础：用向量和矩阵表示点、方向和变换。 变换 Transformation：把模型从局部坐标变到世界、相机、屏幕坐标。 光栅化 Rasterization：把屏幕空间中的三角形变成像素。 采样与反走样 Sampling &#x2F; Antialiasing：解释为什么会有锯齿，以及如何减少锯齿。 可见性 Visibility：判断同一个像素上到底哪个物体可见。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-05-08T17:36:42.881Z">
+<meta property="article:modified_time" content="2026-05-22T05:32:16.578Z">
 <meta property="article:author" content="Lwh">
 <meta property="article:tag" content="计算机图形学">
 <meta name="twitter:card" content="summary">
@@ -47,30 +47,31 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Lwh","sameAs":[]},"dateCreated":"2023-11-05T00:00:00+08:00","dateModified":"2026-05-09T01:36:42+08:00","datePublished":"2023-11-05T00:00:00+08:00","description":"","headline":"GAMES101","mainEntityOfPage":{"@type":"WebPage","@id":"https://liiliilf.github.io/2023/11/05/GAMES101/"},"publisher":{"@type":"Organization","name":"Lwh","sameAs":[]},"url":"https://liiliilf.github.io/2023/11/05/GAMES101/","keywords":"计算机图形学","image":[]}</script>
-  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Lwh","sameAs":[]},"dateCreated":"2023-11-05T00:00:00+08:00","dateModified":"2026-05-22T13:32:16+08:00","datePublished":"2023-11-05T00:00:00+08:00","description":"","headline":"GAMES101","mainEntityOfPage":{"@type":"WebPage","@id":"https://liiliilf.github.io/2023/11/05/GAMES101/"},"publisher":{"@type":"Organization","name":"Lwh","sameAs":[]},"url":"https://liiliilf.github.io/2023/11/05/GAMES101/","keywords":"计算机图形学","image":[]}</script>
+  <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body><div class="sitebg"><div class="siteblur"></div></div>
 
 <div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
 
 
-<header class="header"><div class="logo-wrap"><a class="title" href="/"><div class="main">Lwh</div><div class="sub cap">技术笔记 / 游戏设计 / 随笔</div></a></div></header>
+<header class="header"><div class="logo-wrap"><a class="title" href="/"><div class="main">Lwh</div></a></div></header>
 
 <div class="nav-area">
 
-<nav class="menu dis-select"><a class="nav-item active" title="首页" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="分类" href="/categories/" style="color:#3DC550"><svg style="margin-bottom:1px" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6.95c0-.883 0-1.324.07-1.692A4 4 0 0 1 5.257 2.07C5.626 2 6.068 2 6.95 2c.386 0 .58 0 .766.017a4 4 0 0 1 2.18.904c.144.119.28.255.554.529L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .848.352C14.098 6 14.675 6 15.828 6h.374c2.632 0 3.949 0 4.804.77c.079.07.154.145.224.224c.77.855.77 2.172.77 4.804V14c0 3.771 0 5.657-1.172 6.828C19.657 22 17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172C2 19.657 2 17.771 2 14z" opacity=".5"/><path fill="currentColor" d="M20 6.238c0-.298-.005-.475-.025-.63a3 3 0 0 0-2.583-2.582C17.197 3 16.965 3 16.5 3H9.988c.116.104.247.234.462.45L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .849.352C14.098 6 14.675 6 15.829 6h.373c1.78 0 2.957 0 3.798.238"/><path fill="currentColor" fill-rule="evenodd" d="M12.25 10a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75" clip-rule="evenodd"/></svg></a><a class="nav-item" title="标签" href="/tags/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></a></nav>
+<nav class="menu dis-select"><a class="nav-item active" title="首页" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="分类" href="/categories/" style="color:#3DC550"><svg style="margin-bottom:1px" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6.95c0-.883 0-1.324.07-1.692A4 4 0 0 1 5.257 2.07C5.626 2 6.068 2 6.95 2c.386 0 .58 0 .766.017a4 4 0 0 1 2.18.904c.144.119.28.255.554.529L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .848.352C14.098 6 14.675 6 15.828 6h.374c2.632 0 3.949 0 4.804.77c.079.07.154.145.224.224c.77.855.77 2.172.77 4.804V14c0 3.771 0 5.657-1.172 6.828C19.657 22 17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172C2 19.657 2 17.771 2 14z" opacity=".5"/><path fill="currentColor" d="M20 6.238c0-.298-.005-.475-.025-.63a3 3 0 0 0-2.583-2.582C17.197 3 16.965 3 16.5 3H9.988c.116.104.247.234.462.45L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .849.352C14.098 6 14.675 6 15.829 6h.373c1.78 0 2.957 0 3.798.238"/><path fill="currentColor" fill-rule="evenodd" d="M12.25 10a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75" clip-rule="evenodd"/></svg></a><a class="nav-item" title="标签" href="/tags/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></a><a class="nav-item" title="照片" href="/photos/" style="color:#8B5CF6"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" opacity=".5" d="M4 5.5C4 4.12 5.12 3 6.5 3h11C18.88 3 20 4.12 20 5.5v13c0 1.38-1.12 2.5-2.5 2.5h-11A2.5 2.5 0 0 1 4 18.5z"/><path fill="currentColor" d="M8.75 10.25a2 2 0 1 0 0-4a2 2 0 0 0 0 4m8.78 7.22l-3.85-3.85a1 1 0 0 0-1.36-.05l-2.04 1.75l-.9-.9a1 1 0 0 0-1.41 0l-2.5 2.5A.75.75 0 0 0 6 18.2h11a.75.75 0 0 0 .53-1.28"/></svg></a></nav>
 </div>
 <div class="widgets">
 <div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
 <widget class="widget-wrapper linklist"><div class="widget-header dis-select"><span class="name">内容分类</span></div><div class="widget-body fs14">
 <div class="linklist left" style="grid-template-columns:repeat(1,1fr);">
-<a class="link" title="技术笔记" href="/categories/tech-notes/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg><span>技术笔记</span></div></a>
-<a class="link" title="游戏设计" href="/game-design/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg><span>游戏设计</span></div></a>
+<a class="link" title="CS" href="/categories/cs/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg><span>CS</span></div></a>
+<a class="link" title="AI" href="/categories/ai/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 1-16 0a8 8 0 0 1 16 0" opacity=".5"/><path fill="currentColor" d="M17.712 5.453c1.047-.193 2.006-.259 2.797-.152c.77.103 1.536.393 1.956 1.064c.446.714.312 1.542-.012 2.258c-.33.728-.918 1.499-1.672 2.268c-1.516 1.547-3.836 3.226-6.597 4.697c-2.763 1.472-5.495 2.484-7.694 2.92c-1.095.217-2.098.299-2.923.201c-.8-.095-1.6-.383-2.032-1.075c-.47-.752-.296-1.63.07-2.379c.375-.768 1.032-1.586 1.872-2.403L4 12.416c0 .219.083.71.168 1.146c.045.23.09.444.123.596c-.652.666-1.098 1.263-1.339 1.756c-.277.567-.208.825-.145.925c.072.116.305.305.937.38c.609.073 1.44.018 2.455-.183c2.02-.4 4.613-1.351 7.28-2.772c2.667-1.42 4.85-3.015 6.23-4.423c.694-.707 1.15-1.334 1.377-1.836c.233-.515.167-.75.107-.844c-.07-.112-.289-.294-.883-.374c-.542-.072-1.272-.041-2.163.112L16.87 5.656c.338-.101.658-.17.842-.203"/></svg><span>AI</span></div></a>
+<a class="link" title="游戏设计" href="/categories/game-design/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg><span>游戏设计</span></div></a>
 <a class="link" title="随笔" href="/categories/essays/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m13.629 20.472l-.542.916c-.483.816-1.69.816-2.174 0l-.542-.916c-.42-.71-.63-1.066-.968-1.262c-.338-.197-.763-.204-1.613-.219c-1.256-.021-2.043-.098-2.703-.372a5 5 0 0 1-2.706-2.706C2 14.995 2 13.83 2 11.5v-1c0-3.273 0-4.91.737-6.112a5 5 0 0 1 1.65-1.651C5.59 2 7.228 2 10.5 2h3c3.273 0 4.91 0 6.113.737a5 5 0 0 1 1.65 1.65C22 5.59 22 7.228 22 10.5v1c0 2.33 0 3.495-.38 4.413a5 5 0 0 1-2.707 2.706c-.66.274-1.447.35-2.703.372c-.85.015-1.275.022-1.613.219c-.338.196-.548.551-.968 1.262" opacity=".5"/><path fill="currentColor" d="M10.99 14.308c-1.327-.978-3.49-2.84-3.49-4.593c0-2.677 2.475-3.677 4.5-1.609c2.025-2.068 4.5-1.068 4.5 1.609c0 1.752-2.163 3.615-3.49 4.593c-.454.335-.681.502-1.01.502c-.329 0-.556-.167-1.01-.502"/></svg><span>随笔</span></div></a></div></div></widget>
 
-<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2024/07/08/%E3%80%8A%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF%E3%80%8BCH2%E8%AE%BE%E8%AE%A1%E5%B8%88%E5%88%9B%E9%80%A0%E4%BD%93%E9%AA%8C/"><span class="title">《游戏设计艺术》CH2设计师创造体验</span></a><a class="item title" href="/2024/07/08/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AFCH1/"><span class="title">我是游戏设计师</span></a><a class="item title" href="/2026/05/14/PSM%E5%80%BE%E5%90%91%E5%BE%97%E5%88%86%E5%8C%B9%E9%85%8D%E5%AE%9E%E9%AA%8C/"><span class="title">Titanic PSM 倾向得分匹配实验整理</span></a><a class="item title" href="/2026/05/15/PSM%E5%80%BE%E5%90%91%E5%BE%97%E5%88%86%E5%8C%B9%E9%85%8D/"><span class="title">PSM 倾向得分匹配</span></a><a class="item title" href="/2026/05/10/Skill%EF%BC%9A%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD%E7%9A%84%E8%83%BD%E5%8A%9B%E5%8C%85/"><span class="title">Skill：按需加载的能力包</span></a><a class="item title" href="/2025/10/13/RAG%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%81%E4%B8%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E7%A6%BB%E4%B8%8D%E5%BC%80%E5%AE%83/"><span class="title">RAG 是什么？为什么企业知识库都绕不开它？</span></a></div></widget>
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/05/24/%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%EF%BC%9A%E8%AE%A9%20AI%20%E4%BB%8E%E2%80%9C%E4%BC%9A%E8%AF%B4%E2%80%9D%E8%B5%B0%E5%90%91%E2%80%9C%E4%BC%9A%E9%A2%84%E6%B5%8B%E4%B8%96%E7%95%8C%E2%80%9D/"><span class="title">世界模型：让 AI 从“会说”走向“会预测世界”</span></a><a class="item title" href="/2023/11/02/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E5%AE%9E%E9%AA%8C/"><span class="title">计算机组成原理实验</span></a><a class="item title" href="/2023/01/18/%E7%B2%BE%E5%8A%9B%E7%AE%A1%E7%90%86_%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"><span class="title">《精力管理》读书笔记</span></a><a class="item title" href="/2024/07/08/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AFCH1/"><span class="title">我是游戏设计师</span></a><a class="item title" href="/2024/07/08/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF-%E9%80%8F%E9%95%9C/"><span class="title">游戏设计艺术-透镜</span></a><a class="item title" href="/2025/07/18/%E5%90%AF%E7%A4%BA%E5%BD%95_%E6%89%93%E9%80%A0%E7%94%A8%E6%88%B7%E5%96%9C%E7%88%B1%E7%9A%84%E4%BA%A7%E5%93%81_%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"><span class="title">《启示录：打造用户喜爱的产品》读书笔记</span></a></div></widget>
 </div>
 
 </div></aside><div class="l_main" id="main">
@@ -82,8 +83,8 @@
 <div class="article banner top">
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
-<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/tech-notes/">技术笔记</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2023-11-04T16:00:00.000Z">2023-11-05</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-08T17:36:42.881Z">2026-05-09</time></span></div></div></div>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/cs/">CS</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2023-11-04T16:00:00.000Z">2023-11-05</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-22T05:32:16.578Z">2026-05-22</time></span></div></div></div>
     
     <div class="bottom only-title">
       
@@ -94,475 +95,434 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><p>二三章对应lec56的视频。光栅化、光栅化会有锯齿问题；为什么会造成走样；如何解决（反走样）。信号那边傅里叶变换那块可以跳过。感觉这些可以考<br>五六章对应lec789着色  三种光照 漫反射、镜面反射、环境光照。 着色频率<br>第八章对应lec11几何的贝塞尔曲线。<br>光线追踪感觉不会出计算。偏物理。蒙特卡洛积分可以考。</p>
-<h1 id="Exam"><a href="#Exam" class="headerlink" title="Exam"></a>Exam</h1><h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><p>ch1： 图形学和计算机视觉的比较。计算机视觉和计算机图形学的区别：一般来讲图形学研究的是将Model变成Image的过程，反之则是计算机视觉。计算机视觉是理解这个世界，计算机图形学是创造这个世界</p>
-<p>ch2：Drawing a Triangle To The Framebuffer (“Rasterization光栅化”) 光栅化&#x3D;绘图到光栅显示器。</p>
-<p>对于光栅化一个三角形来说，采样就是判断像素的中心是否在三角形内。 因为像素点本身是有大小的，而且由于采样率对于信号来说不够高，造成了信号的走样问题，形成了锯齿。</p>
-<p>ch3：走样的原因：fast-changing signals (high frequency), when we sample too slowly信号变换太快，采样太慢。如何反走样：在采样前过滤高频信号Antialiasing &#x3D; filter out high frequencies before sampling </p>
-<p>ch4：怎么变换的，注意顺序。平移旋转等等。</p>
-<p>ch5： 可见性（画家算法、Z-buffer） 着色：漫反射、反射、环境光照。</p>
-<p>ch6：纹理；重心坐标</p>
-<p>ch7：隐式显式的优缺点，适用的情况。隐式容易判断点在内部还是外部(将点的坐标代入函数判断与0的关系) Inside&#x2F;Outside tests easy。这里也许可以考给一个点，给一个方程判断这个点在里面&#x2F;表面&#x2F;外面。把点带入方程算出来小于0就在里面。缺点不直观，给了隐式的方程并不能看出它是什么形状的。显式有2种：直接给出和参数映射。显式容易发现表面是什么样的&#x2F;容易描述形状。</p>
-<p>ch8：贝塞尔曲线de Casteljau算法：每两个点之间做线性插值、重复构造</p>
-<p>ch9：细分曲面Subdivision</p>
-<p>ch10：辐射度量学这里有个灯泡例子的各个量的计算。</p>
-<p>ch11：渲染方程</p>
-<p>ch12：路径追踪</p>
-<p>ch13：蒙特卡洛积分如何求解。如何采样</p>
-<p>ch14：动力学可能会是计算。弹簧质点模型是怎么表示的，用这个模型来表示布料；F&#x3D;ma</p>
+  </div><article class="md-text content"><h1 id="计算机图形学"><a href="#计算机图形学" class="headerlink" title="计算机图形学"></a>计算机图形学</h1><h2 id="一、课程主线"><a href="#一、课程主线" class="headerlink" title="一、课程主线"></a>一、课程主线</h2><ol>
+<li><strong>线性代数基础</strong>：用向量和矩阵表示点、方向和变换。</li>
+<li><strong>变换 Transformation</strong>：把模型从局部坐标变到世界、相机、屏幕坐标。</li>
+<li><strong>光栅化 Rasterization</strong>：把屏幕空间中的三角形变成像素。</li>
+<li><strong>采样与反走样 Sampling &#x2F; Antialiasing</strong>：解释为什么会有锯齿，以及如何减少锯齿。</li>
+<li><strong>可见性 Visibility</strong>：判断同一个像素上到底哪个物体可见。</li>
+<li><strong>着色 Shading</strong>：给可见点计算颜色。</li>
+<li><strong>纹理 Texture Mapping</strong>：把贴图、法线、高度等高分辨率信息映射到表面上。</li>
+<li><strong>几何 Geometry</strong>：研究模型本身如何表示，例如隐式、显式、曲线、曲面、网格。</li>
+<li><strong>光线追踪 Ray Tracing</strong>：换一种更接近真实光传播的方式生成图像。</li>
+<li><strong>辐射度量学、渲染方程、路径追踪</strong>：更物理地描述光照和全局光照。</li>
+<li><strong>动画与模拟</strong>：让物体动起来，例如弹簧质点模型。</li>
+</ol>
+<h1 id="1-Introduction：图形学是什么"><a href="#1-Introduction：图形学是什么" class="headerlink" title="1. Introduction：图形学是什么"></a>1. Introduction：图形学是什么</h1><p>计算机图形学是使用计算机合成和操作视觉信息。</p>
+<p>常见应用：游戏；电影；动画；仿真；VR；可视化。</p>
+<p>图形学和计算机视觉的区别：</p>
+<p>计算机视觉更像是从图像理解世界：<code>Image -&gt; Model</code>。<br>计算机图形学则是创造一个世界，再把它画出来：<code>Model -&gt; Image</code>。</p>
+<table>
+<thead>
+<tr>
+<th>方向</th>
+<th>输入</th>
+<th>输出</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>计算机图形学</td>
+<td>Model</td>
+<td>Image</td>
+<td>创造世界</td>
+</tr>
+<tr>
+<td>计算机视觉</td>
+<td>Image</td>
+<td>Model &#x2F; Understanding</td>
+<td>理解世界</td>
+</tr>
+</tbody></table>
 <hr>
-<p>总共有14个课件。 以下一部分是每个章节的小总结。</p>
-<h1 id="lec01-introduction"><a href="#lec01-introduction" class="headerlink" title="lec01 introduction"></a>lec01 introduction</h1><p>Course Topics</p>
+<h1 id="2-Linear-Algebra：为什么需要线性代数"><a href="#2-Linear-Algebra：为什么需要线性代数" class="headerlink" title="2. Linear Algebra：为什么需要线性代数"></a>2. Linear Algebra：为什么需要线性代数</h1><p>图形学里大量问题都可以转成点、向量和矩阵的问题。</p>
+<p>默认约定：</p>
+<ul>
+<li>用单位向量表示方向；</li>
+<li>向量默认为列向量；</li>
+<li>用矩阵表示变换；</li>
+<li>矩阵乘法不满足交换律；</li>
+<li>旋转通常默认绕原点逆时针旋转。</li>
+</ul>
+<h2 id="向量"><a href="#向量" class="headerlink" title="向量"></a>向量</h2><h3 id="点乘"><a href="#点乘" class="headerlink" title="点乘"></a>点乘</h3><p>点乘可以用来：</p>
+<ul>
+<li>求两个向量夹角；</li>
+<li>求投影；</li>
+<li>判断一个方向相对另一个方向是朝前还是朝后；</li>
+<li>在光照中计算光线方向和法线方向的夹角。</li>
+</ul>
+<h3 id="叉乘"><a href="#叉乘" class="headerlink" title="叉乘"></a>叉乘</h3><p>叉乘可以用来：</p>
+<ul>
+<li>判断一个向量在另一个向量左边还是右边；</li>
+<li>判断点是否在三角形内部；</li>
+<li>求法线方向。</li>
+</ul>
+<p>判断点在三角形内的思路：对三条边分别做叉乘，如果方向一致，就说明点在三角形内部。</p>
+<h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><p>矩阵主要用于表示变换：平移；旋转；缩放；切变；投影。</p>
+<hr>
+<h1 id="3-Transformation：为什么要做变换"><a href="#3-Transformation：为什么要做变换" class="headerlink" title="3. Transformation：为什么要做变换"></a>3. Transformation：为什么要做变换</h1><p>模型刚开始通常在自己的局部坐标系里。<br>但要把它画到屏幕上，需要经历一系列坐标变换。</p>
+<p>变换主要用于两件事：</p>
 <ol>
-<li>Drawing Digital Images (Rasterization) </li>
-<li>Filtering and Sampling </li>
-<li>Modeling Geometry </li>
-<li>Modeling Material Properties </li>
-<li>Modeling Lighting </li>
-<li>How Do Cameras Work?  </li>
-<li>Animation and Physical Simulation </li>
-<li>Virtual Reality</li>
+<li><strong>Modeling</strong>：把物体放到世界中，例如平移、旋转、缩放。</li>
+<li><strong>Viewing</strong>：把三维世界投影成二维屏幕图像。</li>
 </ol>
-<p>1.绘制数码影像(栅格化)2。过滤及取样3。几何建模4。建模材料特性5。建模照明6。相机是如何工作的？7.动画和物理模拟8。虚拟现实</p>
-<ol>
-<li><p>Digital Drawing (2 weeks) 2. Geometry (2 weeks) \3. Ray-Tracing (2 weeks) 4. Animation (2 weeks)</p>
-<p>然后动画本来安排4次课，但是只讲了一次（课件14）</p>
-</li>
-</ol>
-<p>lec01可能考：CG vs CV</p>
+<p>也就是：模型坐标 → 世界坐标 → 相机坐标 → 屏幕坐标。</p>
+<h2 id="2D-变换"><a href="#2D-变换" class="headerlink" title="2D 变换"></a>2D 变换</h2><p>常见 2D 变换：缩放；对称；切变；旋转；平移。</p>
+<p>缩放、对称、切变、旋转都可以写成：输出坐标 &#x3D; 矩阵 × 输入坐标</p>
+<p>所以它们是线性变换。</p>
+<p>但平移不是线性变换。为了不把平移特殊处理，引入了<strong>齐次坐标</strong>。</p>
+<h2 id="齐次坐标"><a href="#齐次坐标" class="headerlink" title="齐次坐标"></a>齐次坐标</h2><p>齐次坐标的作用：增加一个维度，把平移也统一写成矩阵乘法。这样所有变换都可以写成矩阵形式，方便组合。</p>
+<h2 id="仿射变换"><a href="#仿射变换" class="headerlink" title="仿射变换"></a>仿射变换</h2><p>仿射变换 &#x3D; 线性变换 + 平移。</p>
+<h2 id="变换顺序"><a href="#变换顺序" class="headerlink" title="变换顺序"></a>变换顺序</h2><p>多个变换可以组合，也可以分解。</p>
+<p>但要注意顺序，因为矩阵乘法不满足交换律。</p>
+<p>例如：先旋转再平移，和先平移再旋转，结果通常不同。</p>
 <hr>
-<h2 id="Lecture-2-Digital-Drawing"><a href="#Lecture-2-Digital-Drawing" class="headerlink" title="Lecture 2:Digital Drawing"></a>Lecture 2:Digital Drawing</h2><h3 id="Drawing-Triangles-to-the-Screen-by-Sampling用采样方法在屏幕上绘制三角形"><a href="#Drawing-Triangles-to-the-Screen-by-Sampling用采样方法在屏幕上绘制三角形" class="headerlink" title="Drawing Triangles to the Screen by Sampling用采样方法在屏幕上绘制三角形"></a>Drawing Triangles to the Screen by Sampling用采样方法在屏幕上绘制三角形</h3><h4 id="Drawing-Machines-成像设备-（了解）"><a href="#Drawing-Machines-成像设备-（了解）" class="headerlink" title="Drawing Machines  成像设备 （了解）"></a>Drawing Machines  成像设备 （了解）</h4><p>不同的光栅显示设备 Different Raster Displays</p>
-<ul>
-<li>CNC Sharpie Drawing Machine</li>
-<li>Oscilloscope 示波器</li>
-<li>Cathode Ray Tube 阴极射线管</li>
-<li>Television - Raster Display CRT 早期CRT显示器；隔行扫描(Interlaced)减少了带宽，现在这种思想也被用于一些视频压缩算法</li>
-<li>帧缓存器：屏幕所显示画面的存储区域 Frame Buffer: Memory for a Raster Display</li>
-</ul>
-<p>A Sampling of Different Raster Displays </p>
-<ul>
-<li>Flat Panel Displays 平板显示器</li>
-<li>LCD (Liquid Crystal Display) Pixel  LCD（液晶显示屏）通过液晶扭曲偏振来阻挡或透射光</li>
-<li>LED&#x2F;发光二极管阵列 Light emitting diode array</li>
-<li>电子墨水屏 Electrophoretic (Electronic Ink) Display 通过控制黑色和白色颗粒上下变化来组成画面，缺点是刷新率低 kindle</li>
-</ul>
-<h4 id="Drawing-to-Raster-Displays画到光栅显示器-光栅化-重要10"><a href="#Drawing-to-Raster-Displays画到光栅显示器-光栅化-重要10" class="headerlink" title="Drawing to Raster Displays画到光栅显示器 &#x3D; 光栅化 [重要10]"></a>Drawing to Raster Displays画到光栅显示器 &#x3D; 光栅化 [重要10]</h4><p>图形学中常用三角形作为基础图元去表示其他复杂的形状 Fundamental Shape Primitives </p>
-<p>选择三角形 why？ </p>
-<ul>
-<li>是最基本的图形;复杂的图形可以分解成三角形。</li>
-<li>三角形一定是在一个平面上的;可以用叉乘<strong>快速判断点在三角形的内外关系</strong>；可以用重心坐标插值</li>
-</ul>
-<hr>
-<p><strong>Drawing a Triangle To The Framebuffer (“Rasterization光栅化”)</strong> 光栅化&#x3D;绘图到光栅显示器</p>
-<ul>
-<li><p>What？输入：投射到屏幕上的三角形顶点位置。输出：一组近似三角形的像素值。这就是我们要做的事情。</p>
-</li>
-<li><p>How？通过sampling采样。</p>
-</li>
-</ul>
-<hr>
-<p>采样sampling</p>
-<ul>
-<li>what：将连续的函数离散化的过程 We can <strong>discretize</strong> a function by sampling.即一个连续的函数，我们在各个不同的地方去取它的值，这个过程就被叫做采样Evaluating a function at a point is sampling.</li>
-</ul>
-<hr>
-<p>Rasterization 光栅化</p>
-<p><strong>光栅化的本质就是对屏幕空间做 2D采样。那么对于光栅化一个三角形来说，采样就是判断像素的中心是否在三角形内</strong></p>
-<p>inside(tri,x,y)可以用来表示这个像素点是否在三角形内。1表示在里面。</p>
-<p>那么可以通过采样函数来进行三角形的光栅化 即 f(x,y) &#x3D; inside(tri,x,y)</p>
-<hr>
-<p>快速判断左右，简单来说就是用向量的叉乘。右手螺旋定则，结果为正说明在左侧</p>
-<p>那么如何判断像素的中心是否在三角形内？ 用三次同方向的叉乘。</p>
-<p>但是我们没有必要判断所有的pixel是否在三角形内。用boudingbox来减少判断的范围。用三角形的三个点来得到这个包围盒的范围。对于沿斜对角放置的瘦长型对象优化效果并不好。</p>
-<h4 id="Signal-Reconstruction-on-Real-Displays-真实显示器上的信号重构"><a href="#Signal-Reconstruction-on-Real-Displays-真实显示器上的信号重构" class="headerlink" title="Signal Reconstruction on Real Displays 真实显示器上的信号重构"></a>Signal Reconstruction on Real Displays 真实显示器上的信号重构</h4><p>So, If We Send The Display This Sampled Signal如果我们发送显示器这个采样信号</p>
-<p>The Display Physically Emits This Signal显示器物理地发出这个信号</p>
-<p>与连续三角形函数比较可以发现问题：Jaggies 锯齿。这里简单解释一下：因为像素点本身是有大小的，而且由于采样率对于信号来说不够高，造成了信号的走样问题，形成了锯齿。</p>
-<h4 id="Things-to-Remember"><a href="#Things-to-Remember" class="headerlink" title="Things to Remember"></a>Things to Remember</h4><p>Drawing machines </p>
-<p>• Many possibilities 多种可能性<br>• Why framebuffers and raster displays?  为什么是帧缓冲器和光栅显示器？<br>• Why triangles?  为什么是三角形？</p>
-<p>We posed rasterization as a 2D sampling process 我们将光栅化作为一个二维采样过程<br>• Test a binary function inside(triangle,x,y)  测试二进制函数内部(三角形，x，y)<br>• Evaluate triangle coverage by 3 point-in-edge tests  通过3点边缘测试评估三角形覆盖率<br>• Finite sampling rate causes “jaggies” artifact<br>(next time we will analyze in more detail)有限采样率会导致“锯齿状”伪影(下次我们将更详细地分析)</p>
-<h1 id="Lecture-3-Intro-to-Signal-Processing-Sampling-Aliasing-Antialiasing"><a href="#Lecture-3-Intro-to-Signal-Processing-Sampling-Aliasing-Antialiasing" class="headerlink" title="Lecture 3: Intro to Signal Processing:Sampling, Aliasing, Antialiasing"></a>Lecture 3: Intro to Signal Processing:Sampling, Aliasing, Antialiasing</h1><p><strong>Sampling is Ubiquitous（广泛存在的） in  Computer Graphics</strong></p>
-<ul>
-<li>Rasterization &#x3D; Sample 2D Positions</li>
-<li>Photograph &#x3D; Sample Image Sensor Plane</li>
-<li>Video &#x3D; Sample Time</li>
-</ul>
-<p>接下来看一下常见的走样所形成的问题Artifacts ：Sampling Artifacts in  Graphics and Imaging</p>
-<ul>
-<li><p>Jaggies（锯齿），空间中采样</p>
-</li>
-<li><p>Moire（摩尔纹），对图片做降采样（把图片中的奇数列和奇数行给去掉）</p>
-</li>
-<li><p>Wagon wheel effect（车轮效应），时间中采样（常见于高速行驶的车辆，人眼观察车轮会有向后转的假象）</p>
-</li>
-</ul>
-<p>总结一下这些问题，走样的本质就是<strong>信号的变换太快（高频），采样的频率太慢（采样间隔大）</strong></p>
-<p>fast-changing signals (high frequency), when we sample too slowly</p>
-<p>这里我们先给出反走样的方法：<strong>采样之前先做模糊（去除高频信号）</strong> Antialiasing Idea: Filter Out High Frequencies Before Sampling</p>
-<p>以光栅化三角形为例：先对三角形做一次模糊（去掉高频的信号），把它变成一个边界模糊的三角形，采样边界时，离三角形边界近的地方像素颜色深一些，远的地方像素颜色浅一些。</p>
-<p>接下来解释为什么做完模糊再采样可以减少走样现象。</p>
-<hr>
-<p>how to implement antialiased rasterization</p>
-<p>采样的理论基础 可跳过 这部分更多是信号与系统学的，应该不会考。简单看一下就行。总之我们把信号从时域转换到频域用来分析为什么 去除高频信号（模糊）后再采样 可以减少走样现象。</p>
-<p>傅里叶变换可以将函数表示为正弦和余弦的加权和 Represent a function as a weighted sum of sines and cosines</p>
-<p>空间域&#x2F;时域和频域可以通过傅里叶变换和逆傅里叶变换相互转换 Fourier Transform Decomposes A Signal Into Frequencies</p>
-<p><strong>傅里叶变换把信号从时域（spatial domain）转换到频域（frequency domain）</strong></p>
-<p>why？<strong>傅里叶变换</strong>可以把信号从时域转化到频域，因为从时域或空间域的角度看，该信号是由多种频率不同的正弦波的叠加，而从频域角度看，该信号的频谱却如此的简单，这便于我们的分析信号。总之傅里叶可以帮助我们把时域信号变成频域以便于信号分析。</p>
-<ul>
-<li>Higher Frequencies Need Faster Sampling高频需要更快的采样才能保证恢复出的函数更接近原始函数。在固定的采样频率下，信号的频率越高，采样出来的结果就越差。</li>
-<li>Undersampling Creates Frequency Aliases在相同的采样率下去采样频率差异巨大的两种函数，却得到了相同的结果，导致我们无法区分这两种信号，这种现象成为”走样“ Two frequencies that are indistinguishable at a given sampling rate are called “aliases”</li>
-</ul>
-<hr>
-<p><strong>滤波就是去掉某些特定频率的信号（Filtering &#x3D; Getting rid of certain frequency contents）</strong></p>
-<p>前面我们提到反走样就是在采样之前先做一次模糊，把高频的信号给去掉，这个去掉某些频率信号的过程被叫做滤波（Filtering）。</p>
-<p>现在我们借助前面提到的频域来理解滤波的过程和结果。傅里叶变换将时域变为频域：低频集中在中间，高频信息在外围(边缘处)</p>
-<ul>
-<li><p>高通滤波（得到边界） High-pass filt (Edges)  去除低频信息 —&gt; 边缘特征</p>
-</li>
-<li><ul>
-<li>只有高频信息可以通过，后将频谱图逆傅里叶变换得到图像</li>
-</ul>
-</li>
-<li><p>低通滤波（得到模糊效果） Low-pass filter (Blur) 去除高频信息 –&gt; 模糊处理（存在水波纹）</p>
-</li>
-<li><ul>
-<li>只有低频信息可以通过</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>Filtering &#x3D; Convolution 也许可以是计算。其实就是加权平均计算</p>
-<ul>
-<li><p>卷积定理 </p>
-<ul>
-<li>时域的卷积等于频域的乘积，频域的卷积等于时域的乘积（两者具有对偶关系） Convolution in the spatial domain is equal to multiplication in the frequency domain, and vice versa</li>
-</ul>
-</li>
-<li><p>通过卷积定理实现对图像的处理 </p>
-<ul>
-<li><p>方法一： 简单来说 加权平均</p>
-<ul>
-<li>在时域空间域中通过卷积过滤 Filter by convolution in the spatial domain</li>
-</ul>
-</li>
-<li><p>方法二： 在频域上做乘积</p>
-<ul>
-<li>通过傅里叶变换将时域转化为频域 Transform to frequency domain (Fourier transform)</li>
-<li>乘以卷积核的傅里叶变换 Multiply by Fourier transform of convolution kernel</li>
-<li>通过逆傅里叶变换将频域转化回时域  Transform back to spatial domain (inverse Fourier)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>图像中小的正方体对应低通滤波器Box Function &#x3D; “Low Pass” Filter。卷积核越大，在图像上进行滤波会越模糊，其本身的频率越低Wider Filter Kernel &#x3D; Lower Frequencies</p>
-</li>
-</ul>
-<hr>
-<p><strong>Sampling（采样） &#x3D; Repeating  Frequency Contents（重复频域上的内容）</strong></p>
-<p>Aliasing &#x3D; Mixed Frequency Contents</p>
-<p>Antialiasing</p>
-<h3 id="Things-to-Remember-1"><a href="#Things-to-Remember-1" class="headerlink" title="Things to Remember"></a>Things to Remember</h3><p>Signal processing key concepts: 信号处理关键概念</p>
-<ul>
-<li>Frequency domain vs spatial domain 频域和时域</li>
-<li>Filters in the frequency domain scale frequencies 滤波</li>
-<li>Filters in the sampling domain &#x3D; convolution 卷积<br>Sampling and aliasing 采样和走样</li>
-<li>Image generation involves sampling 用采样生成图片</li>
-<li>Nyquist frequency is half the sampling rate </li>
-<li>Frequencies above Nyquist appear as aliasing artifacts</li>
-<li><strong>Antialiasing &#x3D; filter out high frequencies before sampling 如何反走样：在采样前过滤高频信号</strong></li>
-<li>Interpret supersampling as (approx) box pre-filter antialiasing</li>
-</ul>
-<h2 id="lecture4：Transformation"><a href="#lecture4：Transformation" class="headerlink" title="lecture4：Transformation"></a>lecture4：Transformation</h2><p>先具体讲几种2D的变换：Scale Transform 缩放1变换矩阵、Reflection Matrix对称2变换矩阵、Shear Matrix切变3变换矩阵、Rotation Matrix旋转4变换矩阵。我们发现以上四种都可以用一个矩阵乘以输入可以得到输出的坐标，这种叫做线性变换。平移也是常用的变换，但不是线性变换。为了不特殊处理平移的情况，引入齐次坐标Homogeneous coordinates来统一处理各种变换，具体做法是增加一个维度。</p>
-<p>然后还有6仿射变换Affine和7逆变换。仿射&#x3D; 线性变换+平移</p>
-<p>然后3D是在lec04的，也放在这里，与2D类似，不具体讲。</p>
-<h3 id="0-why-study-transformation"><a href="#0-why-study-transformation" class="headerlink" title="0 why study transformation"></a>0 why study transformation</h3><ul>
-<li>Modeling模型变换: translation&#x2F;rotation&#x2F;scaling</li>
-<li>Viewing视图变换: (3D to 2D) projection</li>
-</ul>
-<p>Modeling<br>• Define shapes in convenient coordinates<br>• Enable multiple copies of the same object<br>• Efficiently represent hierarchical scenes<br>Viewing<br>• World coordinates to camera coordinates<br>• Parallel &#x2F; perspective projections from 3D to 2D</p>
-<h4 id="1、2D-transformations"><a href="#1、2D-transformations" class="headerlink" title="1、2D transformations"></a>1、2D transformations</h4><ol>
-<li><p>缩放</p>
-</li>
-<li><p>对称</p>
-</li>
-<li><p>切变：竖直方向是没有变的&#x2F;y不变，沿水平拉伸。</p>
-</li>
-<li><p>旋转矩阵的逆就是它的转置：正交矩阵  $A^{-1} &#x3D; A^T$</p>
-</li>
-</ol>
+<h1 id="4-Rasterization：为什么要光栅化"><a href="#4-Rasterization：为什么要光栅化" class="headerlink" title="4. Rasterization：为什么要光栅化"></a>4. Rasterization：为什么要光栅化</h1><p>经过变换后，三角形已经到了屏幕空间。<br>但屏幕不是连续的，而是由一个个像素组成的离散网格。</p>
+<p>所以问题变成：</p>
 <blockquote>
-<p>主要是找到变换前后对应的关系就能表示出来。</p>
-<p>这几种都是线性变换： 输出坐标 &#x3D; 矩阵 乘以 输入坐标</p>
+<p>一个连续的三角形，如何画到离散的像素屏幕上？</p>
 </blockquote>
-<ol start="5">
-<li>平移</li>
-</ol>
-<h5 id="齐次坐标"><a href="#齐次坐标" class="headerlink" title="齐次坐标"></a>齐次坐标</h5><p>why？平移不能用线性变换表示，但是我们又不想把它作为特殊情况处理。所以引入齐次坐标，把所有的变换写成一个矩阵乘以一个向量。</p>
-<p>具体做法是增加一个维度。</p>
-<ol start="6">
-<li><p>仿射变换Affine &#x3D; 线性变换+ 平移 （先线性再平移）</p>
-</li>
-<li><p>逆变换</p>
-</li>
-</ol>
-<hr>
-<p>那么这些变换我们可以组合、分解。</p>
-<p>通过组合可以表示复杂的变换。反过来也可把复杂的变换分解。要注意顺序（因为做变换其实就是左乘一个矩阵，矩阵的乘法是不满足交换律的）</p>
-<h4 id="2、-3D-transformations"><a href="#2、-3D-transformations" class="headerlink" title="2、 3D transformations"></a>2、 3D transformations</h4><p>与2D类似</p>
+<p>这就是光栅化。</p>
+<h2 id="为什么用三角形"><a href="#为什么用三角形" class="headerlink" title="为什么用三角形"></a>为什么用三角形</h2><p>图形学常用三角形作为基础图元，因为：</p>
 <ul>
-<li>绕xyz轴旋转</li>
-<li>可以把3D的旋转分解成xyz轴 飞机的例子<ul>
-<li>$R_{xyz}(\alpha, \beta, \gamma) &#x3D; R_x(\alpha)R_y(\beta)R_z(\gamma)$</li>
+<li>三角形是最基本的多边形；</li>
+<li>复杂图形可以拆成三角形；</li>
+<li>三角形一定在一个平面上；</li>
+<li>可以用叉乘快速判断点是否在三角形内；</li>
+<li>可以用重心坐标做插值。</li>
 </ul>
-</li>
-<li>Rodrigues公式：得到围绕一个旋转轴旋转任意角度后的向量</li>
-</ul>
-<h2 id="Lecture5：-Shading"><a href="#Lecture5：-Shading" class="headerlink" title="Lecture5： Shading"></a>Lecture5： Shading</h2><p>What We’ve Covered So Far</p>
-<h3 id="Visibility-Z-Buffering"><a href="#Visibility-Z-Buffering" class="headerlink" title="Visibility (Z-Buffering)"></a>Visibility (Z-Buffering)</h3><p>画家算法：一般先画远的，近的会覆盖远的。无法排序的情况：例如三个三角形互相重叠。</p>
-<p>Z-buffer：对每个像素多存一个深度。无法处理透明物体</p>
-<ul>
-<li>画家算法处理需要遍历每个三角形做采样外，还需要额外的排序，加入我们把采样步骤优化到了排序里，那么画家算法的复杂度是 $O(nlogn)$</li>
-<li>Z-Buffer算法只用做一次遍历即可做完整个绘制，复杂度是 $O(n)$ ，我们并没有做排序，只是记录最小值</li>
-</ul>
-<h3 id="Shading"><a href="#Shading" class="headerlink" title="Shading"></a>Shading</h3><p>0 why？有颜色当然更加真实</p>
-<p>注意：Shading is Local 着色是局部的，对某个点进行计算，不管其他物体的存在。</p>
-<h4 id="Blinn-Phong-Reflection-Model-三种光照的组合"><a href="#Blinn-Phong-Reflection-Model-三种光照的组合" class="headerlink" title="Blinn-Phong Reflection Model: 三种光照的组合"></a>Blinn-Phong Reflection Model: 三种光照的组合</h4><p>$$\begin{split}<br>L &amp;&#x3D; L_a + L_d + L_s \<br>    &amp;&#x3D; k_aI_a + k_d(I&#x2F;r^2)max(0, \mathbf{n} \cdot \mathbf{l}) + k_s(I&#x2F;r^2){max(0, \mathbf{n \cdot h})}^p<br>\end{split}$$</p>
-<ul>
-<li>环境光Ambient lighting  $L_a &#x3D; k_aI_a$ 给模型所有位置均匀的光照，这里简单认为是常数，其实是不对的。</li>
-<li>漫反射光Diffuse Reflection，光线打到物体的表面会被均匀的散射到各个方向<ul>
-<li>$L_d &#x3D; k_d(I&#x2F;r^2)max(0, \mathbf{n} \cdot\mathbf{l})$</li>
-<li>光线照射到模型的方向与模型法线，夹角越小的地方，光照越强</li>
-</ul>
-</li>
-<li>镜面反射光&#x2F;高光Specular highlights，观察方向和光线的镜面反射方向接近的地方，模型会产生高光<ul>
-<li>$$\begin{split}<br>L_s &amp;&#x3D; k_s(I&#x2F;r^2){max(0, \cos\alpha)}^p \<br>&amp;&#x3D; k_s(I&#x2F;r^2){max(0, \mathbf{n \cdot h})}^p<br>\end{split}$$</li>
-</ul>
-</li>
-</ul>
-<p>几个k分别是对应的系数</p>
-<p>着色频率：逐三角形、逐顶点、逐像素。几何足够复杂的情况下，用逐三角形也可以达到好的效果。</p>
-<h3 id="Things-to-Remember-2"><a href="#Things-to-Remember-2" class="headerlink" title="Things to Remember"></a>Things to Remember</h3><p>Visibility 可见性<br>• Painter’s algorithm and Z-Buffer algorithm 画家算法和Zbuffer深度测试<br>Simple Shading Model 简单的着色模型<br>• Key geometry: lighting, viewing &amp; normal vectors  关键几何图形：照明、视角和法向量<br>• Ambient, diffuse &amp; specular reflection functions 环境反射、漫反射和镜面反射<br>• Shading frequency: triangle, vertex or fragment 着色频率3种，逐三角形、顶点、像素</p>
-<h1 id="Lecture-6-Texture-Mapping"><a href="#Lecture-6-Texture-Mapping" class="headerlink" title="Lecture 6:Texture Mapping"></a>Lecture 6:Texture Mapping</h1><p>纹理：简单来说就是贴在表面</p>
-<p>在屏幕上的采样点(x,y)插值的纹理坐标(u,v)，然后把对应纹理的颜色当作漫反射的系数（Blinn-Phong 反射模型）</p>
-<p>接下来讲纹理会造成的问题：</p>
-<p>纹素过小：锯齿。解决：双线性插值（水平垂直各做一次插值）</p>
-<p>纹理太大：走样。如何解决：范围查询。（以某个方法得到一个值来代表这个范围的对外查询值）Mipmap</p>
-<p>mipmap缺陷：虽然把锯齿和隔断去掉了，但是只能做方形查询，得到的结果模糊。why？当像素映射到类似矩形的区域，再使用最大长度做mipmap level计算，就相当于使用了一个更大的方形区域做采样，求了一个大区域的平均，这就是做了一次模糊，就造成了Overblur</p>
-<p>ok造成问题就解决：各向异性过滤缓解Overblur。但只能解决类似矩形区域查询的问题，如果其他形状的区域查询，仍然有问题</p>
-<p>EWA filtering解决Overblur。把任意形状分解为不同的圆形，然后又对圆形进行多次查询，得到较为准确的结果。但是开销大</p>
+<h2 id="光栅化的本质"><a href="#光栅化的本质" class="headerlink" title="光栅化的本质"></a>光栅化的本质</h2><p>光栅化可以理解为：对屏幕空间做 2D 采样。</p>
+<p>对于一个三角形来说，就是对每个像素中心进行判断：这个像素中心是否在三角形内部？</p>
+<p>如果在，就给这个像素赋值。</p>
+<p>可以写成：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f(x, y) = inside(triangle, x, y)</span><br></pre></td></tr></table></figure>
+
+<p>为了不检查所有像素，可以先用 bounding box 缩小判断范围。</p>
 <hr>
-<p>纹理应用</p>
-<p>环境贴图：将环境光收集到一张纹理上后应用到物体表面，以这样的方法模拟物体对周围的反射。</p>
-<ul>
-<li>可以用球形贴图来记录，但是展开后会有扭曲问题。</li>
-<li>将球面映射到一个立方体上来消除球形贴图的扭曲问题。</li>
-</ul>
-<p>凹凸映射（Bump Mapping）来模拟物体凹凸不平的表面，使用贴图改变着色的结果。</p>
-<p>位移映射，使用凹凸映射用到的同一张高度贴图，对顶点进行实际的位移操作，改变模型顶点的位置</p>
-<hr>
-<p>阴影贴图ShadowMapping</p>
-<h3 id="Things-to-Remember-3"><a href="#Things-to-Remember-3" class="headerlink" title="Things to Remember"></a>Things to Remember</h3><p>Many uses of texturing 纹理的用途<br>• Bring high-resolution data to fragment calculations  为片段计算带来高分辨率数据<br>• Colors, normals, lighting on sphere, volumetric data, … 颜色、法线、球面照明、体积数据…<br>How does texturing work?<br>• Texture coordinate parameterization  纹理坐标参数化<br>• Barycentric interpolation of coordinates 坐标的<strong>重心插值</strong><br>• Texture sampling pattern and frequency 纹理采样模式和频率<br>• Mipmaps: texture filtering hierarchy, level calculation,trilinear interpolation 贴图：纹理过滤层次、层次计算、三线插值<br>• Anisotropic sampling 各向异性采样</p>
-<h1 id="Lecture-7-Introduction-to-Geometry-Implicit-and-Explicit-Representation"><a href="#Lecture-7-Introduction-to-Geometry-Implicit-and-Explicit-Representation" class="headerlink" title="Lecture 7:Introduction to Geometry, Implicit and Explicit Representation"></a>Lecture 7:Introduction to Geometry, Implicit and Explicit Representation</h1><p>首先介绍几何的2类（隐式显式）分别有什么方法。</p>
-<ul>
-<li>隐式：代数曲面(Algebraic surfaces)、CSG(Constructive solid geometry)、 距离函数(distance functions)、水平集(Level set methods)、分形(Fractals)、</li>
-<li>显式：三角形面(triangle meshes)、贝塞尔曲面(Bezier surfaces)、曲面细分(subdivision surfaces)、非均匀有理B样条(NURBS)、点云(Point Cloud)…</li>
-</ul>
-<p>通过2个方面来对比显式和隐式： 这里主要是隐式的代数曲面，隐式的其余表达方式等会介绍。</p>
-<ol>
-<li>显式2种：容易发现表面是什么样的&#x2F;容易描述形状。<ul>
-<li><p>直接给出几何形状点的位置:比如之前的三角形面，把面上的点显式地表现出来。</p>
-</li>
-<li><p>通过参数映射的方式定义的表面 $f:\R^2 \rarr \R^3 \Rightarrow (u, v) \rarr (x, y, z)$</p>
-</li>
-</ul>
-</li>
-<li>隐式：容易判断点与面的关系。隐式容易判断点在内部还是外部(将点的坐标代入函数判断与0的关系) Inside&#x2F;Outside tests easy。只要满足$f(x,y,z)$&#x3D;0的点就是几何的表面。缺点不直观，给了隐式的方程并不能看出它是什么形状的。</li>
-</ol>
-<p>所以Best Representation Depends on the Task。显式用于描述形状，隐式用于判断点面关系。</p>
-<hr>
-<p>图形学中常见的隐式表示几何体的方式。</p>
-<p>Algebraic Surfaces代数曲面：见上面讲的。但是不直观，对于复杂的形状难求表达式。</p>
-<p>CSG将基本几何体通过基本运算（并集、交集、作差）组合成复杂的难以表示的形状。应用广泛。</p>
-<p>距离函数Distance funtions，空间上任意一点到几何体的的最小距离，常用来做几何体的表面混合。通过融合(Blend)距离函数的方式来描述新的物体，得到融合后的距离函数后，把距离函数f(x)对应等于0的地方找出来，就能找到对应物体的表面.</p>
-<p>水平集(Level set methods)：对于融合距离函数的方法，得到融合后确定的函数后，可以通过距离函数为0的地方确定为表面；对于解析式很难描述的复杂形状，替代方案是存储数值近似函数的网格，然后通过插值找出为0的表</p>
-<p>分型：自相似,雪花。描述自然现象。变换频率很高会有强烈的走样。</p>
-<p>隐式优点：</p>
-<ul>
-<li>一些查询方便（判断点在几何体内外，到表面的距离）</li>
-<li>容易求光线到表面的交集（光线追踪用到）</li>
-</ul>
-<p>隐式缺点：复杂的场景难以表示。</p>
-<hr>
-<hr>
-<h1 id="Lecture-8-Curves-and-Surfaces"><a href="#Lecture-8-Curves-and-Surfaces" class="headerlink" title="Lecture 8:Curves and Surfaces"></a>Lecture 8:Curves and Surfaces</h1><h2 id="Curves"><a href="#Curves" class="headerlink" title="Curves"></a>Curves</h2><h3 id="Spline"><a href="#Spline" class="headerlink" title="Spline"></a>Spline</h3><p>Interpolation<br>• Cubic Hermite interpolation<br>• Catmull-Rom interpolation<br>Bezier curves<br>Bezier surfaces</p>
-<p>开始讲插值 Interpolation </p>
-<p>线性插值的问题：不连续。</p>
-<p>图形学中常见的显式表示几何体的方式。</p>
-<p>点云( point cloud)</p>
-<p>多边形网格(polygon mesh)</p>
-<p>贝塞尔曲线：</p>
-<p>Evaluating Bézier Curves</p>
-<ul>
-<li><p>de Casteljau算法：</p>
-<p>每两个点之间做线性插值、重复构造</p>
-</li>
-<li><p>代数表示Algebraic Formula</p>
-</li>
-</ul>
-<p><em>因为高阶容易控制所以用分段贝塞尔曲线</em></p>
-<p>贝塞尔曲线：</p>
-<p>Evaluating Bézier Curves</p>
-<ul>
-<li><p>de Casteljau算法：</p>
-<p>每两个点之间做线性插值、重复构造</p>
-</li>
-<li><p>代数表示Algebraic Formula</p>
-</li>
-</ul>
-<p>高阶的话就用分段贝塞尔曲线</p>
-<p>things to remember</p>
-<p>Splines 样条<br>• Cubic Hermite and Catmull-Rom interpolation<br>• Matrix representation of cubic polynomials<br>Bézier curves 贝塞尔曲线<br>• Easy-to-control spline 易于控制<br>• Recursive linear interpolation – de Casteljau algorithm 这个算法<br>• Properties of Bézier curves 特性<br>• Piecewise Bézier curve – continuity types and how to achieve 分段贝塞尔曲线-连续性 如何实现<br>Bézier surfaces 贝塞尔曲面<br>• Bicubic Bézier patches – tensor product surface<br>• 2D de Casteljau algorithm</p>
-<hr>
-<p>0 网格Mesh，是我们最常使用的描述几何体的方法。</p>
-<p>几何处理：</p>
-<ol>
-<li><p>网格细分subdivision：细分成更多的三角形，得到更光滑的表面</p>
-<p>（1）Loop细分（先增加三角形再调整位置） 但是只能处理三角形网格</p>
-<p>（2）Catmull-Clark细分：适用于任意网格</p>
-</li>
-<li><p>网格简化simplification：与细分反过来。不需要看到那么多细节的时候，保持整体形状不变，节省存储。介绍其中一种方法：边坍缩。</p>
-</li>
-<li><p>网格正规化regularization：三角形大小形状基本相似，提升质量。</p>
-<hr>
-</li>
-</ol>
-<h1 id="Lecture-10-Radiometry-辐射度量学"><a href="#Lecture-10-Radiometry-辐射度量学" class="headerlink" title="Lecture 10: Radiometry 辐射度量学"></a>Lecture 10: Radiometry 辐射度量学</h1><p>why？准确定义光</p>
-<p>这里有很多新的物理量，可以用灯泡的例子想。</p>
-<p>Radiant flux</p>
-<p>intensity, </p>
-<p>Irradiance (hits per second per unit area)</p>
-<p> radiance</p>
-<h1 id="Ray-Tracing"><a href="#Ray-Tracing" class="headerlink" title="Ray_Tracing"></a>Ray_Tracing</h1><p>0 光线 追踪 2个词对吧，那先了解光线，然后得学一下光线投射，也就是光线是怎么发出的。</p>
-<p>Basic Ray-Tracing Algorithm  但是吧这个光线只考虑光线弹射一次，但实际上光线可以弹射很多次，Whitted风格光线追踪就是在做这个事情，需要正确计算出它的反射方向和折射方向</p>
-<p>0 光栅化不好处理全局的效果：软阴影、光泽反射、间接光照。</p>
-<p>光栅化和光追是2种不同的 方式。</p>
-<p>Compare：速度与质量反比。光栅化快，光追质量高。光栅化容易做到实realtime，光追用于离线offline.</p>
-<p>光线的定义：不考虑光的波动性</p>
-<p>光线沿直线传播，光线之间不会发生碰撞，光线从光源到人眼（可逆reciprocity）</p>
-<p>光线投射RayCasting</p>
-<p>每一个像素首先从眼睛开始投射出去一根光线，然后和场景相交，求最近交点，找到交点后和光源连线，这是第二根光线，然后判定交点是否对光源可见，也就是判断是不是在阴影中，然后计算该点的着色，算出来后写回这个像素的值。</p>
-<p> (Whitted-Style) Ray Tracing</p>
-<p><em>上面使用光线投射的例子只考虑了光线弹射一次，但实际上光线可以弹射很多次，Whitted风格光线追踪就是在做这个事情</em></p>
-<hr>
-<p>那么接下来就是怎么求的问题。首先要求交点。</p>
-<p>光线和物体表面相交 Ray-Surface Intersection</p>
-<hr>
-<p>这是按照games101的顺序的。看上面的吧</p>
-<h1 id="0一些默认的以及在图形学的定义"><a href="#0一些默认的以及在图形学的定义" class="headerlink" title="0一些默认的以及在图形学的定义"></a>0一些默认的以及在图形学的定义</h1><p>用单位向量表示方向；向量默认为列向量；用矩阵来表示位置的变换<br>旋转：默认绕<strong>原点 $(0,0)$ 逆时针</strong>旋转45°<br>着色：对不同的物体应用不同的材质<br>Tradeoff &#x2F; NoFreeLunch。想要得到好的效果要付出一定的代价。</p>
-<h1 id="lec01-Introduction"><a href="#lec01-Introduction" class="headerlink" title="lec01 Introduction"></a>lec01 Introduction</h1><ul>
-<li>What is Computer Graphics?使用计算机来合成和操作视觉信息。</li>
-<li>appilications：游戏电影动画模拟VR等等</li>
-<li>光栅化Rasterization、Curves and Mershes曲线曲面、RayTracing光线追踪、Animation &#x2F; Simulation 动画&#x2F;模拟</li>
-<li>计算机视觉和计算机图形学的区别：一般来讲图形学研究的是将Model变成Image的过程，反之则是计算机视觉。计算机视觉是理解这个世界，计算机图形学是创造这个世界</li>
-</ul>
-<p>想看具体的话可以看下面那篇games101-1，大概五六分钟吧。</p>
-<h1 id="LinearAlgebra-lec02"><a href="#LinearAlgebra-lec02" class="headerlink" title="LinearAlgebra lec02"></a>LinearAlgebra lec02</h1><p>lec02这节课是图形学需要用到的线代知识的复习，比较简单，这里只简要列出，主要是要知道在图形学的应用。<br>vector：向量的加法、点乘dot product、叉乘cross product。点乘得到一个数值，叉乘得到一个新的向量。<br>matrix：矩阵加法、矩阵和向量相乘、矩阵和矩阵相乘、转置、单位矩阵、逆矩阵、伴随矩阵</p>
-<p>点乘：${<br>{ \overrightarrow{a} \cdot \overrightarrow{b} }<br>&#x3D; { {\lVert \overrightarrow{ a } \rVert} {\lVert \overrightarrow{ b } \rVert} {\cos\theta} }<br>}$     点乘性质：交换律、结合律、分配律</p>
-<p>叉乘：${<br>{ \lVert \overrightarrow{a} \times \overrightarrow{b} \rVert }<br>&#x3D; { \lVert \overrightarrow{a} \rVert }{ \lVert \overrightarrow{b} \rVert }\sin\theta<br>}$ ；右手螺旋判断方向。叉乘结果的模在大小上等于两个向量组成的三角形面积</p>
-<p>矩阵性质：结合律、分配律、没有交换律。</p>
-<ul>
-<li>$ (AB)^T &#x3D; {B^T}{A^T} $  </li>
-<li>$AA^{-1}&#x3D; A^{-1}A&#x3D;I$</li>
-<li>$(AB)^{-1}&#x3D;B^{-1}A^{-1}$</li>
-</ul>
-<p><strong>在图形学上的应用：</strong></p>
-<ul>
-<li>点乘<ul>
-<li>求任意两个向量之间的夹角（例如光源在表面之间角度的余弦）。</li>
-<li>求一个向量在另一个向量上的投影</li>
-<li>根据结果正负判断一个向量对于另一个向量是朝前还是朝后的。</li>
-</ul>
-</li>
-<li>叉乘<ul>
-<li>判断向量在另一个向量的左边还是右边 ； ${<br>{  \overrightarrow{a} \times \overrightarrow{b} &gt;0 }<br>}$  表示b在a左边</li>
-<li>判断点P在三角形内还是外（三次按顺序的叉乘方向相同的话在内）</li>
-</ul>
-</li>
-<li>矩阵<ul>
-<li>常用矩阵来表示变换信息：平移、旋转、缩放、切变等 Translation, rotation, shear, scale</li>
-</ul>
-</li>
-</ul>
-<h1 id="Transformation-lec03-lec04部分"><a href="#Transformation-lec03-lec04部分" class="headerlink" title="Transformation lec03+lec04部分"></a>Transformation lec03+lec04部分</h1><p>先具体讲几种2D的变换：Scale Transform 缩放1变换矩阵、Reflection Matrix对称2变换矩阵、Shear Matrix切变3变换矩阵、Rotation Matrix旋转4变换矩阵。我们发现以上四种都可以用一个矩阵乘以输入可以得到输出的坐标，这种叫做线性变换。平移也是常用的变换，但不是线性变换。为了不特殊处理平移的情况，引入齐次坐标Homogeneous coordinates来统一处理各种变换，具体做法是增加一个维度。<br>然后还有6仿射变换Affine和7逆变换。仿射&#x3D; 线性变换+平移<br>然后3D是在lec04的，也放在这里，与2D类似，不具体讲。</p>
-<h2 id="0-why-study-transformation-1"><a href="#0-why-study-transformation-1" class="headerlink" title="0 why study transformation"></a>0 why study transformation</h2><ul>
-<li>Modeling模型变换: translation&#x2F;rotation&#x2F;scaling</li>
-<li>Viewing视图变换: (3D to 2D) projection</li>
-</ul>
-<h2 id="1、2D-transformations-1"><a href="#1、2D-transformations-1" class="headerlink" title="1、2D transformations"></a>1、2D transformations</h2><ol>
-<li>缩放</li>
-<li>对称</li>
-<li>切变：竖直方向是没有变的&#x2F;y不变，沿水平拉伸。</li>
-<li>旋转矩阵的逆就是它的转置：正交矩阵  $A^{-1} &#x3D; A^T$<blockquote>
-<p>主要是找到变换前后对应的关系就能表示出来。<br>这几种都是线性变换： 输出坐标 &#x3D; 矩阵 乘以 输入坐标</p>
+<h1 id="5-Sampling-Aliasing：为什么会有锯齿"><a href="#5-Sampling-Aliasing：为什么会有锯齿" class="headerlink" title="5. Sampling &#x2F; Aliasing：为什么会有锯齿"></a>5. Sampling &#x2F; Aliasing：为什么会有锯齿</h1><p>光栅化本质是采样。<br>但采样会带来问题。</p>
+<p>屏幕像素是有限的，如果信号变化太快，而采样频率不够高，就会出现走样。</p>
+<blockquote>
+<p>走样的原因是：信号变化太快，采样太慢。</p>
 </blockquote>
-</li>
-<li>平移</li>
-</ol>
-<h3 id="齐次坐标-1"><a href="#齐次坐标-1" class="headerlink" title="齐次坐标"></a>齐次坐标</h3><p>why？平移不能用线性变换表示，但是我们又不想把它作为特殊情况处理。所以引入齐次坐标，把所有的变换写成一个矩阵乘以一个向量。<br>具体做法是增加一个维度。</p>
-<ol start="6">
-<li>仿射变换Affine &#x3D; 线性变换+ 平移 （先线性再平移）</li>
-<li>逆变换</li>
-</ol>
+<p>常见走样现象：</p>
+<ul>
+<li>锯齿 Jaggies；</li>
+<li>摩尔纹 Moire；</li>
+<li>车轮效应 Wagon Wheel Effect。</li>
+</ul>
+<h2 id="反走样"><a href="#反走样" class="headerlink" title="反走样"></a>反走样</h2><p>反走样的核心思路：在采样之前，先过滤掉高频信号。Antialiasing &#x3D; filter out high frequencies before sampling</p>
+<p>放到光栅化里理解：</p>
+<p>原本三角形边界是非常锐利的，高频信息很多。<br>先做模糊 &#x2F; 低通滤波，再采样，边界就不会那么突兀，锯齿会减轻。</p>
+<h2 id="滤波和卷积"><a href="#滤波和卷积" class="headerlink" title="滤波和卷积"></a>滤波和卷积</h2><p>滤波可以理解为去掉某些频率成分。</p>
+<p>低通滤波：</p>
+<ul>
+<li>去掉高频；</li>
+<li>得到模糊效果；</li>
+<li>用于反走样。</li>
+</ul>
+<p>高通滤波：</p>
+<ul>
+<li>去掉低频；</li>
+<li>保留边缘；</li>
+<li>用于提取边界。</li>
+</ul>
+<p>在空间域里，滤波常常通过卷积实现。<br>简单理解就是对周围像素做加权平均。</p>
 <hr>
-<p>那么这些变换我们可以组合、分解。<br>通过组合可以表示复杂的变换。反过来也可把复杂的变换分解。要注意顺序（因为做变换其实就是左乘一个矩阵，矩阵的乘法是不满足交换律的）</p>
-<h2 id="2、-3D-transformations-1"><a href="#2、-3D-transformations-1" class="headerlink" title="2、 3D transformations"></a>2、 3D transformations</h2><p>与2D类似，也可以用齐次坐标。</p>
+<h1 id="6-Visibility：为什么需要可见性判断"><a href="#6-Visibility：为什么需要可见性判断" class="headerlink" title="6. Visibility：为什么需要可见性判断"></a>6. Visibility：为什么需要可见性判断</h1><p>光栅化后，一个像素位置可能有多个三角形覆盖。</p>
+<p>这时要判断：到底哪个三角形应该被看见？</p>
+<p>这就是可见性问题。</p>
+<h2 id="画家算法"><a href="#画家算法" class="headerlink" title="画家算法"></a>画家算法</h2><p>画家算法的思路：先画远的，再画近的，近的覆盖远的。</p>
+<p>问题：</p>
 <ul>
-<li>绕xyz轴旋转</li>
-<li>可以把3D的旋转分解成xyz轴 飞机的例子<ul>
-<li>$R_{xyz}(\alpha, \beta, \gamma) &#x3D; R_x(\alpha)R_y(\beta)R_z(\gamma)$</li>
+<li>需要排序；</li>
+<li>有些三角形互相遮挡时无法正确排序；</li>
+<li>复杂度较高。</li>
 </ul>
-</li>
-<li>Rodrigues公式：得到围绕一个旋转轴旋转任意角度后的向量</li>
-</ul>
-<h1 id="Viewing-Transformation-观测变换-lec04"><a href="#Viewing-Transformation-观测变换-lec04" class="headerlink" title="Viewing Transformation 观测变换 lec04"></a>Viewing Transformation 观测变换 lec04</h1><h1 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h1><p>屏幕由像素点pixel组成，是离散的，二维的。计算机生成图像中，最基本的二维元素就是三角形。</p>
-<p>通过采样sampling。</p>
-<p>一个像素点对应一个坐标点，对这个像素采样，判断是否在三角形内。如何判断？三次叉乘</p>
-<p>采样的问题 ： 锯齿（走样的一种）</p>
-<p>如何反走样：先filter再采样。</p>
-<h1 id="Antialiasing-and-Visibility-lec6-lec07部分"><a href="#Antialiasing-and-Visibility-lec6-lec07部分" class="headerlink" title="Antialiasing and Visibility  lec6+lec07部分"></a>Antialiasing and Visibility  lec6+lec07部分</h1><p>画家算法：一般先画远的，近的会覆盖远的。无法排序的情况：例如三个三角形互相重叠。</p>
-<p>Z-buffer：对每个像素多存一个深度。无法处理透明物体</p>
-<h1 id="Shading-lec789"><a href="#Shading-lec789" class="headerlink" title="Shading lec789"></a>Shading lec789</h1><p>0 why？有颜色当然更加真实</p>
-<p>注意：Shading is Local 着色是局部的，对某个点进行计算，不管其他物体的存在。</p>
-<h2 id="Blinn-Phong-Reflection-Model-三种光照的组合-1"><a href="#Blinn-Phong-Reflection-Model-三种光照的组合-1" class="headerlink" title="Blinn-Phong Reflection Model: 三种光照的组合"></a>Blinn-Phong Reflection Model: 三种光照的组合</h2><p>$$\begin{split}<br>L &amp;&#x3D; L_a + L_d + L_s \<br>    &amp;&#x3D; k_aI_a + k_d(I&#x2F;r^2)max(0, \mathbf{n} \cdot \mathbf{l}) + k_s(I&#x2F;r^2){max(0, \mathbf{n \cdot h})}^p<br>\end{split}$$</p>
+<h2 id="Z-buffer"><a href="#Z-buffer" class="headerlink" title="Z-buffer"></a>Z-buffer</h2><p>Z-buffer 的思路：每个像素除了颜色，还存一个深度值。</p>
+<p>当新的片段要写入像素时，比较它和当前记录的深度。<br>谁更近，就保留谁。</p>
+<p>优点：</p>
 <ul>
-<li>环境光Ambient lighting  $L_a &#x3D; k_aI_a$ 给模型所有位置均匀的光照，这里简单认为是常数，其实是不对的。</li>
-<li>漫反射光Diffuse Reflection，光线打到物体的表面会被均匀的散射到各个方向<ul>
-<li>$L_d &#x3D; k_d(I&#x2F;r^2)max(0, \mathbf{n} \cdot\mathbf{l})$</li>
-<li>光线照射到模型的方向与模型法线，夹角越小的地方，光照越强</li>
+<li>不需要全局排序；</li>
+<li>一次遍历即可；</li>
+<li>实现简单。</li>
 </ul>
-</li>
-<li>镜面反射光&#x2F;高光Specular highlights，观察方向和光线的镜面反射方向接近的地方，模型会产生高光<ul>
-<li>$$\begin{split}<br>L_s &amp;&#x3D; k_s(I&#x2F;r^2){max(0, \cos\alpha)}^p \<br>&amp;&#x3D; k_s(I&#x2F;r^2){max(0, \mathbf{n \cdot h})}^p<br>\end{split}$$</li>
+<p>缺点：</p>
+<ul>
+<li>不适合直接处理透明物体。</li>
 </ul>
-</li>
+<hr>
+<h1 id="7-Shading：为什么要着色"><a href="#7-Shading：为什么要着色" class="headerlink" title="7. Shading：为什么要着色"></a>7. Shading：为什么要着色</h1><p>光栅化和可见性只解决了“哪些像素属于哪个物体”。 但一个物体不能只有轮廓，还需要颜色和明暗变化。所以要做着色。</p>
+<p>着色是局部的，它只计算某个点的颜色，不考虑其他物体对它的复杂影响。</p>
+<h2 id="Blinn-Phong-反射模型"><a href="#Blinn-Phong-反射模型" class="headerlink" title="Blinn-Phong 反射模型"></a>Blinn-Phong 反射模型</h2><p>Blinn-Phong 模型把光照分成三部分：</p>
+<p>$$<br>\begin{aligned}<br>L &amp;&#x3D; L_a + L_d + L_s \<br>  &amp;&#x3D; k_a I_a + k_d \frac{I}{r^2}\max(0, \mathbf{n} \cdot \mathbf{l}) + k_s \frac{I}{r^2}\max(0, \mathbf{n} \cdot \mathbf{h})^p<br>\end{aligned}<br>$$</p>
+<p>分别是：</p>
+<ol>
+<li>环境光 Ambient；</li>
+<li>漫反射 Diffuse；</li>
+<li>镜面反射 &#x2F; 高光 Specular。</li>
+</ol>
+<h3 id="环境光"><a href="#环境光" class="headerlink" title="环境光"></a>环境光</h3><p>环境光简单地给物体一个基础亮度。</p>
+<p> $L_a &#x3D; k_aI_a$ </p>
+<p>这里把环境光近似当作常数。</p>
+<h3 id="漫反射"><a href="#漫反射" class="headerlink" title="漫反射"></a>漫反射</h3><p>漫反射表示光线打到粗糙表面后，被均匀散射到各个方向。</p>
+<p>$L_d &#x3D; k_d(I&#x2F;r^2)max(0, \mathbf{n} \cdot\mathbf{l})$</p>
+<p>法线方向和光线方向越接近，表面越亮。</p>
+<h3 id="镜面反射"><a href="#镜面反射" class="headerlink" title="镜面反射"></a>镜面反射</h3><p>镜面反射表示高光。</p>
+<p>当观察方向接近反射方向时，高光更明显。</p>
+<p>Blinn-Phong 用半程向量 h 来近似计算：</p>
+<p>$$<br>\begin{aligned}<br>L_s &amp;&#x3D; k_s \frac{I}{r^2}\max(0, \cos\alpha)^p \<br>    &amp;&#x3D; k_s \frac{I}{r^2}\max(0, \mathbf{n} \cdot \mathbf{h})^p<br>\end{aligned}<br>$$</p>
+<h2 id="着色频率"><a href="#着色频率" class="headerlink" title="着色频率"></a>着色频率</h2><p>着色可以发生在不同粒度上：</p>
+<ul>
+<li>逐三角形；</li>
+<li>逐顶点；</li>
+<li>逐像素。</li>
 </ul>
-<p>几个k分别是对应的系数</p>
-<p>着色频率：逐三角形、逐顶点、逐像素。几何足够复杂的情况下，用逐三角形也可以达到好的效果。</p>
-<h2 id="实时渲染管线：3D场景到2D图的过程"><a href="#实时渲染管线：3D场景到2D图的过程" class="headerlink" title="实时渲染管线：3D场景到2D图的过程"></a>实时渲染管线：3D场景到2D图的过程</h2><ul>
-<li><p>Vertex Processing<br>主要是把我们输入的顶点进行MVP变换，得到屏幕空间的顶点表示，方便后续处理。</p>
-</li>
-<li><p>Triangle Processing<br>按照一定顺序，将顶点组成不同的三角形</p>
-</li>
-<li><p>Rasterization<br>对每个像素进行采样，判断像素在不在三角形内</p>
-</li>
-<li><p>Fragment Processing -&gt; Z-buffer 、 Shading、Texture mapping<br>判定每个像素位置哪些物体可见，使用Z-Buffer做深度测试<br>计算shading point（根据不同的着色频率决定不同粒度的shading point）的颜色，并着色<br>这个阶段也会做纹理映射，简单说就是把贴图（颜色、法线等等）给映射到物体的不同位置上，后面会详细说明这一部分</p>
-</li>
-<li><p>Framebuffer Operations<br>​	   根据像素大小，最终生成一个用于显示的Framebuffer</p>
-</li>
+<p>粒度越细，效果通常越好，但计算成本更高。</p>
+<hr>
+<h1 id="8-Texture-Mapping：为什么需要纹理"><a href="#8-Texture-Mapping：为什么需要纹理" class="headerlink" title="8. Texture Mapping：为什么需要纹理"></a>8. Texture Mapping：为什么需要纹理</h1><p>如果所有细节都靠几何模型表示，模型会非常复杂。<br>纹理的作用是：把高分辨率信息贴到物体表面上。</p>
+<p>简单说，纹理就是贴在表面的信息。</p>
+<p>它不只可以表示颜色，还可以表示：</p>
+<ul>
+<li>法线；</li>
+<li>高度；</li>
+<li>环境光；</li>
+<li>体积数据等。</li>
 </ul>
-<h2 id="Texture-Mapping-纹理映射"><a href="#Texture-Mapping-纹理映射" class="headerlink" title="Texture Mapping 纹理映射"></a>Texture Mapping 纹理映射</h2></article>
+<h2 id="纹理映射"><a href="#纹理映射" class="headerlink" title="纹理映射"></a>纹理映射</h2><p>屏幕上的点有坐标 <code>(x, y)</code>，模型表面有纹理坐标 <code>(u, v)</code>。</p>
+<p>通过插值，可以知道某个屏幕采样点对应纹理上的哪个位置。<br>然后把纹理颜色作为材质参数，例如漫反射系数。</p>
+<p>这里会用到重心坐标插值。</p>
+<h2 id="纹理采样问题"><a href="#纹理采样问题" class="headerlink" title="纹理采样问题"></a>纹理采样问题</h2><p>纹理也会遇到采样问题。</p>
+<h3 id="纹素太小"><a href="#纹素太小" class="headerlink" title="纹素太小"></a>纹素太小</h3><p>如果纹素太小，会出现锯齿。</p>
+<p>解决方法：</p>
+<ul>
+<li>双线性插值；</li>
+<li>在水平和垂直方向分别插值。</li>
+</ul>
+<h3 id="纹理太大"><a href="#纹理太大" class="headerlink" title="纹理太大"></a>纹理太大</h3><p>如果一个屏幕像素覆盖了纹理上很大一片区域，会出现走样。</p>
+<p>解决方法：</p>
+<ul>
+<li>范围查询；</li>
+<li>Mipmap。</li>
+</ul>
+<h2 id="Mipmap"><a href="#Mipmap" class="headerlink" title="Mipmap"></a>Mipmap</h2><p>Mipmap 的思路：</p>
+<blockquote>
+<p>预先生成不同分辨率的纹理层级，根据屏幕像素覆盖范围选择合适层级。</p>
+</blockquote>
+<p>问题：</p>
+<ul>
+<li>Mipmap 适合近似方形区域查询；</li>
+<li>对细长区域容易过度模糊。</li>
+</ul>
+<p>为了解决这个问题，可以用：</p>
+<ul>
+<li>各向异性过滤；</li>
+<li>EWA filtering。</li>
+</ul>
+<h2 id="纹理的其他应用"><a href="#纹理的其他应用" class="headerlink" title="纹理的其他应用"></a>纹理的其他应用</h2><h3 id="环境贴图"><a href="#环境贴图" class="headerlink" title="环境贴图"></a>环境贴图</h3><p>把环境光记录成纹理，用来模拟物体对周围环境的反射。</p>
+<p>可以用：</p>
+<ul>
+<li>球形贴图；</li>
+<li>立方体贴图。</li>
+</ul>
+<p>球形贴图会有扭曲问题，立方体贴图可以缓解。</p>
+<h3 id="凹凸映射"><a href="#凹凸映射" class="headerlink" title="凹凸映射"></a>凹凸映射</h3><p>凹凸映射用高度贴图改变着色结果，模拟表面凹凸。</p>
+<p>它不会真的改变几何形状，只是改变法线或着色。</p>
+<h3 id="位移映射"><a href="#位移映射" class="headerlink" title="位移映射"></a>位移映射</h3><p>位移映射会真的移动顶点，改变模型几何。</p>
+<hr>
+<h1 id="9-Rendering-Pipeline：实时渲染管线"><a href="#9-Rendering-Pipeline：实时渲染管线" class="headerlink" title="9. Rendering Pipeline：实时渲染管线"></a>9. Rendering Pipeline：实时渲染管线</h1><p>前面的内容可以串成实时渲染管线：</p>
+<ol>
+<li><p><strong>Vertex Processing</strong><br>对输入顶点做 MVP 变换，得到屏幕空间中的顶点。</p>
+</li>
+<li><p><strong>Triangle Processing</strong><br>将顶点按顺序组成三角形。</p>
+</li>
+<li><p><strong>Rasterization</strong><br>对屏幕像素采样，判断像素是否在三角形内。</p>
+</li>
+<li><p><strong>Fragment Processing</strong><br>对片段做深度测试、着色、纹理映射。</p>
+</li>
+<li><p><strong>Framebuffer Operations</strong><br>最终写入帧缓存，生成屏幕图像。</p>
+</li>
+</ol>
+<p>这条管线就是从 3D 场景得到 2D 图像的主要过程。</p>
+<hr>
+<h1 id="10-Geometry：为什么要研究几何表示"><a href="#10-Geometry：为什么要研究几何表示" class="headerlink" title="10. Geometry：为什么要研究几何表示"></a>10. Geometry：为什么要研究几何表示</h1><p>前面讲的是如何把模型画出来。<br>但模型本身也需要表示。</p>
+<p>所以接下来要问：几何体应该怎么表示？</p>
+<p>几何表示大致分为两类：</p>
+<ul>
+<li>隐式表示；</li>
+<li>显式表示。</li>
+</ul>
+<h2 id="隐式表示"><a href="#隐式表示" class="headerlink" title="隐式表示"></a>隐式表示</h2><p>隐式表示：只要满足$f(x,y,z)$&#x3D;0的点就是几何的表面。</p>
+<p>优点：</p>
+<ul>
+<li>容易判断点在内部、外部还是表面上；</li>
+<li>容易做 inside &#x2F; outside test；</li>
+<li>容易表示某些连续表面；</li>
+<li>在光线追踪中容易求交。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>不直观；</li>
+<li>给出方程后，不一定能看出形状；</li>
+<li>复杂场景难以表示。</li>
+</ul>
+<p>常见隐式表示：</p>
+<ul>
+<li>代数曲面；</li>
+<li>CSG；</li>
+<li>距离函数；</li>
+<li>水平集；</li>
+<li>分形。</li>
+</ul>
+<h2 id="显式表示"><a href="#显式表示" class="headerlink" title="显式表示"></a>显式表示</h2><p>显式表示直接给出几何形状，或者通过参数映射定义表面。</p>
+<p>两种常见形式：</p>
+<ol>
+<li>直接给出点、边、面，例如三角形网格；</li>
+<li>参数映射：$f:\R^2 \rarr \R^3 \Rightarrow (u, v) \rarr (x, y, z)$</li>
+</ol>
+<p>优点：</p>
+<ul>
+<li>直观；</li>
+<li>容易描述形状；</li>
+<li>适合建模和渲染。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>判断点在内部还是外部通常不如隐式方便。</li>
+</ul>
+<p>所以：隐式适合判断关系，显式适合描述形状。</p>
+<p>最好的表示方式取决于任务。</p>
+<hr>
+<h1 id="11-Curves-and-Surfaces：为什么需要曲线曲面"><a href="#11-Curves-and-Surfaces：为什么需要曲线曲面" class="headerlink" title="11. Curves and Surfaces：为什么需要曲线曲面"></a>11. Curves and Surfaces：为什么需要曲线曲面</h1><p>三角形网格可以表示很多形状，但有时候我们希望用更少的控制点表示平滑曲线和曲面。</p>
+<p>这时就需要曲线曲面。</p>
+<h2 id="插值"><a href="#插值" class="headerlink" title="插值"></a>插值</h2><p>线性插值简单，但容易不够平滑。</p>
+<p>常见插值方法：</p>
+<ul>
+<li>Cubic Hermite interpolation；</li>
+<li>Catmull-Rom interpolation。</li>
+</ul>
+<h2 id="贝塞尔曲线"><a href="#贝塞尔曲线" class="headerlink" title="贝塞尔曲线"></a>贝塞尔曲线</h2><p>贝塞尔曲线是一种容易控制的曲线。</p>
+<p>核心算法是 de Casteljau 算法：</p>
+<blockquote>
+<p>每两个控制点之间做线性插值，重复构造，直到得到曲线上的点。</p>
+</blockquote>
+<p>高阶贝塞尔曲线不容易控制，所以实际中常用分段贝塞尔曲线。</p>
+<h2 id="贝塞尔曲面"><a href="#贝塞尔曲面" class="headerlink" title="贝塞尔曲面"></a>贝塞尔曲面</h2><p>贝塞尔曲面可以理解为二维版本的贝塞尔曲线。<br>它使用 2D de Casteljau 算法构造曲面。</p>
+<hr>
+<h1 id="12-Mesh-Processing：为什么要处理网格"><a href="#12-Mesh-Processing：为什么要处理网格" class="headerlink" title="12. Mesh Processing：为什么要处理网格"></a>12. Mesh Processing：为什么要处理网格</h1><p>网格是最常用的几何表示方式。</p>
+<p>但不同应用对网格有不同需求：</p>
+<ul>
+<li>有时需要更光滑；</li>
+<li>有时需要更少面数；</li>
+<li>有时需要更规整。</li>
+</ul>
+<p>所以有三类常见操作。</p>
+<h2 id="网格细分-Subdivision"><a href="#网格细分-Subdivision" class="headerlink" title="网格细分 Subdivision"></a>网格细分 Subdivision</h2><p>把网格分成更多三角形，使表面更光滑。</p>
+<p>常见方法：</p>
+<ul>
+<li>Loop 细分：适合三角形网格；</li>
+<li>Catmull-Clark 细分：适用于任意网格。</li>
+</ul>
+<h2 id="网格简化-Simplification"><a href="#网格简化-Simplification" class="headerlink" title="网格简化 Simplification"></a>网格简化 Simplification</h2><p>减少面数，保留整体形状，节省存储和计算。</p>
+<p>一种方法是边坍缩。</p>
+<h2 id="网格正规化-Regularization"><a href="#网格正规化-Regularization" class="headerlink" title="网格正规化 Regularization"></a>网格正规化 Regularization</h2><p>让三角形大小和形状更相似，提高网格质量。</p>
+<hr>
+<h1 id="13-Ray-Tracing：为什么需要光线追踪"><a href="#13-Ray-Tracing：为什么需要光线追踪" class="headerlink" title="13. Ray Tracing：为什么需要光线追踪"></a>13. Ray Tracing：为什么需要光线追踪</h1><p>光栅化速度快，适合实时渲染。<br>但它不太容易处理全局效果，例如：</p>
+<ul>
+<li>软阴影；</li>
+<li>光泽反射；</li>
+<li>间接光照。</li>
+</ul>
+<p>所以引出光线追踪。</p>
+<p>光栅化和光线追踪是两种不同的渲染方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>特点</th>
+<th>常见场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>光栅化</td>
+<td>快，适合实时</td>
+<td>游戏、实时渲染</td>
+</tr>
+<tr>
+<td>光线追踪</td>
+<td>质量高，但慢</td>
+<td>离线渲染、电影级效果</td>
+</tr>
+</tbody></table>
+<h2 id="光线的基本假设"><a href="#光线的基本假设" class="headerlink" title="光线的基本假设"></a>光线的基本假设</h2><p>在图形学中，光线通常有几个简单假设：</p>
+<ul>
+<li>光沿直线传播；</li>
+<li>光线之间不会碰撞；</li>
+<li>光路可逆；</li>
+<li>暂时不考虑光的波动性。</li>
+</ul>
+<h2 id="Ray-Casting"><a href="#Ray-Casting" class="headerlink" title="Ray Casting"></a>Ray Casting</h2><p>光线投射的流程：</p>
+<ol>
+<li>从眼睛向每个像素发出一条光线；</li>
+<li>找到它和场景的最近交点；</li>
+<li>从交点向光源连一条光线；</li>
+<li>判断交点是否能看到光源；</li>
+<li>如果能看到，就计算着色；</li>
+<li>把颜色写回像素。</li>
+</ol>
+<h2 id="Whitted-Style-Ray-Tracing"><a href="#Whitted-Style-Ray-Tracing" class="headerlink" title="Whitted-Style Ray Tracing"></a>Whitted-Style Ray Tracing</h2><p>Ray Casting 只考虑一次交点和直接光照。</p>
+<p>但真实光线会反射、折射很多次。</p>
+<p>Whitted-style Ray Tracing 会继续追踪反射光线和折射光线，从而得到更真实的效果。</p>
+<hr>
+<h1 id="14-Radiometry：为什么需要辐射度量学"><a href="#14-Radiometry：为什么需要辐射度量学" class="headerlink" title="14. Radiometry：为什么需要辐射度量学"></a>14. Radiometry：为什么需要辐射度量学</h1><p>如果要更准确地描述光，就需要更精确的物理量。</p>
+<p>这就是辐射度量学。</p>
+<p>可以用灯泡例子理解几个量：</p>
+<ul>
+<li>Radiant flux：光源总共发出的能量速率；</li>
+<li>Intensity：某个方向上的光强；</li>
+<li>Irradiance：单位面积接收到的能量；</li>
+<li>Radiance：沿某个方向传播的光，是渲染中很核心的量。</li>
+</ul>
+<p>这些概念是后面理解渲染方程的基础。</p>
+<hr>
+<h1 id="15-Rendering-Equation-and-Path-Tracing"><a href="#15-Rendering-Equation-and-Path-Tracing" class="headerlink" title="15. Rendering Equation and Path Tracing"></a>15. Rendering Equation and Path Tracing</h1><h2 id="渲染方程"><a href="#渲染方程" class="headerlink" title="渲染方程"></a>渲染方程</h2><p>渲染方程描述的是：一个点沿某个方向射出的光，等于自身发光加上来自其他方向的光经过表面反射后的贡献。</p>
+<p>它把全局光照写成一个积分问题。</p>
+<h2 id="路径追踪"><a href="#路径追踪" class="headerlink" title="路径追踪"></a>路径追踪</h2><p>渲染方程通常很难直接求解。<br>路径追踪使用随机采样的方法估计这个积分。</p>
+<p>这就引出蒙特卡洛积分。</p>
+<h2 id="蒙特卡洛积分"><a href="#蒙特卡洛积分" class="headerlink" title="蒙特卡洛积分"></a>蒙特卡洛积分</h2><p>蒙特卡洛积分的核心思想：<strong>用随机采样的平均值，近似积分结果。</strong></p>
+<p>重点是：</p>
+<ul>
+<li>如何采样；</li>
+<li>如何估计积分；</li>
+<li>采样越多，结果通常越稳定，但成本越高。</li>
+</ul>
+<hr>
+<h1 id="16-Animation-Simulation：为什么需要物理模拟"><a href="#16-Animation-Simulation：为什么需要物理模拟" class="headerlink" title="16. Animation &#x2F; Simulation：为什么需要物理模拟"></a>16. Animation &#x2F; Simulation：为什么需要物理模拟</h1><p>前面的内容主要是在生成静态图像。<br>如果要让物体运动，就需要动画和物理模拟。</p>
+<p>课件中主要涉及弹簧质点模型。</p>
+<h2 id="弹簧质点模型"><a href="#弹簧质点模型" class="headerlink" title="弹簧质点模型"></a>弹簧质点模型</h2><p>弹簧质点模型可以用来表示布料等柔性物体。</p>
+<p>基本思想：</p>
+<ul>
+<li>把物体看成很多质点；</li>
+<li>质点之间用弹簧连接；</li>
+<li>根据力和运动规律更新位置。</li>
+</ul>
+<p>基础公式：F &#x3D; ma</p>
+<p>通过计算力、加速度、速度和位置，就可以模拟物体随时间变化的状态。</p>
+<hr>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>计算机图形学可以理解为从模型到图像的完整过程。</p>
+<p>最核心的主线是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Model</span><br><span class="line">→ Transformation</span><br><span class="line">→ Rasterization</span><br><span class="line">→ Visibility</span><br><span class="line">→ Shading</span><br><span class="line">→ Texture</span><br><span class="line">→ Framebuffer</span><br><span class="line">→ Image</span><br></pre></td></tr></table></figure>
+
+<p>如果追求更真实的全局光照，就从光栅化走向光线追踪：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Ray Casting</span><br><span class="line">→ Whitted-style Ray Tracing</span><br><span class="line">→ Rendering Equation</span><br><span class="line">→ Path Tracing</span><br><span class="line">→ Monte Carlo Integration</span><br></pre></td></tr></table></figure>
+
+<p>如果关注模型本身，就进入几何表示：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Implicit / Explicit Geometry</span><br><span class="line">→ Curves and Surfaces</span><br><span class="line">→ Mesh Processing</span><br></pre></td></tr></table></figure>
+
+<p>所以这门课在回答同一个问题：如何用计算机创造一个世界，并把它真实、清晰、高效地显示出来。</p>
+</article>
 
 
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/07/08/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF-%E9%80%8F%E9%95%9C/">游戏设计艺术-透镜</a></div><div class="item" id="next"></div></section></div>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/03/05/%E5%B5%8C%E5%85%A5%E5%BC%8FUART%E3%80%81I2C%E3%80%81SPI%20%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/">嵌入式复习</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2023/11/02/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E5%AE%9E%E9%AA%8C/">计算机组成原理实验</a></div></section></div>
 
 
 
@@ -574,7 +534,7 @@
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Exam"><span class="toc-text">Exam</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#TODO"><span class="toc-text">TODO</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lec01-introduction"><span class="toc-text">lec01 introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Lecture-2-Digital-Drawing"><span class="toc-text">Lecture 2:Digital Drawing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Drawing-Triangles-to-the-Screen-by-Sampling%E7%94%A8%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%8A%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2"><span class="toc-text">Drawing Triangles to the Screen by Sampling用采样方法在屏幕上绘制三角形</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Drawing-Machines-%E6%88%90%E5%83%8F%E8%AE%BE%E5%A4%87-%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89"><span class="toc-text">Drawing Machines  成像设备 （了解）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Drawing-to-Raster-Displays%E7%94%BB%E5%88%B0%E5%85%89%E6%A0%85%E6%98%BE%E7%A4%BA%E5%99%A8-%E5%85%89%E6%A0%85%E5%8C%96-%E9%87%8D%E8%A6%8110"><span class="toc-text">Drawing to Raster Displays画到光栅显示器 &#x3D; 光栅化 [重要10]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Signal-Reconstruction-on-Real-Displays-%E7%9C%9F%E5%AE%9E%E6%98%BE%E7%A4%BA%E5%99%A8%E4%B8%8A%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8D%E6%9E%84"><span class="toc-text">Signal Reconstruction on Real Displays 真实显示器上的信号重构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Things-to-Remember"><span class="toc-text">Things to Remember</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lecture-3-Intro-to-Signal-Processing-Sampling-Aliasing-Antialiasing"><span class="toc-text">Lecture 3: Intro to Signal Processing:Sampling, Aliasing, Antialiasing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Things-to-Remember-1"><span class="toc-text">Things to Remember</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lecture4%EF%BC%9ATransformation"><span class="toc-text">lecture4：Transformation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-why-study-transformation"><span class="toc-text">0 why study transformation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%812D-transformations"><span class="toc-text">1、2D transformations</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87"><span class="toc-text">齐次坐标</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81-3D-transformations"><span class="toc-text">2、 3D transformations</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lecture5%EF%BC%9A-Shading"><span class="toc-text">Lecture5： Shading</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Visibility-Z-Buffering"><span class="toc-text">Visibility (Z-Buffering)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shading"><span class="toc-text">Shading</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Blinn-Phong-Reflection-Model-%E4%B8%89%E7%A7%8D%E5%85%89%E7%85%A7%E7%9A%84%E7%BB%84%E5%90%88"><span class="toc-text">Blinn-Phong Reflection Model: 三种光照的组合</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Things-to-Remember-2"><span class="toc-text">Things to Remember</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lecture-6-Texture-Mapping"><span class="toc-text">Lecture 6:Texture Mapping</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Things-to-Remember-3"><span class="toc-text">Things to Remember</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lecture-7-Introduction-to-Geometry-Implicit-and-Explicit-Representation"><span class="toc-text">Lecture 7:Introduction to Geometry, Implicit and Explicit Representation</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lecture-8-Curves-and-Surfaces"><span class="toc-text">Lecture 8:Curves and Surfaces</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Curves"><span class="toc-text">Curves</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spline"><span class="toc-text">Spline</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lecture-10-Radiometry-%E8%BE%90%E5%B0%84%E5%BA%A6%E9%87%8F%E5%AD%A6"><span class="toc-text">Lecture 10: Radiometry 辐射度量学</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ray-Tracing"><span class="toc-text">Ray_Tracing</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0%E4%B8%80%E4%BA%9B%E9%BB%98%E8%AE%A4%E7%9A%84%E4%BB%A5%E5%8F%8A%E5%9C%A8%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">0一些默认的以及在图形学的定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lec01-Introduction"><span class="toc-text">lec01 Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#LinearAlgebra-lec02"><span class="toc-text">LinearAlgebra lec02</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Transformation-lec03-lec04%E9%83%A8%E5%88%86"><span class="toc-text">Transformation lec03+lec04部分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-why-study-transformation-1"><span class="toc-text">0 why study transformation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%812D-transformations-1"><span class="toc-text">1、2D transformations</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87-1"><span class="toc-text">齐次坐标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81-3D-transformations-1"><span class="toc-text">2、 3D transformations</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Viewing-Transformation-%E8%A7%82%E6%B5%8B%E5%8F%98%E6%8D%A2-lec04"><span class="toc-text">Viewing Transformation 观测变换 lec04</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Rasterization"><span class="toc-text">Rasterization</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Antialiasing-and-Visibility-lec6-lec07%E9%83%A8%E5%88%86"><span class="toc-text">Antialiasing and Visibility  lec6+lec07部分</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Shading-lec789"><span class="toc-text">Shading lec789</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Blinn-Phong-Reflection-Model-%E4%B8%89%E7%A7%8D%E5%85%89%E7%85%A7%E7%9A%84%E7%BB%84%E5%90%88-1"><span class="toc-text">Blinn-Phong Reflection Model: 三种光照的组合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%97%B6%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF%EF%BC%9A3D%E5%9C%BA%E6%99%AF%E5%88%B02D%E5%9B%BE%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-text">实时渲染管线：3D场景到2D图的过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Texture-Mapping-%E7%BA%B9%E7%90%86%E6%98%A0%E5%B0%84"><span class="toc-text">Texture Mapping 纹理映射</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6"><span class="toc-text">计算机图形学</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%AF%BE%E7%A8%8B%E4%B8%BB%E7%BA%BF"><span class="toc-text">一、课程主线</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Introduction%EF%BC%9A%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">1. Introduction：图形学是什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Linear-Algebra%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0"><span class="toc-text">2. Linear Algebra：为什么需要线性代数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F"><span class="toc-text">向量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%B9%E4%B9%98"><span class="toc-text">点乘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%89%E4%B9%98"><span class="toc-text">叉乘</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5"><span class="toc-text">矩阵</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Transformation%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%81%9A%E5%8F%98%E6%8D%A2"><span class="toc-text">3. Transformation：为什么要做变换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2D-%E5%8F%98%E6%8D%A2"><span class="toc-text">2D 变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87"><span class="toc-text">齐次坐标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BF%E5%B0%84%E5%8F%98%E6%8D%A2"><span class="toc-text">仿射变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E6%8D%A2%E9%A1%BA%E5%BA%8F"><span class="toc-text">变换顺序</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-Rasterization%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%85%89%E6%A0%85%E5%8C%96"><span class="toc-text">4. Rasterization：为什么要光栅化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8%E4%B8%89%E8%A7%92%E5%BD%A2"><span class="toc-text">为什么用三角形</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%89%E6%A0%85%E5%8C%96%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="toc-text">光栅化的本质</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-Sampling-Aliasing%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%9C%89%E9%94%AF%E9%BD%BF"><span class="toc-text">5. Sampling &#x2F; Aliasing：为什么会有锯齿</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E8%B5%B0%E6%A0%B7"><span class="toc-text">反走样</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BB%A4%E6%B3%A2%E5%92%8C%E5%8D%B7%E7%A7%AF"><span class="toc-text">滤波和卷积</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-Visibility%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%8F%AF%E8%A7%81%E6%80%A7%E5%88%A4%E6%96%AD"><span class="toc-text">6. Visibility：为什么需要可见性判断</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%BB%E5%AE%B6%E7%AE%97%E6%B3%95"><span class="toc-text">画家算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Z-buffer"><span class="toc-text">Z-buffer</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-Shading%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%9D%80%E8%89%B2"><span class="toc-text">7. Shading：为什么要着色</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Blinn-Phong-%E5%8F%8D%E5%B0%84%E6%A8%A1%E5%9E%8B"><span class="toc-text">Blinn-Phong 反射模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%85%89"><span class="toc-text">环境光</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%AB%E5%8F%8D%E5%B0%84"><span class="toc-text">漫反射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%95%9C%E9%9D%A2%E5%8F%8D%E5%B0%84"><span class="toc-text">镜面反射</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9D%80%E8%89%B2%E9%A2%91%E7%8E%87"><span class="toc-text">着色频率</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-Texture-Mapping%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%BA%B9%E7%90%86"><span class="toc-text">8. Texture Mapping：为什么需要纹理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%B9%E7%90%86%E6%98%A0%E5%B0%84"><span class="toc-text">纹理映射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%B9%E7%90%86%E9%87%87%E6%A0%B7%E9%97%AE%E9%A2%98"><span class="toc-text">纹理采样问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%B9%E7%B4%A0%E5%A4%AA%E5%B0%8F"><span class="toc-text">纹素太小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%B9%E7%90%86%E5%A4%AA%E5%A4%A7"><span class="toc-text">纹理太大</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mipmap"><span class="toc-text">Mipmap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%B9%E7%90%86%E7%9A%84%E5%85%B6%E4%BB%96%E5%BA%94%E7%94%A8"><span class="toc-text">纹理的其他应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E8%B4%B4%E5%9B%BE"><span class="toc-text">环境贴图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%B9%E5%87%B8%E6%98%A0%E5%B0%84"><span class="toc-text">凹凸映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D%E7%A7%BB%E6%98%A0%E5%B0%84"><span class="toc-text">位移映射</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-Rendering-Pipeline%EF%BC%9A%E5%AE%9E%E6%97%B6%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF"><span class="toc-text">9. Rendering Pipeline：实时渲染管线</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-Geometry%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%A0%94%E7%A9%B6%E5%87%A0%E4%BD%95%E8%A1%A8%E7%A4%BA"><span class="toc-text">10. Geometry：为什么要研究几何表示</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F%E8%A1%A8%E7%A4%BA"><span class="toc-text">隐式表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E8%A1%A8%E7%A4%BA"><span class="toc-text">显式表示</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-Curves-and-Surfaces%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%9B%B2%E7%BA%BF%E6%9B%B2%E9%9D%A2"><span class="toc-text">11. Curves and Surfaces：为什么需要曲线曲面</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E5%80%BC"><span class="toc-text">插值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF"><span class="toc-text">贝塞尔曲线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E9%9D%A2"><span class="toc-text">贝塞尔曲面</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#12-Mesh-Processing%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%A4%84%E7%90%86%E7%BD%91%E6%A0%BC"><span class="toc-text">12. Mesh Processing：为什么要处理网格</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E6%A0%BC%E7%BB%86%E5%88%86-Subdivision"><span class="toc-text">网格细分 Subdivision</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E6%A0%BC%E7%AE%80%E5%8C%96-Simplification"><span class="toc-text">网格简化 Simplification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E6%A0%BC%E6%AD%A3%E8%A7%84%E5%8C%96-Regularization"><span class="toc-text">网格正规化 Regularization</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#13-Ray-Tracing%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%85%89%E7%BA%BF%E8%BF%BD%E8%B8%AA"><span class="toc-text">13. Ray Tracing：为什么需要光线追踪</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%89%E7%BA%BF%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%81%87%E8%AE%BE"><span class="toc-text">光线的基本假设</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ray-Casting"><span class="toc-text">Ray Casting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Whitted-Style-Ray-Tracing"><span class="toc-text">Whitted-Style Ray Tracing</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#14-Radiometry%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E8%BE%90%E5%B0%84%E5%BA%A6%E9%87%8F%E5%AD%A6"><span class="toc-text">14. Radiometry：为什么需要辐射度量学</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#15-Rendering-Equation-and-Path-Tracing"><span class="toc-text">15. Rendering Equation and Path Tracing</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E6%96%B9%E7%A8%8B"><span class="toc-text">渲染方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E8%BF%BD%E8%B8%AA"><span class="toc-text">路径追踪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E7%A7%AF%E5%88%86"><span class="toc-text">蒙特卡洛积分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#16-Animation-Simulation%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%89%A9%E7%90%86%E6%A8%A1%E6%8B%9F"><span class="toc-text">16. Animation &#x2F; Simulation：为什么需要物理模拟</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%B9%E7%B0%A7%E8%B4%A8%E7%82%B9%E6%A8%A1%E5%9E%8B"><span class="toc-text">弹簧质点模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -1200,7 +1160,30 @@
     }
     utils.js('/js/search/local-search.js', { defer: true });
   });
-</script><script>
+</script>
+<script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+  MathJax.Hub.Config({
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');
     if (window.codeElements.length > 0) {
