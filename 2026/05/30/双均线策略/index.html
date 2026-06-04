@@ -1,0 +1,1444 @@
+
+<!DOCTYPE html><html lang="zh-CN" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>量化学习笔记1：双均线策略改进 - Lwh</title>
+
+  
+    <meta name="description" content="记录双均线策略加入 RSI 和趋势过滤后的回测、消融实验和样本外验证。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="量化学习笔记1：双均线策略改进">
+<meta property="og:url" content="https://liiliilf.github.io/2026/05/30/%E5%8F%8C%E5%9D%87%E7%BA%BF%E7%AD%96%E7%95%A5/">
+<meta property="og:site_name" content="Lwh">
+<meta property="og:description" content="记录双均线策略加入 RSI 和趋势过滤后的回测、消融实验和样本外验证。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-30T08:26:30.000Z">
+<meta property="article:modified_time" content="2026-05-30T10:35:21.269Z">
+<meta property="article:author" content="Lwh">
+<meta property="article:tag" content="量化交易">
+<meta property="article:tag" content="双均线">
+<meta property="article:tag" content="策略回测">
+<meta property="article:tag" content="QuantDinger">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="量化交易,双均线,策略回测,QuantDinger">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Lwh","sameAs":[]},"dateCreated":"2026-05-30T16:26:30+08:00","dateModified":"2026-05-30T18:35:21+08:00","datePublished":"2026-05-30T16:26:30+08:00","description":"","headline":"量化学习笔记1：双均线策略改进","mainEntityOfPage":{"@type":"WebPage","@id":"https://liiliilf.github.io/2026/05/30/%E5%8F%8C%E5%9D%87%E7%BA%BF%E7%AD%96%E7%95%A5/"},"publisher":{"@type":"Organization","name":"Lwh","sameAs":[]},"url":"https://liiliilf.github.io/2026/05/30/%E5%8F%8C%E5%9D%87%E7%BA%BF%E7%AD%96%E7%95%A5/","keywords":"量化交易, 双均线, 策略回测, QuantDinger","image":[]}</script>
+  <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body><div class="sitebg"><div class="siteblur"></div></div>
+
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="title" href="/"><div class="main">Lwh</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item active" title="首页" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="分类" href="/categories/" style="color:#3DC550"><svg style="margin-bottom:1px" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6.95c0-.883 0-1.324.07-1.692A4 4 0 0 1 5.257 2.07C5.626 2 6.068 2 6.95 2c.386 0 .58 0 .766.017a4 4 0 0 1 2.18.904c.144.119.28.255.554.529L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .848.352C14.098 6 14.675 6 15.828 6h.374c2.632 0 3.949 0 4.804.77c.079.07.154.145.224.224c.77.855.77 2.172.77 4.804V14c0 3.771 0 5.657-1.172 6.828C19.657 22 17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172C2 19.657 2 17.771 2 14z" opacity=".5"/><path fill="currentColor" d="M20 6.238c0-.298-.005-.475-.025-.63a3 3 0 0 0-2.583-2.582C17.197 3 16.965 3 16.5 3H9.988c.116.104.247.234.462.45L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .849.352C14.098 6 14.675 6 15.829 6h.373c1.78 0 2.957 0 3.798.238"/><path fill="currentColor" fill-rule="evenodd" d="M12.25 10a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75" clip-rule="evenodd"/></svg></a><a class="nav-item" title="标签" href="/tags/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></a><a class="nav-item" title="照片" href="/photos/" style="color:#8B5CF6"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" opacity=".5" d="M4 5.5C4 4.12 5.12 3 6.5 3h11C18.88 3 20 4.12 20 5.5v13c0 1.38-1.12 2.5-2.5 2.5h-11A2.5 2.5 0 0 1 4 18.5z"/><path fill="currentColor" d="M8.75 10.25a2 2 0 1 0 0-4a2 2 0 0 0 0 4m8.78 7.22l-3.85-3.85a1 1 0 0 0-1.36-.05l-2.04 1.75l-.9-.9a1 1 0 0 0-1.41 0l-2.5 2.5A.75.75 0 0 0 6 18.2h11a.75.75 0 0 0 .53-1.28"/></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+<widget class="widget-wrapper linklist"><div class="widget-header dis-select"><span class="name">内容分类</span></div><div class="widget-body fs14">
+<div class="linklist left" style="grid-template-columns:repeat(1,1fr);">
+<a class="link" title="CS" href="/categories/cs/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg><span>CS</span></div></a>
+<a class="link" title="AI" href="/categories/ai/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 1-16 0a8 8 0 0 1 16 0" opacity=".5"/><path fill="currentColor" d="M17.712 5.453c1.047-.193 2.006-.259 2.797-.152c.77.103 1.536.393 1.956 1.064c.446.714.312 1.542-.012 2.258c-.33.728-.918 1.499-1.672 2.268c-1.516 1.547-3.836 3.226-6.597 4.697c-2.763 1.472-5.495 2.484-7.694 2.92c-1.095.217-2.098.299-2.923.201c-.8-.095-1.6-.383-2.032-1.075c-.47-.752-.296-1.63.07-2.379c.375-.768 1.032-1.586 1.872-2.403L4 12.416c0 .219.083.71.168 1.146c.045.23.09.444.123.596c-.652.666-1.098 1.263-1.339 1.756c-.277.567-.208.825-.145.925c.072.116.305.305.937.38c.609.073 1.44.018 2.455-.183c2.02-.4 4.613-1.351 7.28-2.772c2.667-1.42 4.85-3.015 6.23-4.423c.694-.707 1.15-1.334 1.377-1.836c.233-.515.167-.75.107-.844c-.07-.112-.289-.294-.883-.374c-.542-.072-1.272-.041-2.163.112L16.87 5.656c.338-.101.658-.17.842-.203"/></svg><span>AI</span></div></a>
+<a class="link" title="游戏设计" href="/categories/game-design/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg><span>游戏设计</span></div></a>
+<a class="link" title="随笔" href="/categories/essays/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m13.629 20.472l-.542.916c-.483.816-1.69.816-2.174 0l-.542-.916c-.42-.71-.63-1.066-.968-1.262c-.338-.197-.763-.204-1.613-.219c-1.256-.021-2.043-.098-2.703-.372a5 5 0 0 1-2.706-2.706C2 14.995 2 13.83 2 11.5v-1c0-3.273 0-4.91.737-6.112a5 5 0 0 1 1.65-1.651C5.59 2 7.228 2 10.5 2h3c3.273 0 4.91 0 6.113.737a5 5 0 0 1 1.65 1.65C22 5.59 22 7.228 22 10.5v1c0 2.33 0 3.495-.38 4.413a5 5 0 0 1-2.707 2.706c-.66.274-1.447.35-2.703.372c-.85.015-1.275.022-1.613.219c-.338.196-.548.551-.968 1.262" opacity=".5"/><path fill="currentColor" d="M10.99 14.308c-1.327-.978-3.49-2.84-3.49-4.593c0-2.677 2.475-3.677 4.5-1.609c2.025-2.068 4.5-1.068 4.5 1.609c0 1.752-2.163 3.615-3.49 4.593c-.454.335-.681.502-1.01.502c-.329 0-.556-.167-1.01-.502"/></svg><span>随笔</span></div></a></div></div></widget>
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/06/03/%E8%A1%8C%E4%B8%9A%E5%88%86%E6%9E%90%E5%85%A5%E9%97%A8/"><span class="title">行业分析入门</span></a><a class="item title" href="/2026/05/30/QuantDinger%E9%85%8D%E7%BD%AEAPI%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/"><span class="title">QuantDinger 配置 DeepSeek 官方 API 调用排查报告</span></a><a class="item title" href="/2026/05/30/%E5%8F%8C%E5%9D%87%E7%BA%BF%E7%AD%96%E7%95%A5/"><span class="title">量化学习笔记1：双均线策略改进</span></a><a class="item title" href="/2026/05/29/%E5%BE%AE%E4%BF%A1%E8%AF%BB%E4%B9%A6skill/"><span class="title">微信读书 Skill</span></a><a class="item title" href="/2026/05/29/%E7%94%A8Codex%E6%95%B4%E7%90%86%E6%96%87%E4%BB%B6%E5%A4%B9/"><span class="title">用 Codex 整理文件夹</span></a><a class="item title" href="/2026/05/27/AI%E6%8A%80%E6%9C%AF%E5%90%8D%E8%AF%8D%E7%88%86%E5%8F%91%E7%9A%84%E4%B8%BB%E7%BA%BF/"><span class="title">今年AI发展梳理</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E9%87%8F%E5%8C%96/">量化</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-05-30T08:26:30.000Z">2026-05-30</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-30T10:35:21.269Z">2026-05-30</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>量化学习笔记1：双均线策略改进</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="量化学习笔记1：双均线策略改进"><a href="#量化学习笔记1：双均线策略改进" class="headerlink" title="量化学习笔记1：双均线策略改进"></a>量化学习笔记1：双均线策略改进</h1><h2 id="零、学习目的"><a href="#零、学习目的" class="headerlink" title="零、学习目的"></a>零、学习目的</h2><blockquote>
+<p>目的是用来观察股市，观察不同策略、股票、市场的差异，然后慢慢建立更全面更理性的认知。<br>知道了一套完整的量化交易系统主要是四个模块：数据、策略、回测、交易。</p>
+<p>做的调查：<br>数据用tushare获取数据，可以换成 akshare<br>backtrader做回测<br>交易系统部分麻烦点是：国内监管严、资金量、接口杂。<br>不同情况：<br>国内市场、资金量小（日频或者更低频）、较多股票可以用 easytrader 模拟用户手动下单。<br>国内市场、资金量大、策略简单 QMT 券商量化交易终端<br>国内市场、资金量大、策略复杂（涉及深度学习） miniQMT+XtQuant<br>海外市场：backtrader+IB（盈透证券）IBGateway 类似 miniQMT 免费开源、能做回测分析、能跑模拟盘实盘。没有资金门槛。</p>
+<p>因为现在不跑实盘，所以找了一个功能齐全的开源框架用于学习，暂定是QuantDinger，目前走完了一套比较标准的策略研究流程：<strong>原始策略 → 加过滤 → 消融实验 → 参数稳健性 → 样本外验证 → 交易记录检查</strong>。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">my_indicator_name = <span class="string">&quot;[进阶] 双均线 + RSI + 趋势过滤&quot;</span></span><br><span class="line"></span><br><span class="line">my_indicator_description = <span class="string">&quot;金叉作为触发条件，RSI 和长期趋势作为过滤条件。&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># @strategy stopLossPct 0.025</span></span><br><span class="line"><span class="comment"># @strategy takeProfitPct 0.05</span></span><br><span class="line"><span class="comment"># @strategy entryPct 1</span></span><br><span class="line"><span class="comment"># @strategy tradeDirection long</span></span><br><span class="line"></span><br><span class="line">df = df.copy()</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 1. 参数区 =====</span></span><br><span class="line">fast_n = <span class="number">12</span></span><br><span class="line">slow_n = <span class="number">26</span></span><br><span class="line">rsi_n = <span class="number">14</span></span><br><span class="line">rsi_max = <span class="number">70</span></span><br><span class="line">trend_n = <span class="number">150</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 2. 计算均线 =====</span></span><br><span class="line">ma_f = df[<span class="string">&#x27;close&#x27;</span>].rolling(fast_n, min_periods=fast_n).mean()</span><br><span class="line">ma_s = df[<span class="string">&#x27;close&#x27;</span>].rolling(slow_n, min_periods=slow_n).mean()</span><br><span class="line">ma_trend = df[<span class="string">&#x27;close&#x27;</span>].rolling(trend_n, min_periods=trend_n).mean()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 3. 计算 RSI =====</span></span><br><span class="line">delta = df[<span class="string">&#x27;close&#x27;</span>].diff()</span><br><span class="line"></span><br><span class="line">gain = delta.clip(lower=<span class="number">0</span>)</span><br><span class="line">loss = -delta.clip(upper=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">avg_gain = gain.rolling(rsi_n, min_periods=rsi_n).mean()</span><br><span class="line">avg_loss = loss.rolling(rsi_n, min_periods=rsi_n).mean()</span><br><span class="line"></span><br><span class="line">rs = avg_gain / avg_loss.replace(<span class="number">0</span>, <span class="number">1e-10</span>)</span><br><span class="line">rsi = <span class="number">100</span> - <span class="number">100</span> / (<span class="number">1</span> + rs)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 4. 触发条件：金叉 / 死叉 =====</span></span><br><span class="line">golden = (ma_f &gt; ma_s) &amp; (ma_f.shift(<span class="number">1</span>) &lt;= ma_s.shift(<span class="number">1</span>))</span><br><span class="line">death = (ma_f &lt; ma_s) &amp; (ma_f.shift(<span class="number">1</span>) &gt;= ma_s.shift(<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 5. 过滤条件 =====</span></span><br><span class="line">rsi_ok = rsi &lt;= rsi_max</span><br><span class="line">trend_ok = df[<span class="string">&#x27;close&#x27;</span>] &gt; ma_trend</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 6. 最终交易信号：给回测引擎用 =====</span></span><br><span class="line">df[<span class="string">&#x27;buy&#x27;</span>] = (golden &amp; rsi_ok &amp; trend_ok).fillna(<span class="literal">False</span>).astype(<span class="built_in">bool</span>)</span><br><span class="line">df[<span class="string">&#x27;sell&#x27;</span>] = death.fillna(<span class="literal">False</span>).astype(<span class="built_in">bool</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 7. 图表买卖标记：给图表显示用 =====</span></span><br><span class="line">buy_marks = [</span><br><span class="line">    df[<span class="string">&#x27;low&#x27;</span>].iloc[i] * <span class="number">0.995</span> <span class="keyword">if</span> <span class="built_in">bool</span>(df[<span class="string">&#x27;buy&#x27;</span>].iloc[i]) <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(df))</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">sell_marks = [</span><br><span class="line">    df[<span class="string">&#x27;high&#x27;</span>].iloc[i] * <span class="number">1.005</span> <span class="keyword">if</span> <span class="built_in">bool</span>(df[<span class="string">&#x27;sell&#x27;</span>].iloc[i]) <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(df))</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 8. 输出给图表 =====</span></span><br><span class="line">output = &#123;</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span>: my_indicator_name,</span><br><span class="line">    <span class="string">&#x27;plots&#x27;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&#x27;name&#x27;</span>: <span class="string">f&#x27;MA(<span class="subst">&#123;fast_n&#125;</span>)&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;data&#x27;</span>: ma_f.tolist(),</span><br><span class="line">            <span class="string">&#x27;color&#x27;</span>: <span class="string">&#x27;#1890ff&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;overlay&#x27;</span>: <span class="literal">True</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&#x27;name&#x27;</span>: <span class="string">f&#x27;MA(<span class="subst">&#123;slow_n&#125;</span>)&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;data&#x27;</span>: ma_s.tolist(),</span><br><span class="line">            <span class="string">&#x27;color&#x27;</span>: <span class="string">&#x27;#ff7a45&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;overlay&#x27;</span>: <span class="literal">True</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&#x27;name&#x27;</span>: <span class="string">f&#x27;MA(<span class="subst">&#123;trend_n&#125;</span>)&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;data&#x27;</span>: ma_trend.tolist(),</span><br><span class="line">            <span class="string">&#x27;color&#x27;</span>: <span class="string">&#x27;#722ed1&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;overlay&#x27;</span>: <span class="literal">True</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&#x27;name&#x27;</span>: <span class="string">f&#x27;RSI(<span class="subst">&#123;rsi_n&#125;</span>)&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;data&#x27;</span>: rsi.tolist(),</span><br><span class="line">            <span class="string">&#x27;color&#x27;</span>: <span class="string">&#x27;#13c2c2&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;overlay&#x27;</span>: <span class="literal">False</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">&#x27;signals&#x27;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;buy&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;text&#x27;</span>: <span class="string">&#x27;B&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;data&#x27;</span>: buy_marks,</span><br><span class="line">            <span class="string">&#x27;color&#x27;</span>: <span class="string">&#x27;#00E676&#x27;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;sell&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;text&#x27;</span>: <span class="string">&#x27;S&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;data&#x27;</span>: sell_marks,</span><br><span class="line">            <span class="string">&#x27;color&#x27;</span>: <span class="string">&#x27;#FF5252&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>本次实验基于 QuantDinger 中的示例策略“<strong>双均线金叉死叉</strong>”进行改进和验证。</p>
+<p>原始策略逻辑较简单：</p>
+<ul>
+<li>使用 MA12 作为快均线；</li>
+<li>使用 MA26 作为慢均线；</li>
+<li>当 MA12 从下向上穿过 MA26 时买入；</li>
+<li>当 MA12 从上向下跌破 MA26 时卖出；</li>
+<li>止损、止盈、手续费、杠杆等由回测面板设置。</li>
+</ul>
+<p>原始策略的核心问题是：</p>
+<ol>
+<li>在震荡行情中容易频繁金叉死叉，产生大量噪音交易；</li>
+<li>在长期趋势较弱时也可能触发买入，容易买入反弹而不是趋势；</li>
+<li>没有判断短期是否已经过热，可能在价格上涨较多后追高；</li>
+<li>交易次数较多，对手续费和滑点更敏感。</li>
+</ol>
+<p>因此，本次改进目标不是单纯提高收益，而是尝试提升策略的整体质量：</p>
+<ul>
+<li>减少无效交易；</li>
+<li>降低最大回撤；</li>
+<li>提高胜率和 Profit Factor；</li>
+<li>检查策略在样本外是否仍然有效。</li>
+</ul>
+<hr>
+<h2 id="二、原始策略表现"><a href="#二、原始策略表现" class="headerlink" title="二、原始策略表现"></a>二、原始策略表现</h2><p>回测区间：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2023-05-30 ~ 2026-05-30</span><br><span class="line">方向：只做多</span><br></pre></td></tr></table></figure>
+
+<p>原版双均线策略结果：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Total Return</td>
+<td>+27.27%</td>
+</tr>
+<tr>
+<td>Max Drawdown</td>
+<td>-16.84%</td>
+</tr>
+<tr>
+<td>Trades</td>
+<td>145</td>
+</tr>
+</tbody></table>
+<p>初步判断：原版双均线策略有一定收益，但交易次数较多，最大回撤较大。它可能在趋势行情中有效，但在震荡或弱势行情中容易频繁交易并产生亏损。</p>
+<hr>
+<h2 id="三、第一轮改进：加入过滤条件"><a href="#三、第一轮改进：加入过滤条件" class="headerlink" title="三、第一轮改进：加入过滤条件"></a>三、第一轮改进：加入过滤条件</h2><p>在原始金叉买入逻辑基础上，加入三个过滤条件：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. RSI 过滤：RSI &lt;= 70，避免短期过热时追高；</span><br><span class="line">2. 成交量过滤：当前成交量 &gt; 过去 20 根 K 线平均成交量；</span><br><span class="line">3. 趋势过滤：close &gt; MA100，只在长期趋势上方做多。</span><br></pre></td></tr></table></figure>
+
+<p>改进后的买入逻辑从：金叉就买</p>
+<p>变成：金叉 + RSI不过热 + 成交量放大 + 长期趋势向上，才买入。</p>
+<p>第一版全过滤策略结果：</p>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>总回报</th>
+<th>最大回撤</th>
+<th>交易次数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>原版双均线</td>
+<td>+27.27%</td>
+<td>-16.84%</td>
+<td>145</td>
+</tr>
+<tr>
+<td>RSI + 成交量 + 趋势过滤</td>
+<td>+14.46%</td>
+<td>-8.92%</td>
+<td>25</td>
+</tr>
+</tbody></table>
+<p>初步结果显示：</p>
+<ul>
+<li>最大回撤明显降低；</li>
+<li>交易次数从 145 次降到 25 次；</li>
+<li>但总收益也明显下降。</li>
+</ul>
+<p>这说明过滤条件确实减少了交易和风险暴露，但可能过滤过度，也误杀了一部分有效交易。</p>
+<hr>
+<h2 id="四、第二轮实验：消融实验"><a href="#四、第二轮实验：消融实验" class="headerlink" title="四、第二轮实验：消融实验"></a>四、第二轮实验：消融实验</h2><p>为了判断哪个过滤条件真正有效，分别测试不同过滤组合。</p>
+<p>回测区间仍为：2023-05-30 ~ 2026-05-30</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>总回报</th>
+<th>最大回撤</th>
+<th>交易次数</th>
+<th>初步判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>原版双均线</td>
+<td>+27.27%</td>
+<td>-16.84%</td>
+<td>145</td>
+<td>基准版本</td>
+</tr>
+<tr>
+<td>全过滤版</td>
+<td>+14.46%</td>
+<td>-8.92%</td>
+<td>25</td>
+<td>过于保守</td>
+</tr>
+<tr>
+<td>只加 RSI</td>
+<td>+46.08%</td>
+<td>-14.53%</td>
+<td>101</td>
+<td>明显有效</td>
+</tr>
+<tr>
+<td>只加成交量</td>
+<td>-7.01%</td>
+<td>-14.47%</td>
+<td>64</td>
+<td>明显无效</td>
+</tr>
+<tr>
+<td>只加趋势</td>
+<td>+36.14%</td>
+<td>-14.10%</td>
+<td>81</td>
+<td>有效</td>
+</tr>
+<tr>
+<td>RSI + 趋势</td>
+<td>+57.77%</td>
+<td>-9.72%</td>
+<td>52</td>
+<td>最优组合</td>
+</tr>
+<tr>
+<td>成交量 + 趋势</td>
+<td>+19.06%</td>
+<td>-10.14%</td>
+<td>42</td>
+<td>效果一般</td>
+</tr>
+</tbody></table>
+<p>结论：</p>
+<ol>
+<li><strong>RSI 过滤有效</strong><br>它减少了短期过热后追高的交易。</li>
+<li><strong>趋势过滤有效</strong><br>它避免了在长期趋势较弱时买入短期反弹。</li>
+<li><strong>成交量过滤效果较差</strong><br>“当前成交量 &gt; 过去 20 根均量”这个条件可能误杀了很多有效买点。成交量放大时，价格可能已经涨过一段，或者已经进入短期分歧阶段。</li>
+</ol>
+<p>因此，后续主线策略删除成交量过滤，保留：<strong>RSI 过滤 + 长期趋势过滤</strong></p>
+<hr>
+<h2 id="五、第三轮实验：参数测试"><a href="#五、第三轮实验：参数测试" class="headerlink" title="五、第三轮实验：参数测试"></a>五、第三轮实验：参数测试</h2><p>主线策略确定为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MA12 金叉 MA26</span><br><span class="line">且 RSI &lt;= rsi_max</span><br><span class="line">且 close &gt; MA(trend_n)</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-RSI-阈值测试"><a href="#1-RSI-阈值测试" class="headerlink" title="1. RSI 阈值测试"></a>1. RSI 阈值测试</h3><table>
+<thead>
+<tr>
+<th>RSI 上限</th>
+<th>总回报</th>
+<th>最大回撤</th>
+<th>Sharpe</th>
+<th>胜率</th>
+<th>Profit Factor</th>
+<th>交易次数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>65</td>
+<td>+40.16%</td>
+<td>-7.35%</td>
+<td>0.67</td>
+<td>47.62%</td>
+<td>1.91</td>
+<td>42</td>
+</tr>
+<tr>
+<td>70</td>
+<td>+57.77%</td>
+<td>-9.72%</td>
+<td>0.85</td>
+<td>50.00%</td>
+<td>2.04</td>
+<td>52</td>
+</tr>
+<tr>
+<td>75</td>
+<td>+26.25%</td>
+<td>-12.03%</td>
+<td>0.34</td>
+<td>42.42%</td>
+<td>1.33</td>
+<td>66</td>
+</tr>
+<tr>
+<td>80</td>
+<td>+25.55%</td>
+<td>-14.28%</td>
+<td>0.32</td>
+<td>41.89%</td>
+<td>1.27</td>
+<td>74</td>
+</tr>
+</tbody></table>
+<p>结论：</p>
+<ul>
+<li>RSI 65 偏保守，回撤小，但收益被压制；</li>
+<li>RSI 70 综合表现最好；</li>
+<li>RSI 75 和 80 明显变差，说明放宽到 70 以上后，新增交易质量下降；</li>
+<li>当前选择 <code>rsi_max = 70</code>。</li>
+</ul>
+<hr>
+<h3 id="2-趋势周期测试"><a href="#2-趋势周期测试" class="headerlink" title="2. 趋势周期测试"></a>2. 趋势周期测试</h3><p>在 <code>rsi_max = 70</code> 的基础上测试趋势周期。</p>
+<table>
+<thead>
+<tr>
+<th>趋势周期</th>
+<th>总回报</th>
+<th>最大回撤</th>
+<th>Sharpe</th>
+<th>胜率</th>
+<th>Profit Factor</th>
+<th>交易次数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MA60</td>
+<td>+42.41%</td>
+<td>-12.26%</td>
+<td>0.62</td>
+<td>44.64%</td>
+<td>1.64</td>
+<td>56</td>
+</tr>
+<tr>
+<td>MA150</td>
+<td>+59.91%</td>
+<td>-8.11%</td>
+<td>0.88</td>
+<td>53.85%</td>
+<td>2.12</td>
+<td>52</td>
+</tr>
+<tr>
+<td>MA200</td>
+<td>+47.75%</td>
+<td>-9.30%</td>
+<td>0.73</td>
+<td>52.00%</td>
+<td>1.77</td>
+<td>50</td>
+</tr>
+</tbody></table>
+<p>结论：</p>
+<ul>
+<li>MA60 过于敏感，容易在中期震荡中误判趋势；</li>
+<li>MA200 偏慢，可能错过部分趋势早期机会；</li>
+<li>MA150 在收益、回撤、胜率、Profit Factor 上最均衡。</li>
+</ul>
+<p>因此，当前主线参数暂定为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fast_n = 12</span><br><span class="line">slow_n = 26</span><br><span class="line">rsi_n = 14</span><br><span class="line">rsi_max = 70</span><br><span class="line">trend_n = 150</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="六、第四轮实验：稳健性矩阵测试"><a href="#六、第四轮实验：稳健性矩阵测试" class="headerlink" title="六、第四轮实验：稳健性矩阵测试"></a>六、第四轮实验：稳健性矩阵测试</h2><p>为了避免只依赖单点参数，对 RSI 和趋势周期做小范围矩阵测试。</p>
+<table>
+<thead>
+<tr>
+<th>参数组合</th>
+<th>总回报</th>
+<th>最大回撤</th>
+<th>Sharpe</th>
+<th>胜率</th>
+<th>Profit Factor</th>
+<th>交易次数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RSI65 + MA120</td>
+<td>+44.71%</td>
+<td>-7.41%</td>
+<td>0.75</td>
+<td>50.00%</td>
+<td>1.96</td>
+<td>44</td>
+</tr>
+<tr>
+<td>RSI65 + MA150</td>
+<td>+48.51%</td>
+<td>-6.61%</td>
+<td>0.82</td>
+<td>51.16%</td>
+<td>2.11</td>
+<td>43</td>
+</tr>
+<tr>
+<td>RSI65 + MA180</td>
+<td>+33.70%</td>
+<td>-9.00%</td>
+<td>0.57</td>
+<td>47.62%</td>
+<td>1.66</td>
+<td>42</td>
+</tr>
+<tr>
+<td>RSI70 + MA120</td>
+<td>+62.89%</td>
+<td>-9.72%</td>
+<td>0.91</td>
+<td>51.85%</td>
+<td>2.07</td>
+<td>54</td>
+</tr>
+<tr>
+<td>RSI70 + MA150</td>
+<td>+59.91%</td>
+<td>-8.11%</td>
+<td>0.88</td>
+<td>53.85%</td>
+<td>2.12</td>
+<td>52</td>
+</tr>
+<tr>
+<td>RSI70 + MA180</td>
+<td>+51.08%</td>
+<td>-8.11%</td>
+<td>0.77</td>
+<td>51.92%</td>
+<td>1.80</td>
+<td>52</td>
+</tr>
+<tr>
+<td>RSI72 + MA120</td>
+<td>+57.30%</td>
+<td>-9.72%</td>
+<td>0.83</td>
+<td>50.00%</td>
+<td>1.91</td>
+<td>56</td>
+</tr>
+<tr>
+<td>RSI72 + MA150</td>
+<td>+50.47%</td>
+<td>-10.17%</td>
+<td>0.74</td>
+<td>50.91%</td>
+<td>1.85</td>
+<td>55</td>
+</tr>
+<tr>
+<td>RSI72 + MA180</td>
+<td>+42.16%</td>
+<td>-10.17%</td>
+<td>0.63</td>
+<td>49.09%</td>
+<td>1.61</td>
+<td>55</td>
+</tr>
+</tbody></table>
+<p>结论：</p>
+<ul>
+<li>RSI70 整体表现最好；</li>
+<li>MA120 收益最高，但回撤略大；</li>
+<li>MA150 稳健性更好，收益略低但回撤更小、胜率和 Profit Factor 更好；</li>
+<li>MA180 整体偏慢；</li>
+<li>RSI72 开始出现信号质量下降。</li>
+</ul>
+<p>因此，主线参数继续选择：RSI70 + MA150，而不是选择单纯收益最高的 RSI70 + MA120。</p>
+<hr>
+<h2 id="七、样本外验证"><a href="#七、样本外验证" class="headerlink" title="七、样本外验证"></a>七、样本外验证</h2><p>为了避免过拟合，将完整区间拆成两段：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">训练观察期：2023-05-30 ~ 2025-05-30</span><br><span class="line">样本外验证期：2025-05-30 ~ 2026-05-30</span><br></pre></td></tr></table></figure>
+
+<p>参数冻结为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MA12 / MA26</span><br><span class="line">RSI &lt;= 70</span><br><span class="line">close &gt; MA150</span><br><span class="line">只做多</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-训练观察期结果"><a href="#1-训练观察期结果" class="headerlink" title="1. 训练观察期结果"></a>1. 训练观察期结果</h3><table>
+<thead>
+<tr>
+<th>时间段</th>
+<th>策略</th>
+<th>总回报</th>
+<th>最大回撤</th>
+<th>Sharpe</th>
+<th>胜率</th>
+<th>Profit Factor</th>
+<th>交易次数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2023-05-30 ~ 2025-05-30</td>
+<td>原版双均线</td>
+<td>+45.43%</td>
+<td>-16.84%</td>
+<td>0.71</td>
+<td>44.79%</td>
+<td>1.37</td>
+<td>96</td>
+</tr>
+<tr>
+<td>2023-05-30 ~ 2025-05-30</td>
+<td>RSI70 + MA150</td>
+<td>+42.36%</td>
+<td>-8.11%</td>
+<td>0.91</td>
+<td>54.76%</td>
+<td>1.91</td>
+<td>42</td>
+</tr>
+</tbody></table>
+<p>训练观察期中，原版收益略高，但过滤版在风险控制方面更好：</p>
+<ul>
+<li>最大回撤从 -16.84% 降到 -8.11%；</li>
+<li>Sharpe 从 0.71 提升到 0.91；</li>
+<li>胜率从 44.79% 提升到 54.76%；</li>
+<li>Profit Factor 从 1.37 提升到 1.91；</li>
+<li>交易次数从 96 次降到 42 次。</li>
+</ul>
+<p>说明过滤版不是追求更多交易，而是提高交易质量。</p>
+<hr>
+<h3 id="2-样本外验证期结果"><a href="#2-样本外验证期结果" class="headerlink" title="2. 样本外验证期结果"></a>2. 样本外验证期结果</h3><table>
+<thead>
+<tr>
+<th>时间段</th>
+<th>策略</th>
+<th>总回报</th>
+<th>最大回撤</th>
+<th>Sharpe</th>
+<th>胜率</th>
+<th>Profit Factor</th>
+<th>交易次数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2025-05-30 ~ 2026-05-30</td>
+<td>原版双均线</td>
+<td>-12.24%</td>
+<td>-16.46%</td>
+<td>-0.58</td>
+<td>34.00%</td>
+<td>0.82</td>
+<td>50</td>
+</tr>
+<tr>
+<td>2025-05-30 ~ 2026-05-30</td>
+<td>RSI70 + MA150</td>
+<td>+12.33%</td>
+<td>-4.83%</td>
+<td>0.83</td>
+<td>50.00%</td>
+<td>3.53</td>
+<td>10</td>
+</tr>
+</tbody></table>
+<p>样本外验证结果非常关键：</p>
+<ul>
+<li>原版双均线在样本外亏损 -12.24%；</li>
+<li>过滤版在样本外盈利 +12.33%；</li>
+<li>最大回撤从 -16.46% 降到 -4.83%；</li>
+<li>Profit Factor 从 0.82 提升到 3.53；</li>
+<li>交易次数从 50 次降到 10 次。</li>
+</ul>
+<p>这说明过滤版并非只是在完整样本中表现好，而是在样本外阶段也明显优于原版双均线。</p>
+<hr>
+<h2 id="八、样本外交易记录分析"><a href="#八、样本外交易记录分析" class="headerlink" title="八、样本外交易记录分析"></a>八、样本外交易记录分析</h2><p>样本外期间，过滤版共交易 10 笔。</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>类型</th>
+<th>退出方式</th>
+<th>Entry</th>
+<th>Exit</th>
+<th>盈亏</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>LONG</td>
+<td>Signal exit</td>
+<td>2025-06-24 20:00</td>
+<td>2025-07-01 20:00</td>
+<td>-$29.15</td>
+</tr>
+<tr>
+<td>2</td>
+<td>LONG</td>
+<td>Signal exit</td>
+<td>2025-07-03 12:00</td>
+<td>2025-07-06 00:00</td>
+<td>-$133.34</td>
+</tr>
+<tr>
+<td>3</td>
+<td>LONG</td>
+<td>Take profit</td>
+<td>2025-07-07 20:00</td>
+<td>2025-07-10 16:00</td>
+<td>+$487.55</td>
+</tr>
+<tr>
+<td>4</td>
+<td>LONG</td>
+<td>Stop loss</td>
+<td>2025-07-22 20:00</td>
+<td>2025-07-25 00:00</td>
+<td>-$262.00</td>
+</tr>
+<tr>
+<td>5</td>
+<td>LONG</td>
+<td>Signal exit</td>
+<td>2025-09-17 04:00</td>
+<td>2025-09-20 12:00</td>
+<td>-$47.31</td>
+</tr>
+<tr>
+<td>6</td>
+<td>LONG</td>
+<td>Signal exit</td>
+<td>2025-12-09 04:00</td>
+<td>2025-12-12 08:00</td>
+<td>+$217.46</td>
+</tr>
+<tr>
+<td>7</td>
+<td>LONG</td>
+<td>Signal exit</td>
+<td>2025-12-31 12:00</td>
+<td>2026-01-02 08:00</td>
+<td>-$23.79</td>
+</tr>
+<tr>
+<td>8</td>
+<td>LONG</td>
+<td>Take profit</td>
+<td>2026-01-02 12:00</td>
+<td>2026-01-05 12:00</td>
+<td>+$505.49</td>
+</tr>
+<tr>
+<td>9</td>
+<td>LONG</td>
+<td>Signal exit</td>
+<td>2026-04-22 04:00</td>
+<td>2026-04-26 00:00</td>
+<td>+$7.86</td>
+</tr>
+<tr>
+<td>10</td>
+<td>LONG</td>
+<td>Take profit</td>
+<td>2026-05-01 20:00</td>
+<td>2026-05-06 08:00</td>
+<td>+$530.73</td>
+</tr>
+</tbody></table>
+<p>交易结构：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>盈利交易</td>
+<td>5 笔</td>
+</tr>
+<tr>
+<td>亏损交易</td>
+<td>5 笔</td>
+</tr>
+<tr>
+<td>胜率</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>最大单笔亏损</td>
+<td>-$262.00</td>
+</tr>
+<tr>
+<td>主要盈利来源</td>
+<td>3 笔 Take Profit</td>
+</tr>
+</tbody></table>
+<p>判断：该策略不是依靠极高胜率赚钱，而是依靠：小亏损 + 少数较大盈利</p>
+<p>三笔 Take Profit 贡献了主要收益，但不是单笔异常交易撑起全部表现，因此样本外结果有一定参考价值。</p>
+<p>不过，由于样本外只有 10 笔交易，统计稳定性仍然不足，不能过度下结论。</p>
+<hr>
+<h2 id="九、当前策略版本"><a href="#九、当前策略版本" class="headerlink" title="九、当前策略版本"></a>九、当前策略版本</h2><p>当前策略可以记录为：策略名：双均线 + RSI过热过滤 + 长期趋势过滤 v1</p>
+<h3 id="买入条件"><a href="#买入条件" class="headerlink" title="买入条件"></a>买入条件</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MA12 金叉 MA26</span><br><span class="line">且 RSI14 &lt;= 70</span><br><span class="line">且 close &gt; MA150</span><br></pre></td></tr></table></figure>
+
+<h3 id="卖出条件"><a href="#卖出条件" class="headerlink" title="卖出条件"></a>卖出条件</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MA12 死叉 MA26</span><br></pre></td></tr></table></figure>
+
+<h3 id="方向"><a href="#方向" class="headerlink" title="方向"></a>方向</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">只做多</span><br></pre></td></tr></table></figure>
+
+<h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><p>原始双均线策略的问题是“金叉就买”，容易在震荡和弱势环境中频繁交易。</p>
+<p>改进版策略将金叉视为候选信号，再用 RSI 和长期趋势过滤：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">金叉只是触发条件；</span><br><span class="line">RSI 用来避免短期过热；</span><br><span class="line">MA150 用来确认长期趋势环境；</span><br><span class="line">只有三者同时满足才买入。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="十、当前结论"><a href="#十、当前结论" class="headerlink" title="十、当前结论"></a>十、当前结论</h2><p>本次实验的核心结论如下：</p>
+<ol>
+<li>原版双均线策略虽然在完整区间中有正收益，但交易频繁、回撤较大，并且在样本外阶段表现较差。</li>
+<li>成交量过滤在当前形式下效果不好，尤其是“当前成交量 &gt; 过去均量”这个简单条件，容易误杀有效信号。</li>
+<li>RSI 过滤和长期趋势过滤是本轮实验中最有效的两个改进方向。</li>
+<li><code>RSI &lt;= 70</code> 是当前较优的过热过滤阈值。低于 70 过于保守，高于 70 后新增交易质量明显下降。</li>
+<li>MA150 是当前较均衡的趋势过滤周期。MA120 收益略高但回撤更大，MA180 则偏慢。</li>
+<li>当前主线策略 <code>MA12/MA26 + RSI&lt;=70 + close&gt;MA150</code> 在样本外明显优于原版双均线：<ul>
+<li>原版样本外收益：-12.24%</li>
+<li>过滤版样本外收益：+12.33%</li>
+<li>原版样本外最大回撤：-16.46%</li>
+<li>过滤版样本外最大回撤：-4.83%</li>
+</ul>
+</li>
+<li>这说明过滤版不仅降低交易频率，也确实提升了交易信号质量。</li>
+</ol>
+<p>但需要注意：</p>
+<ul>
+<li>当前测试只基于一个标的、一个时间周期、一个回测设置；</li>
+<li>样本外交易次数只有 10 笔；</li>
+<li>策略仍可能存在过拟合风险；</li>
+<li>回测结果不代表实盘结果。</li>
+</ul>
+<p>因此，目前应将该策略视为一个“有研究价值的策略雏形”，而不是可以直接实盘使用的成熟策略。</p>
+<hr>
+<h2 id="十一、下一步改进方向"><a href="#十一、下一步改进方向" class="headerlink" title="十一、下一步改进方向"></a>十一、下一步改进方向</h2><p>当前阶段先停止继续微调参数，避免过拟合。下一步重点应从“优化参数”转向“验证稳定性”。</p>
+<h3 id="1-提高交易成本做压力测试"><a href="#1-提高交易成本做压力测试" class="headerlink" title="1. 提高交易成本做压力测试"></a>1. 提高交易成本做压力测试</h3><p>测试更高手续费和滑点条件下，过滤版是否仍然优于原版。重点观察：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">原版是否因为交易次数多而进一步恶化；</span><br><span class="line">过滤版是否因为交易次数少而更抗成本。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-换标的验证"><a href="#2-换标的验证" class="headerlink" title="2. 换标的验证"></a>2. 换标的验证</h3><p>在不改参数的情况下，测试其他相近标的。例如如果当前标的是 BTC，可以继续测试：ETH、SOL</p>
+<p>重点不是看每个标的都赚钱，而是看过滤版是否普遍具备：更少交易、更低回撤、更高 Profit Factor、比原版更稳定</p>
+<hr>
+<h3 id="3-换时间周期验证"><a href="#3-换时间周期验证" class="headerlink" title="3. 换时间周期验证"></a>3. 换时间周期验证</h3><p>可以测试：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1D</span><br><span class="line">4H</span><br><span class="line">1H</span><br></pre></td></tr></table></figure>
+
+<p>但需要注意，不同周期下 MA150 的含义不同：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">日线 MA150：约 150 天趋势</span><br><span class="line">4H MA150：约 25 天趋势</span><br><span class="line">1H MA150：约 6 天趋势</span><br></pre></td></tr></table></figure>
+
+<p>因此，换周期测试主要是验证策略思想，而不是直接比较同一参数。</p>
+<hr>
+<h3 id="4-分析失败交易"><a href="#4-分析失败交易" class="headerlink" title="4. 分析失败交易"></a>4. 分析失败交易</h3><p>重点查看样本外亏损交易，尤其是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#2：-$133.34</span><br><span class="line">#4：-$262.00</span><br></pre></td></tr></table></figure>
+
+<p>分析它们是否有共同特征：</p>
+<ul>
+<li>是否买在短期高点；</li>
+<li>RSI 是否接近 70；</li>
+<li>价格是否刚刚站上 MA150；</li>
+<li>是否可以通过更好的退出规则减少亏损。</li>
+</ul>
+<hr>
+<h3 id="5-研究退出规则"><a href="#5-研究退出规则" class="headerlink" title="5. 研究退出规则"></a>5. 研究退出规则</h3><p>当前卖出条件仍然是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MA12 死叉 MA26</span><br></pre></td></tr></table></figure>
+
+<p>后续可以研究：</p>
+<ul>
+<li>是否需要移动止损；</li>
+<li>是否需要分批止盈；</li>
+<li>是否需要更快的退出信号；</li>
+<li>止损止盈参数是否过于机械。</li>
+</ul>
+<p>但这一步要放在稳定性验证之后，不要现在就继续微调。</p>
+<hr>
+<h2 id="十二、最终总结"><a href="#十二、最终总结" class="headerlink" title="十二、最终总结"></a>十二、最终总结</h2><p>本次实验从一个基础双均线金叉死叉策略出发，通过加入 RSI 过热过滤和长期趋势过滤，显著改善了策略表现。</p>
+<p>原版策略的问题是交易频繁、回撤较大，并且在样本外阶段亏损明显。改进后的 RSI70 + MA150 策略虽然在训练观察期总收益略低于原版，但风险收益质量更好；在样本外阶段则明显优于原版，取得正收益并显著降低最大回撤。</p>
+<p>当前最重要的发现是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">不是所有过滤条件都有用。</span><br><span class="line">RSI 过滤和趋势过滤有效；</span><br><span class="line">简单成交量过滤无效，甚至拖累策略表现。</span><br></pre></td></tr></table></figure>
+
+<p>当前策略可以作为 v1 版本保留：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MA12/MA26 双均线</span><br><span class="line">+ RSI14 &lt;= 70</span><br><span class="line">+ close &gt; MA150</span><br><span class="line">+ 只做多</span><br></pre></td></tr></table></figure>
+
+<p>下一阶段不应继续追求单点参数最优，而应重点进行稳健性验证，包括手续费滑点压力测试、不同标的测试、不同时间周期测试和失败交易分析。</p>
+<p>该策略只是入门研究，但还不具备直接实盘依据。</p>
+</article>
+
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2026/05/30/QuantDinger%E9%85%8D%E7%BD%AEAPI%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/">QuantDinger 配置 DeepSeek 官方 API 调用排查报告</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2026/05/29/%E7%94%A8Codex%E6%95%B4%E7%90%86%E6%96%87%E4%BB%B6%E5%A4%B9/">用 Codex 整理文件夹</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="sitemap" style="column-count:1;"><div class="sitemap-group"><span class="fs15">内容</span><a href="/">近期发布</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div></div><div class="text"><p>本站使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%8F%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01%EF%BC%9A%E5%8F%8C%E5%9D%87%E7%BA%BF%E7%AD%96%E7%95%A5%E6%94%B9%E8%BF%9B"><span class="toc-text">量化学习笔记1：双均线策略改进</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%B6%E3%80%81%E5%AD%A6%E4%B9%A0%E7%9B%AE%E7%9A%84"><span class="toc-text">零、学习目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%83%8C%E6%99%AF"><span class="toc-text">一、背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%8E%9F%E5%A7%8B%E7%AD%96%E7%95%A5%E8%A1%A8%E7%8E%B0"><span class="toc-text">二、原始策略表现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%AC%AC%E4%B8%80%E8%BD%AE%E6%94%B9%E8%BF%9B%EF%BC%9A%E5%8A%A0%E5%85%A5%E8%BF%87%E6%BB%A4%E6%9D%A1%E4%BB%B6"><span class="toc-text">三、第一轮改进：加入过滤条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%AC%AC%E4%BA%8C%E8%BD%AE%E5%AE%9E%E9%AA%8C%EF%BC%9A%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="toc-text">四、第二轮实验：消融实验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E7%AC%AC%E4%B8%89%E8%BD%AE%E5%AE%9E%E9%AA%8C%EF%BC%9A%E5%8F%82%E6%95%B0%E6%B5%8B%E8%AF%95"><span class="toc-text">五、第三轮实验：参数测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-RSI-%E9%98%88%E5%80%BC%E6%B5%8B%E8%AF%95"><span class="toc-text">1. RSI 阈值测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B6%8B%E5%8A%BF%E5%91%A8%E6%9C%9F%E6%B5%8B%E8%AF%95"><span class="toc-text">2. 趋势周期测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E7%AC%AC%E5%9B%9B%E8%BD%AE%E5%AE%9E%E9%AA%8C%EF%BC%9A%E7%A8%B3%E5%81%A5%E6%80%A7%E7%9F%A9%E9%98%B5%E6%B5%8B%E8%AF%95"><span class="toc-text">六、第四轮实验：稳健性矩阵测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%A0%B7%E6%9C%AC%E5%A4%96%E9%AA%8C%E8%AF%81"><span class="toc-text">七、样本外验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AE%AD%E7%BB%83%E8%A7%82%E5%AF%9F%E6%9C%9F%E7%BB%93%E6%9E%9C"><span class="toc-text">1. 训练观察期结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%A0%B7%E6%9C%AC%E5%A4%96%E9%AA%8C%E8%AF%81%E6%9C%9F%E7%BB%93%E6%9E%9C"><span class="toc-text">2. 样本外验证期结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E6%A0%B7%E6%9C%AC%E5%A4%96%E4%BA%A4%E6%98%93%E8%AE%B0%E5%BD%95%E5%88%86%E6%9E%90"><span class="toc-text">八、样本外交易记录分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E5%BD%93%E5%89%8D%E7%AD%96%E7%95%A5%E7%89%88%E6%9C%AC"><span class="toc-text">九、当前策略版本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%B0%E5%85%A5%E6%9D%A1%E4%BB%B6"><span class="toc-text">买入条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%96%E5%87%BA%E6%9D%A1%E4%BB%B6"><span class="toc-text">卖出条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%90%91"><span class="toc-text">方向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-text">核心思想</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E5%BD%93%E5%89%8D%E7%BB%93%E8%AE%BA"><span class="toc-text">十、当前结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E4%B8%8B%E4%B8%80%E6%AD%A5%E6%94%B9%E8%BF%9B%E6%96%B9%E5%90%91"><span class="toc-text">十一、下一步改进方向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%8F%90%E9%AB%98%E4%BA%A4%E6%98%93%E6%88%90%E6%9C%AC%E5%81%9A%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95"><span class="toc-text">1. 提高交易成本做压力测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%8D%A2%E6%A0%87%E7%9A%84%E9%AA%8C%E8%AF%81"><span class="toc-text">2. 换标的验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8D%A2%E6%97%B6%E9%97%B4%E5%91%A8%E6%9C%9F%E9%AA%8C%E8%AF%81"><span class="toc-text">3. 换时间周期验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%88%86%E6%9E%90%E5%A4%B1%E8%B4%A5%E4%BA%A4%E6%98%93"><span class="toc-text">4. 分析失败交易</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%A0%94%E7%A9%B6%E9%80%80%E5%87%BA%E8%A7%84%E5%88%99"><span class="toc-text">5. 研究退出规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E6%9C%80%E7%BB%88%E6%80%BB%E7%BB%93"><span class="toc-text">十二、最终总结</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
