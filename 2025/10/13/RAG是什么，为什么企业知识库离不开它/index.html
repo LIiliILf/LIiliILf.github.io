@@ -28,7 +28,7 @@
 <meta property="og:description" content="RAG 的基本概念、流程和企业知识库应用">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-10-13T06:16:57.000Z">
-<meta property="article:modified_time" content="2026-05-22T05:32:17.003Z">
+<meta property="article:modified_time" content="2026-06-07T04:28:30.776Z">
 <meta property="article:author" content="Lwh">
 <meta property="article:tag" content="RAG">
 <meta property="article:tag" content="大模型">
@@ -49,7 +49,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Lwh","sameAs":[]},"dateCreated":"2025-10-13T14:16:57+08:00","dateModified":"2026-05-22T13:32:17+08:00","datePublished":"2025-10-13T14:16:57+08:00","description":"","headline":"RAG 是什么？为什么企业知识库都绕不开它？","mainEntityOfPage":{"@type":"WebPage","@id":"https://liiliilf.github.io/2025/10/13/RAG%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%81%E4%B8%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E7%A6%BB%E4%B8%8D%E5%BC%80%E5%AE%83/"},"publisher":{"@type":"Organization","name":"Lwh","sameAs":[]},"url":"https://liiliilf.github.io/2025/10/13/RAG%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%81%E4%B8%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E7%A6%BB%E4%B8%8D%E5%BC%80%E5%AE%83/","keywords":"RAG, 大模型, 知识库","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Lwh","sameAs":[]},"dateCreated":"2025-10-13T14:16:57+08:00","dateModified":"2026-06-07T12:28:30+08:00","datePublished":"2025-10-13T14:16:57+08:00","description":"","headline":"RAG 是什么？为什么企业知识库都绕不开它？","mainEntityOfPage":{"@type":"WebPage","@id":"https://liiliilf.github.io/2025/10/13/RAG%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%81%E4%B8%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E7%A6%BB%E4%B8%8D%E5%BC%80%E5%AE%83/"},"publisher":{"@type":"Organization","name":"Lwh","sameAs":[]},"url":"https://liiliilf.github.io/2025/10/13/RAG%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%81%E4%B8%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E7%A6%BB%E4%B8%8D%E5%BC%80%E5%AE%83/","keywords":"RAG, 大模型, 知识库","image":[]}</script>
   <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body><div class="sitebg"><div class="siteblur"></div></div>
@@ -73,7 +73,7 @@
 <a class="link" title="游戏设计" href="/categories/game-design/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg><span>游戏设计</span></div></a>
 <a class="link" title="随笔" href="/categories/essays/"><div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m13.629 20.472l-.542.916c-.483.816-1.69.816-2.174 0l-.542-.916c-.42-.71-.63-1.066-.968-1.262c-.338-.197-.763-.204-1.613-.219c-1.256-.021-2.043-.098-2.703-.372a5 5 0 0 1-2.706-2.706C2 14.995 2 13.83 2 11.5v-1c0-3.273 0-4.91.737-6.112a5 5 0 0 1 1.65-1.651C5.59 2 7.228 2 10.5 2h3c3.273 0 4.91 0 6.113.737a5 5 0 0 1 1.65 1.65C22 5.59 22 7.228 22 10.5v1c0 2.33 0 3.495-.38 4.413a5 5 0 0 1-2.707 2.706c-.66.274-1.447.35-2.703.372c-.85.015-1.275.022-1.613.219c-.338.196-.548.551-.968 1.262" opacity=".5"/><path fill="currentColor" d="M10.99 14.308c-1.327-.978-3.49-2.84-3.49-4.593c0-2.677 2.475-3.677 4.5-1.609c2.025-2.068 4.5-1.068 4.5 1.609c0 1.752-2.163 3.615-3.49 4.593c-.454.335-.681.502-1.01.502c-.329 0-.556-.167-1.01-.502"/></svg><span>随笔</span></div></a></div></div></widget>
 
-<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/06/03/%E8%A1%8C%E4%B8%9A%E5%88%86%E6%9E%90%E5%85%A5%E9%97%A8/"><span class="title">行业分析入门</span></a><a class="item title" href="/2026/05/30/QuantDinger%E9%85%8D%E7%BD%AEAPI%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/"><span class="title">QuantDinger 配置 DeepSeek 官方 API 调用排查报告</span></a><a class="item title" href="/2026/05/30/%E5%8F%8C%E5%9D%87%E7%BA%BF%E7%AD%96%E7%95%A5/"><span class="title">量化学习笔记1：双均线策略改进</span></a><a class="item title" href="/2026/05/29/%E5%BE%AE%E4%BF%A1%E8%AF%BB%E4%B9%A6skill/"><span class="title">微信读书 Skill</span></a><a class="item title" href="/2026/05/29/%E7%94%A8Codex%E6%95%B4%E7%90%86%E6%96%87%E4%BB%B6%E5%A4%B9/"><span class="title">用 Codex 整理文件夹</span></a><a class="item title" href="/2026/05/27/AI%E6%8A%80%E6%9C%AF%E5%90%8D%E8%AF%8D%E7%88%86%E5%8F%91%E7%9A%84%E4%B8%BB%E7%BA%BF/"><span class="title">今年AI发展梳理</span></a></div></widget>
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/06/06/%E8%B7%A8%E5%A2%83%E6%94%AF%E4%BB%98%E6%9C%AF%E8%AF%AD/"><span class="title">跨境支付大致了解</span></a><a class="item title" href="/2026/05/27/AI%E6%8A%80%E6%9C%AF%E5%90%8D%E8%AF%8D%E7%88%86%E5%8F%91%E7%9A%84%E4%B8%BB%E7%BA%BF/"><span class="title">近年AI发展梳理</span></a><a class="item title" href="/2026/06/07/PromptEngeering%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B/"><span class="title">Prompt Engineering 提示词工程</span></a><a class="item title" href="/2025/10/13/RAG%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%81%E4%B8%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E7%A6%BB%E4%B8%8D%E5%BC%80%E5%AE%83/"><span class="title">RAG 是什么？为什么企业知识库都绕不开它？</span></a><a class="item title" href="/2023/01/18/%E7%B2%BE%E5%8A%9B%E7%AE%A1%E7%90%86_%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"><span class="title">《精力管理》读书笔记</span></a><a class="item title" href="/2026/06/03/%E8%A1%8C%E4%B8%9A%E5%88%86%E6%9E%90%E5%85%A5%E9%97%A8/"><span class="title">行业分析入门</span></a></div></widget>
 </div>
 
 </div></aside><div class="l_main" id="main">
@@ -86,7 +86,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/ai/">AI</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-10-13T06:16:57.000Z">2025-10-13</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-22T05:32:17.003Z">2026-05-22</time></span></div></div></div>
+<div class="flex-row reading-stats" id="post-meta"><span class="text word-count">约 2109 字</span><span class="sep"></span><span class="text reading-time">预计阅读 6 分钟</span></div></div></div>
     
     <div class="bottom only-title">
       
@@ -97,27 +97,33 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="RAG-是什么？为什么企业知识库都绕不开它？"><a href="#RAG-是什么？为什么企业知识库都绕不开它？" class="headerlink" title="RAG 是什么？为什么企业知识库都绕不开它？"></a>RAG 是什么？为什么企业知识库都绕不开它？</h1><h2 id="RAG-是什么？"><a href="#RAG-是什么？" class="headerlink" title="RAG 是什么？"></a>RAG 是什么？</h2><p>RAG，全称是 <strong>Retrieval-Augmented Generation</strong>，中文通常翻译为<strong>检索增强生成</strong>。<br> 简单来说，RAG 的过程就是：先从资料库里检索相关内容，再让大模型基于这些内容生成回答。也就是：<strong>先检索，再生成。</strong><br> 它不是让大模型凭空回答问题，而是先把和问题相关的资料找出来，再把这些资料连同用户问题一起交给大模型，让模型根据参考资料进行回答。<br> 目前，RAG 是最常见的 AI 问答方案之一。很多企业内部知识助手、智能客服、文档问答系统都离不开 RAG。</p>
+  </div><article class="md-text content"><h1 id="RAG-是什么？为什么企业知识库都绕不开它？"><a href="#RAG-是什么？为什么企业知识库都绕不开它？" class="headerlink" title="RAG 是什么？为什么企业知识库都绕不开它？"></a>RAG 是什么？为什么企业知识库都绕不开它？</h1><h2 id="RAG-是什么？"><a href="#RAG-是什么？" class="headerlink" title="RAG 是什么？"></a>RAG 是什么？</h2><p>RAG，全称是 <strong>Retrieval-Augmented Generation</strong>，中文通常翻译为<strong>检索增强生成</strong>。<br> 简单来说，RAG 的过程就是：先从资料库里检索相关内容，再让大模型基于这些内容生成回答。也就是：<strong>先检索，再生成。</strong><br>它不是让大模型凭空回答问题，而是先把和问题相关的资料找出来，再把这些资料连同用户问题一起交给大模型，让模型根据参考资料进行回答。<br>目前，RAG 是最常见的 AI 问答方案之一。很多企业内部知识助手、智能客服、文档问答系统都离不开 RAG。</p>
+<p>一个典型的 RAG 系统通常包含两个主要阶段。</p>
+<p>第一是索引构建。系统先准备和加载数据，对数据进行清洗和切块，然后为每个文本块生成向量表示，并将文本块、向量和来源信息一起保存起来，方便后续检索和溯源。</p>
+<p>第二是检索和生成。当用户提出问题后，系统会先根据问题检索出最相关的数据块，再把这些数据块和用户问题一起组合成 prompt，交给大模型生成回答。理想情况下，模型的回答应当尽量基于检索到的资料，并能够标明答案依据来自哪些原始内容。</p>
 <h2 id="RAG-最简单的形式"><a href="#RAG-最简单的形式" class="headerlink" title="RAG 最简单的形式"></a>RAG 最简单的形式</h2><p>RAG 最基础的流程可以概括为一句话：把文档切成片段，转成向量，存进向量数据库；用户提问时，再通过相似度搜索找到相关片段，最后交给大模型整合回答。</p>
 <p>更具体一点：<br> 先把所有文档切成小段，也就是 <strong>chunk</strong>。<br> 然后用 <strong>Embedding 模型</strong>把每段文字转换成向量，存入向量数据库。<br> 当用户提出问题时，系统也会把这个问题转换成向量，再到向量数据库中进行相似度搜索，找到语义最接近的一些 chunks。<br> 最后，系统会把这些相关片段和用户问题一起发给大模型，让大模型基于引用资料生成答案。</p>
 <p>以上是 RAG 最简单的形式。更复杂的 RAG 系统，还会加入全文搜索、混合检索、Reranker 重排、多轮查询、权限控制、答案溯源等组件，用来提高召回质量和回答可靠性。</p>
 <h2 id="为什么需要-RAG？"><a href="#为什么需要-RAG？" class="headerlink" title="为什么需要 RAG？"></a>为什么需要 RAG？</h2><p>假设我们要做一个智能客服，最直接的想法可能是：把所有产品说明、FAQ、使用手册、售后政策都交给大模型，让它直接回答用户问题。</p>
-<p>但这里会遇到几个问题。<br> 第一，资料可能太多。<br> 大模型有上下文窗口限制，不一定能一次性读取所有资料。<br> 第二，就算上下文窗口足够大，每次都把全部资料发给大模型，成本也会很高，响应速度也会变慢。<br> 第三，大模型本身的知识不一定包含企业内部资料，也可能不知道最新的信息。</p>
+<p>但这里会遇到几个问题。<br> 第一，资料可能太多。大模型有上下文窗口限制，不一定能一次性读取所有资料。<br> 第二，就算上下文窗口足够大，每次都把全部资料发给大模型，成本也会很高，响应速度也会变慢。<br> 第三，大模型本身的知识不一定包含企业内部资料，也可能不知道最新的信息。</p>
 <p>所以，RAG 的思路是：不把所有资料都交给大模型，而是先检索出和问题最相关的资料，再让大模型基于这些资料回答。这样可以减少输入内容、降低成本、提升速度，也能让回答更贴近企业自己的知识库。</p>
-<h2 id="RAG-的工作机制"><a href="#RAG-的工作机制" class="headerlink" title="RAG 的工作机制"></a>RAG 的工作机制</h2><p>RAG 可以分成两个阶段：<br> 准备阶段，也就是用户提问前：<strong>分片、索引</strong>。<br> 回答阶段，也就是用户提问后：<strong>召回、重排、生成</strong>。</p>
+<h2 id="RAG-的工作机制"><a href="#RAG-的工作机制" class="headerlink" title="RAG 的工作机制"></a>RAG 的工作机制</h2><p>RAG 可以分成两个阶段：<br> 准备阶段(索引构建)，也就是用户提问前：<strong>分片、索引</strong>。<br> 回答阶段(检索和生成)，也就是用户提问后：<strong>召回、重排、生成</strong>。</p>
 <h2 id="1-分片：把文档切成小段"><a href="#1-分片：把文档切成小段" class="headerlink" title="1. 分片：把文档切成小段"></a>1. 分片：把文档切成小段</h2><p>分片就是把原始文档切分成多个片段。<br> 比如一份产品说明书，可能会被切成很多个小段，每个小段包含一个相对完整的信息单元。<br> 分片方式有很多种，可以按照字数、段落、标题、章节来切，也可以设置一定的重叠区域，避免重要信息被切断。<br> 分片质量会直接影响 RAG 的效果。如果切得太碎，片段可能缺少上下文；如果切得太长，又会影响检索精度和成本。</p>
 <h2 id="2-索引：把文本变成向量并存起来"><a href="#2-索引：把文本变成向量并存起来" class="headerlink" title="2. 索引：把文本变成向量并存起来"></a>2. 索引：把文本变成向量并存起来</h2><p>索引是指把每一个文本片段转换成向量，并存入数据库的过程。</p>
 <p>这里有几个概念。<br> <strong>Embedding</strong>：把文本转换成向量的过程。<br> 这个过程需要借助 Embedding 模型完成。不同模型的效果不同，可以参考 <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/mteb/leaderboard">MTEB 排行榜</a>。<br> <strong>向量</strong>：可以理解为文本在数学空间中的表示。<br> 两个文本语义越接近，它们对应的向量距离通常也越接近。<br> <strong>向量数据库</strong>：用于存储和查询向量的数据库。<br> 它可以帮助系统快速找到和用户问题最相似的文本片段。</p>
 <p>索引阶段做的事情是：把文档片段变成向量，再把“片段文本 + 对应向量”一起存起来。</p>
 <h2 id="3-召回：找到可能相关的片段"><a href="#3-召回：找到可能相关的片段" class="headerlink" title="3. 召回：找到可能相关的片段"></a>3. 召回：找到可能相关的片段</h2><p>当用户提出问题后，系统会先把问题也转换成向量，然后到向量数据库中搜索相似的文本片段。这个过程叫做<strong>召回</strong>。召回的目标不是一次性找到最完美的答案，而是先从大量文档片段中筛出一批“可能相关”的内容。</p>
 <p>常见的相似度计算方法包括：余弦相似度、欧氏距离、点积。</p>
-<p>向量召回的优点是速度快、成本低，适合从大量文档中做初步筛选。  但它也不是完全准确，有时候会召回一些看起来语义相近、但实际上不够相关的内容。所以很多系统会在召回之后，再加一个重排步骤。</p>
-<h2 id="4-重排：从召回结果中挑出更相关的内容"><a href="#4-重排：从召回结果中挑出更相关的内容" class="headerlink" title="4. 重排：从召回结果中挑出更相关的内容"></a>4. 重排：从召回结果中挑出更相关的内容</h2><p>重排，也就是 Rerank，是指对召回出来的结果重新排序。召回阶段通常会先找出几十个可能相关的片段。但这些片段的相关性不一定都很高，所以需要进一步判断哪些内容最适合拿来回答用户问题。<br>重排常用的方法是 <strong>cross-encoder</strong>。它会同时看用户问题和候选片段，然后判断二者的相关程度。  相比向量召回，cross-encoder 的计算成本更高、速度更慢，但判断会更精细。<br>所以常见做法是：先用向量召回快速筛出一批候选片段，再用 Reranker 从中挑出最相关的内容。</p>
+<p>向量召回的优点是速度快、成本低，适合从大量文档中做初步筛选。但它也不是完全准确的，有时候会召回一些看起来语义相近、但实际上不够相关的内容。所以很多系统会在召回之后，再加一个重排步骤。</p>
+<h2 id="4-重排：从召回结果中挑出更相关的内容"><a href="#4-重排：从召回结果中挑出更相关的内容" class="headerlink" title="4. 重排：从召回结果中挑出更相关的内容"></a>4. 重排：从召回结果中挑出更相关的内容</h2><p>重排，也就是 Rerank，是指对召回出来的结果重新排序。召回阶段通常会先找出十几个可能相关的片段。但这些片段的相关性不一定都很高，所以需要进一步判断哪些内容最适合拿来回答用户问题。<br>重排常用的方法是 <strong>cross-encoder</strong>。它会同时看用户问题和候选片段，然后判断二者的相关程度。相比向量召回，cross-encoder 的计算成本更高、速度更慢，但判断会更精细。<br>所以常见做法是：先用向量召回快速筛出一批候选片段，再用 Reranker 从中挑出最相关的内容。</p>
 <h2 id="5-生成：让大模型基于资料回答"><a href="#5-生成：让大模型基于资料回答" class="headerlink" title="5. 生成：让大模型基于资料回答"></a>5. 生成：让大模型基于资料回答</h2><p>经过召回和重排之后，系统就得到了和用户问题最相关的几个片段。接下来，系统会把这些片段和用户问题一起发给大模型，让大模型基于这些资料生成回答。这一步就是生成。理想情况下，大模型不应该脱离资料随便发挥，而应该根据检索到的内容回答。如果资料中没有答案，也应该说明资料不足，而不是编造答案。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>RAG 的核心思想很简单：不让大模型凭空回答，而是先检索资料，再基于资料生成答案。<br> 它的完整流程可以分成两个阶段。<br> <strong>准备阶段：</strong></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>RAG 的核心思想很简单：不让大模型凭空回答，而是先检索资料，再基于资料生成答案。<br>它的完整流程可以分成两个阶段。<br> <strong>准备(索引构建)阶段：</strong></p>
 <ol>
 <li>分片：把文档切成多个 chunk；</li>
-<li>索引：用 Embedding 模型把 chunk 转成向量，并存入向量数据库。<br> <strong>回答阶段：</strong></li>
+<li>索引：用 Embedding 模型把 chunk 转成向量，并存入向量数据库。</li>
+</ol>
+<p><strong>回答(检索和生成)阶段：</strong></p>
+<ol start="3">
 <li>召回：把用户问题转成向量，搜索相关片段；</li>
 <li>重排：用 Reranker 从候选片段中筛出更相关的内容；</li>
 <li>生成：把问题和相关片段一起交给大模型，让大模型基于资料回答。</li>
@@ -131,6 +137,21 @@
 
 
 
+  <div class="related-wrap md-text" id="comments">
+    <section class='header cmt-title cap theme'>
+      <p>快来参与讨论吧~</p>
+
+    </section>
+    <section class='body cmt-body giscus'>
+      
+
+<svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg>
+
+<div id="giscus" src="https://giscus.app/client.js" data-repo="LIiliILf/LIiliILf.github.io" data-repo-id="R_kgDOKQ3Sjw" data-category="Announcements" data-category-id="DIC_kwDOKQ3Sj84C-mou" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="zh-CN" crossorigin="anonymous"></div>
+
+    </section>
+  </div>
+
 
 
 <footer class="page-footer footnote"><hr><div class="sitemap" style="column-count:1;"><div class="sitemap-group"><span class="fs15">内容</span><a href="/">近期发布</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div></div><div class="text"><p>本站使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。</p>
@@ -138,7 +159,7 @@
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RAG-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%81%E4%B8%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E9%83%BD%E7%BB%95%E4%B8%8D%E5%BC%80%E5%AE%83%EF%BC%9F"><span class="toc-text">RAG 是什么？为什么企业知识库都绕不开它？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RAG-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">RAG 是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAG-%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E5%BD%A2%E5%BC%8F"><span class="toc-text">RAG 最简单的形式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-RAG%EF%BC%9F"><span class="toc-text">为什么需要 RAG？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAG-%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="toc-text">RAG 的工作机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%88%86%E7%89%87%EF%BC%9A%E6%8A%8A%E6%96%87%E6%A1%A3%E5%88%87%E6%88%90%E5%B0%8F%E6%AE%B5"><span class="toc-text">1. 分片：把文档切成小段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%B4%A2%E5%BC%95%EF%BC%9A%E6%8A%8A%E6%96%87%E6%9C%AC%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E5%B9%B6%E5%AD%98%E8%B5%B7%E6%9D%A5"><span class="toc-text">2. 索引：把文本变成向量并存起来</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8F%AC%E5%9B%9E%EF%BC%9A%E6%89%BE%E5%88%B0%E5%8F%AF%E8%83%BD%E7%9B%B8%E5%85%B3%E7%9A%84%E7%89%87%E6%AE%B5"><span class="toc-text">3. 召回：找到可能相关的片段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%87%8D%E6%8E%92%EF%BC%9A%E4%BB%8E%E5%8F%AC%E5%9B%9E%E7%BB%93%E6%9E%9C%E4%B8%AD%E6%8C%91%E5%87%BA%E6%9B%B4%E7%9B%B8%E5%85%B3%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">4. 重排：从召回结果中挑出更相关的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%94%9F%E6%88%90%EF%BC%9A%E8%AE%A9%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%96%99%E5%9B%9E%E7%AD%94"><span class="toc-text">5. 生成：让大模型基于资料回答</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RAG-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%81%E4%B8%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E9%83%BD%E7%BB%95%E4%B8%8D%E5%BC%80%E5%AE%83%EF%BC%9F"><span class="toc-text">RAG 是什么？为什么企业知识库都绕不开它？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RAG-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">RAG 是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAG-%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E5%BD%A2%E5%BC%8F"><span class="toc-text">RAG 最简单的形式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-RAG%EF%BC%9F"><span class="toc-text">为什么需要 RAG？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAG-%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="toc-text">RAG 的工作机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%88%86%E7%89%87%EF%BC%9A%E6%8A%8A%E6%96%87%E6%A1%A3%E5%88%87%E6%88%90%E5%B0%8F%E6%AE%B5"><span class="toc-text">1. 分片：把文档切成小段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%B4%A2%E5%BC%95%EF%BC%9A%E6%8A%8A%E6%96%87%E6%9C%AC%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E5%B9%B6%E5%AD%98%E8%B5%B7%E6%9D%A5"><span class="toc-text">2. 索引：把文本变成向量并存起来</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8F%AC%E5%9B%9E%EF%BC%9A%E6%89%BE%E5%88%B0%E5%8F%AF%E8%83%BD%E7%9B%B8%E5%85%B3%E7%9A%84%E7%89%87%E6%AE%B5"><span class="toc-text">3. 召回：找到可能相关的片段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%87%8D%E6%8E%92%EF%BC%9A%E4%BB%8E%E5%8F%AC%E5%9B%9E%E7%BB%93%E6%9E%9C%E4%B8%AD%E6%8C%91%E5%87%BA%E6%9B%B4%E7%9B%B8%E5%85%B3%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">4. 重排：从召回结果中挑出更相关的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%94%9F%E6%88%90%EF%BC%9A%E8%AE%A9%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%96%99%E5%9B%9E%E7%AD%94"><span class="toc-text">5. 生成：让大模型基于资料回答</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -633,6 +654,30 @@
 
 
 <!-- optional -->
+
+  <script type="module">
+  const el = document.querySelector('#comments #giscus');
+  util.viewportLazyload(el, load_discus, false);
+
+  function load_discus() {
+    if (!el) return;
+    try {
+        el.innerHTML = '';
+      } catch (error) {
+        console.error(error);
+      }
+      const script = document.createElement('script');
+      script.async = true;
+      for (const key of Object.keys(el.attributes)) {
+        const attr = el.attributes[key];
+        if (['class', 'id'].includes(attr.name) === false) {
+          script.setAttribute(attr.name, attr.value);
+        }
+      }
+      el.appendChild(script);
+  }
+</script>
+
 
 
 
